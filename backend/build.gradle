@@ -1,0 +1,79 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.2'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id "com.github.ben-manes.versions" version '0.51.0'
+}
+
+group = 'eu.zuinnote.example.springangular'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '21'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springModulithVersion', "1.1.2")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.modulith:spring-modulith-starter-core'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.springframework.modulith:spring-modulith-actuator'
+	runtimeOnly 'org.springframework.modulith:spring-modulith-observability'
+	runtimeOnly 'io.micrometer:micrometer-tracing-bridge-brave'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+	testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.testcontainers:junit-jupiter'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.modulith:spring-modulith-bom:${springModulithVersion}"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+def webappDir = "$projectDir/../frontend"
+
+
+sourceSets {
+  main {
+    resources {
+      srcDirs += ["$webappDir/dist"]
+    }
+  }
+}
+
+processResources {
+  dependsOn "buildAngular"
+}
+
+task buildAngular(type:Exec) {
+  workingDir "$webappDir"
+  inputs.dir "$webappDir"
+  // Add task to the standard build group
+  group = BasePlugin.BUILD_GROUP
+  commandLine "npm", "run", "build"
+}
+

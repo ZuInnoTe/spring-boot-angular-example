@@ -24,3 +24,20 @@
 hs_err_pid*
 replay_pid*
 
+.angular/
+node_modules/
+dist/
+test-results/
+
+# IDE
+## VSCodium / VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history
+
