@@ -8,8 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 @ConfigurationPropertiesScan
 public class SpringwebdemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringwebdemoApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(SpringwebdemoApplication.class, args);
+    }
 }
