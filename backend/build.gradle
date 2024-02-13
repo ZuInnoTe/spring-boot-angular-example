@@ -24,7 +24,7 @@ configurations {
 repositories {
     mavenCentral()
     maven {
-        url 'https://build.shibboleth.net/maven/releases/'
+        url 'https://build.shibboleth.net/maven/releases/' // needed for SAML
     }
 }
 
@@ -36,6 +36,12 @@ ext {
 configurations {
     all {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging' // to be able to use log4j2
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.modulith:spring-modulith-bom:${springModulithVersion}"
     }
 }
 
@@ -62,12 +68,8 @@ dependencies {
     testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.testcontainers:junit-jupiter'
-}
-
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.modulith:spring-modulith-bom:${springModulithVersion}"
-    }
+    testImplementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20220608.1'
+    testImplementation 'org.bouncycastle:bcprov-jdk18on:1.77'
 }
 
 tasks.named('test') {

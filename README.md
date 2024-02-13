@@ -2,7 +2,7 @@
 
 An example of a modern Spring Boot application using latest JDK LTS and Angular:
 * [backend](./backend) - Contains the backend implemented in Spring Boot
-* [frontend](./frontend - Contains the frontend implemented in Angular
+* [frontend](./frontend) - Contains the frontend implemented in Angular
 
 This example project is supposed to be easily reused, so you can build your own complex application.
 
