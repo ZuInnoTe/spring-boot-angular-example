@@ -55,7 +55,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.security:spring-security-saml2-service-provider'
+    implementation 'org.springframework.security:spring-security-saml2-service-provider' // for saml2 authentication
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // for oidc authentication
     implementation 'org.springframework.modulith:spring-modulith-starter-core'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'

@@ -1,4 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/** HTTP errors/warnings shown as snackbar by globalerrorhandler.service **/
+::ng-deep .snackbar-success {
+  background-color: green;
+  color: white;
+}
+::ng-deep .snackbar-warning {
+  background-color: yellow;
+  color: black;
+}
+::ng-deep .snackbar-error {
+  background-color: red;
+  color: white;
+}
