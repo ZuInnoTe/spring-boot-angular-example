@@ -1,0 +1,5 @@
+# Ignore artifacts:
+.angular
+build
+coverage
+dist
