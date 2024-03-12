@@ -30,7 +30,9 @@ repositories {
 
 ext {
     set('springModulithVersion', "1.1.2")
+    set('h2Version','2.2.224')
 }
+
 
 
 configurations {
@@ -53,6 +55,7 @@ dependencies {
     // Spring
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.security:spring-security-saml2-service-provider' // for saml2 authentication
@@ -60,14 +63,19 @@ dependencies {
     implementation 'org.springframework.modulith:spring-modulith-starter-core'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    // database
+    implementation "com.h2database:h2:${h2Version}"
+    // runtime
     runtimeOnly 'org.springframework.modulith:spring-modulith-actuator'
     runtimeOnly 'org.springframework.modulith:spring-modulith-observability'
     runtimeOnly 'io.micrometer:micrometer-tracing-bridge-brave'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation "com.h2database:h2:${h2Version}"
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20220608.1'
     testImplementation 'org.bouncycastle:bcprov-jdk18on:1.77'

@@ -1,5 +1,7 @@
 package eu.zuinnote.example.springwebdemo.configuration;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import eu.zuinnote.example.springwebdemo.configuration.application.ApplicationConfig;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -37,7 +39,9 @@ public class SecurityConfigurationOidc {
      **/
     @Bean
     SecurityFilterChain app(HttpSecurity http) throws Exception {
-
+        // oidc
+        http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+                .oauth2Login(withDefaults());
         // security headers
         // csp
         http.headers(

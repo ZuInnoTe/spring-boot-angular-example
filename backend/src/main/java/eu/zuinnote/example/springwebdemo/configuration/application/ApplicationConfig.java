@@ -1,6 +1,7 @@
 package eu.zuinnote.example.springwebdemo.configuration.application;
 
 import eu.zuinnote.example.springwebdemo.configuration.application.https.HttpsConfig;
+import eu.zuinnote.example.springwebdemo.configuration.application.oidc.OidcConfiguration;
 import eu.zuinnote.example.springwebdemo.configuration.application.saml2.Saml2Configuration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -15,6 +16,7 @@ public class ApplicationConfig {
 
     private HttpsConfig https;
 
+    private OidcConfiguration oidc;
     private Saml2Configuration saml2;
 
     public HttpsConfig getHttps() {
@@ -31,5 +33,13 @@ public class ApplicationConfig {
 
     public void setSaml2(Saml2Configuration saml2) {
         this.saml2 = saml2;
+    }
+
+    public OidcConfiguration getOidc() {
+        return oidc;
+    }
+
+    public void setOidc(OidcConfiguration oidc) {
+        this.oidc = oidc;
     }
 }

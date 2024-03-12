@@ -7,7 +7,6 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 })
 export class GlobalerrorhandlerService {
   constructor(
-    private logger: LoggerService,
     private snackBar: MatSnackBar,
   ) {}
   // note the css styles for the snackbar for this handler are globally defined in styles.css

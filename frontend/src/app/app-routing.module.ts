@@ -4,9 +4,9 @@ import { Module1Component } from "./components/module1/module1.component";
 import { Module2Component } from "./components/module2/module2.component";
 
 export const routes: Routes = [
-  { path: "module1", component: Module1Component },
-  { path: "module2", component: Module2Component },
-  { path: "", redirectTo: "/module1", pathMatch: "full" },
+  { path: "ui/module1", component: Module1Component },
+  { path: "ui/module2", component: Module2Component },
+  { path: "", redirectTo: "ui/module1", pathMatch: "full" },
 ];
 
 @NgModule({
