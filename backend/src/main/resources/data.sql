@@ -1,0 +1,1 @@
+INSERT INTO product (id, name, price) VALUES ('0c244bd2-5ad5-487b-8eb6-099e665b0f69','product 1', 0.99);
