@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'maven-publish'
-    id 'org.springframework.boot' version '3.2.2'
+    id 'org.springframework.boot' version '3.2.3'
     id 'io.spring.dependency-management' version '1.1.4'
     id 'com.github.ben-manes.versions' version '0.51.0'
     id 'com.diffplug.spotless' version '6.25.0'
@@ -29,8 +29,13 @@ repositories {
 }
 
 ext {
-    set('springModulithVersion', "1.1.2")
+    set('springModulithVersion', "1.1.3")
     set('h2Version','2.2.224')
+    set('ehcacheVersion','3.10.8')
+    set('hibernateVersion','6.4.4.Final')
+    set('disruptorVersion','3.4.4')
+    set('bcVersion','1.77')
+    set('owaspSanitizerVersion','20220608.1')
 }
 
 
@@ -49,12 +54,13 @@ dependencyManagement {
 
 dependencies {
     // sanitization
-    implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20220608.1'
-    // needed for ripemd160 in SAML
-    implementation 'org.bouncycastle:bcprov-jdk18on:1.77'
+    implementation "com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:${owaspSanitizerVersion}"
+    // needed for ripemd160 in SAML2
+    implementation "org.bouncycastle:bcprov-jdk18on:${bcVersion}"
     // Spring
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -63,6 +69,11 @@ dependencies {
     implementation 'org.springframework.modulith:spring-modulith-starter-core'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    // log4j2
+    implementation "com.lmax:disruptor:${disruptorVersion}"
+    // cache
+    implementation "org.ehcache:ehcache:${ehcacheVersion}:jakarta"
+    implementation "org.hibernate:hibernate-jcache:${hibernateVersion}"
     // database
     implementation "com.h2database:h2:${h2Version}"
     // runtime
@@ -70,15 +81,20 @@ dependencies {
     runtimeOnly 'org.springframework.modulith:spring-modulith-observability'
     runtimeOnly 'io.micrometer:micrometer-tracing-bridge-brave'
     annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    testImplementation "com.lmax:disruptor:${disruptorVersion}"
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.springframework.boot:spring-boot-starter-cache'
     testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation "org.ehcache:ehcache:${ehcacheVersion}:jakarta"
+    testImplementation "org.hibernate:hibernate-jcache:${hibernateVersion}"
     testImplementation "com.h2database:h2:${h2Version}"
     testImplementation 'org.testcontainers:junit-jupiter'
-    testImplementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20220608.1'
-    testImplementation 'org.bouncycastle:bcprov-jdk18on:1.77'
+    testImplementation "com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:${owaspSanitizerVersion}"
+    testImplementation "org.bouncycastle:bcprov-jdk18on:${bcVersion}"
 }
 
 tasks.named('test') {

@@ -8,16 +8,44 @@ spring:
   datasource:
     url: jdbc:h2:mem:mydb
     username: sa
-    password: password
     driverClassName: org.h2.Driver
+    hikari:
+        maximum-pool-size: 10 # have a reasonable low number: https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing
+  jackson:
+       serialization:
+           FAIL_ON_EMPTY_BEANS: false # for returning directly objects returned by JPA
   jpa:
-    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true # only for testing to load test data
+    hibernate:
+      ddl-auto: create
+      naming:
+         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: false
+    database-platform: org.hibernate.dialect.H2Dialect
+    database: H2
+    properties:
+      hibernate:
+         enable_lazy_load_no_trans: true # EXPERIMENTAL FOR LAZY LOADING MIGHT NEED TO BE REMOVED AND REPLACED WITH A MORE FINETUNED EAGER VS LAZY
+         jdbc:
+           batch_size: 20
+         order_inserts: true
+         order_updates: true
+         globally_quoted_identifiers: true
+         javax:
+            cache:
+               provider: org.ehcache.jsr107.EhcacheCachingProvider
+         cache:
+            use_second_level_cache: true
+            use_query_cache: true
+            region:
+                 factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+  h2: # only for testing purposes
+    console.enabled: true
 logging:
     level:
         root: "warn"
         org.springframework.web: "info"
-        org.hibernate: "error"
+        org.hibernate: "info"
 # Application configurations
 application:
      https:

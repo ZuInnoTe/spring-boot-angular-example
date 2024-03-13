@@ -1,9 +1,8 @@
 package eu.zuinnote.example.springwebdemo.controller;
 
 import eu.zuinnote.example.springwebdemo.inventory.Product;
-import eu.zuinnote.example.springwebdemo.inventory.internal.ProductRepository;
+import eu.zuinnote.example.springwebdemo.inventory.ProductRepository;
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class InventoryController {
-    @Autowired ProductRepository products;
+    private ProductRepository products;
+
+    public InventoryController(ProductRepository products) {
+        this.products = products;
+    }
 
     @GetMapping("/product/{id}")
     public Product getProduct(@PathVariable UUID id) {
