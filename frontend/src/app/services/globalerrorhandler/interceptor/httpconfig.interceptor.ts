@@ -8,6 +8,8 @@ import {
   HttpErrorResponse,
 } from "@angular/common/http";
 
+import { Provider } from "@angular/core";
+
 import { Observable, throwError } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 
@@ -34,3 +36,13 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     );
   }
 }
+
+// Injection token for the Http Interceptors multi-provider
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+
+/** Provider for the GlobalErrorHandler Interceptor. */
+export const GlobalErrorHandlerInterceptorProvider: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: HttpConfigInterceptor,
+  multi: true,
+};

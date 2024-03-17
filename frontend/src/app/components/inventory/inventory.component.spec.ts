@@ -1,22 +1,21 @@
 import { HarnessLoader } from "@angular/cdk/testing";
 import { TestbedHarnessEnvironment } from "@angular/cdk/testing/testbed";
-
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from "@angular/core";
-import { Module2Component } from "./module2.component";
+import { InventoryComponent } from "./inventory.component";
 
 let loader: HarnessLoader;
 
-describe("Module2Component", () => {
-  let component: Module2Component;
-  let fixture: ComponentFixture<Module2Component>;
+describe("InventoryComponent", () => {
+  let component: InventoryComponent;
+  let fixture: ComponentFixture<InventoryComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [Module2Component],
+      declarations: [InventoryComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     });
-    fixture = TestBed.createComponent(Module2Component);
+    fixture = TestBed.createComponent(InventoryComponent);
     loader = TestbedHarnessEnvironment.loader(fixture);
     component = fixture.componentInstance;
     fixture.detectChanges();

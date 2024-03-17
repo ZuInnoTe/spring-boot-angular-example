@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Entity
@@ -13,6 +14,8 @@ import java.util.UUID;
 public class Order {
 
     @Id private UUID id;
+
+    private ZonedDateTime orderDateTime;
 
     @OneToOne
     @JoinColumn(name = "product_id")
@@ -24,6 +27,14 @@ public class Order {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public ZonedDateTime getOrderDateTime() {
+        return orderDateTime;
+    }
+
+    public void setOrderDateTime(ZonedDateTime orderDateTime) {
+        this.orderDateTime = orderDateTime;
     }
 
     public Product getProduct() {
