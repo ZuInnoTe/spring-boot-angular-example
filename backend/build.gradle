@@ -116,12 +116,19 @@ processResources {
   dependsOn "buildAngular"
 }
 
-task buildAngular(type:Exec) {
-  workingDir "$webappDir"
-  inputs.dir "$webappDir"
-  // Add task to the standard build group
-  group = BasePlugin.BUILD_GROUP
-  commandLine "npm", "run", "build"
+
+task installFrontEndDependencies(type:Exec) {
+     workingDir "$webappDir"
+     inputs.dir "$webappDir"
+     group = BasePlugin.BUILD_GROUP
+     commandLine "npm", "ci"
+}
+
+task buildAngular(type:Exec, dependsOn: installFrontEndDependencies) {
+     workingDir "$webappDir"
+     inputs.dir "$webappDir"
+     group = BasePlugin.BUILD_GROUP
+     commandLine "npm", "run", "build"
 }
 
 // dependencyUpdates

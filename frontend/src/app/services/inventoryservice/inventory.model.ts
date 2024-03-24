@@ -1,9 +1,9 @@
 import { SpringDataPaging } from "../general/paging.model";
 
-export class Product {
+export interface Product {
   id: string;
   name: string;
   price: number;
 }
 
-export class ProductPage extends SpringDataPaging<Product> {}
+export interface ProductPage extends SpringDataPaging<Product> {}

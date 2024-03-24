@@ -1,0 +1,33 @@
+# Spring configurations
+spring:
+  threads:
+    virtual: 
+      enabled: true # since JDK 21 LTS supported. Can reduce memory consumption and response time in high-traffic scenarios
+  profiles: # important!
+    active: "oidc"
+  security:
+    oauth2:
+      client:
+        registration: 
+          oidcidp: 
+            client-id: <client-id>  # Do not store in version repository - inject them dynamically during runtime
+            client-secret: <secret> # Do not store in version repository - inject them dynamically during runtime
+logging:
+    level:
+        root: "warn"
+        org.springframework.web: "info"
+        org.hibernate: "error"
+# Application configurations
+application:
+     oidc:
+        mapper: # map jwt claims to Spring Security authorities
+            jwtRoleClaims: ["scope","scp"] # JWT claims that contain authorities
+            authoritiesPrefix: "SCOPE_" # Prefix for Spring Security Authorities
+     https:
+        headers:
+          permissionPolicy: "accelerometer=(),  autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(),  encrypted-media=(),  fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(),  payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(),  hid=(), idle-detection=(), serial=(),  window-placement=()"
+          csp: "default-src 'none'; base-uri 'self'; script-src 'unsafe-inline' 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'none'; child-src 'self'; form-action 'self'; frame-ancestors 'none'; navigate-to 'self'; block-all-mixed-content"
+          referrerPolicy: "no-referrer" # possible values: https://github.com/spring-projects/spring-security/blob/main/web/src/main/java/org/springframework/security/web/header/writers/ReferrerPolicyHeaderWriter.java#L101
+          coep: "require-corp; report-to=\"default\""
+          coop: "same-origin; report-to=\"default\""
+          corp: "same-origin"

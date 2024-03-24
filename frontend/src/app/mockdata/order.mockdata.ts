@@ -1,20 +1,20 @@
 import { Order, OrderPage } from "../services/orderservice/order.model";
-import { MOCKDATA_INVENTORY } from "inventory.mockdata";
+import { MOCKDATA_INVENTORY } from "./inventory.mockdata";
 
-const MOCKDATA_ORDER: Order[] = [
+export const MOCKDATA_ORDER: Order[] = [
   {
     id: "mock_inventory_1",
     orderDateTime: new Date("2023-01-01T23:59:00"),
-    product: MOCKDATA_INVENTORY[1],
+    product: MOCKDATA_INVENTORY[0],
   },
   {
     id: "mock_inventory_2",
     orderDateTime: new Date("2023-01-01T23:59:00"),
-    product: MOCKDATA_INVENTORY[2],
+    product: MOCKDATA_INVENTORY[1],
   },
 ];
 
-const MOCKDATA_ORDER_PAGE: OrderPage = {
+export const MOCKDATA_ORDER_PAGE: OrderPage = {
   content: MOCKDATA_ORDER,
   pageable: {
     pageNumber: 0,

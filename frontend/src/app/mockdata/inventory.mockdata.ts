@@ -3,7 +3,7 @@ import {
   ProductPage,
 } from "../services/inventoryservice/inventory.model";
 
-const MOCKDATA_INVENTORY: Product[] = [
+export const MOCKDATA_INVENTORY: Product[] = [
   {
     id: "mock_product_1",
     name: "Mock Product 1",
@@ -16,7 +16,7 @@ const MOCKDATA_INVENTORY: Product[] = [
   },
 ];
 
-const MOCKDATA_INVENTORY_PAGE: ProductPage = {
+export const MOCKDATA_INVENTORY_PAGE: ProductPage = {
   content: MOCKDATA_INVENTORY,
   pageable: {
     pageNumber: 0,

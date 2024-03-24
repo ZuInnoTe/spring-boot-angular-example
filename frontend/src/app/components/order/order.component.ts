@@ -1,30 +1,64 @@
 import { Component, ViewChild } from "@angular/core";
-import { MatAccordion } from "@angular/material/expansion";
-
-import { MatButtonModule } from "@angular/material/button";
-import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatExpansionModule } from "@angular/material/expansion";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatIconModule } from "@angular/material/icon";
-import { MatInputModule } from "@angular/material/input";
-import { MatNativeDateModule } from "@angular/material/core";
+import { PageEvent, MatPaginatorModule } from "@angular/material/paginator";
+import { MatTableModule } from "@angular/material/table";
+import { OrderService } from "../../services/orderservice/order.service";
+import { Order } from "../../services/orderservice/order.model";
 
 @Component({
   selector: "app-order",
   templateUrl: "./order.component.html",
   styleUrls: ["./order.component.scss"],
   standalone: true,
-
-  imports: [
-    MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-  ],
+  imports: [MatPaginatorModule, MatTableModule],
 })
 export class OrderComponent {
-  @ViewChild(MatAccordion) accordion: MatAccordion;
+  displayedColumns: string[] = [
+    "id",
+    "orderDateTime",
+    "productId",
+    "productName",
+    "productPrice",
+  ];
+  dataSource: Order[] = [];
+
+  length = 50;
+  pageSize = 10;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 25];
+
+  hidePageSize = false;
+  showPageSizeOptions = true;
+  showFirstLastButtons = true;
+  disabled = false;
+
+  pageEvent: PageEvent;
+
+  constructor(private orderService: OrderService) {
+    this.refreshInventory();
+  }
+
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.length = e.length;
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+    this.refreshInventory();
+  }
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput
+        .split(",")
+        .map((str) => +str);
+    }
+  }
+
+  refreshInventory() {
+    this.orderService.getAllProducts().subscribe((orderPage) => {
+      this.dataSource = orderPage.content;
+      this.pageSize = orderPage.size;
+      this.length = orderPage.totalElements;
+      this.pageIndex = orderPage.number;
+    });
+  }
 }

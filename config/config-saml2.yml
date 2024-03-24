@@ -1,0 +1,49 @@
+# Spring configurations
+spring:
+  threads:
+    virtual: 
+      enabled: true # since JDK 21 LTS supported. Can reduce memory consumption and response time in high-traffic scenarios
+  profiles: # important!
+    active: "saml2"
+  security:
+    saml2: # See also below in application/saml2 settings
+      relyingparty:
+        registration:
+          myidp: # you can configure multiple idps here
+            signing:
+              credentials:
+                - private-key-location: file:/home/app/saml-signing.key # never put the key in the container image - dynamically load it from a secret vault when running the application
+                  certificate-location: file:/home/app/saml-signing.crt # never put the key in the container image - dynamically load it from a secret vault when running the application
+            decryption: # do not use encryption, because encryption is about the certificate of the IdP and provided in the asserting party metadata uri. Decryption is about the key for the application to encrypt SAML messages for the application
+              credentials:
+                - private-key-location: file:/home/app/saml-encryption.key # never put the key in the container image - dynamically load it from a secret vault when running the application
+                  certificate-location: file:/home/app/saml-encryption.crt # never put the key in the container image - dynamically load it from a secret vault when running the application
+            singlelogout:
+              binding: POST
+              response-url: "{baseUrl}/logout/saml2/slo"
+            assertingparty:
+              metadata-uri: file:/home/app/idp-metadata.xml # You can get this from your IDP
+server:
+  servlet:
+    session:
+      cookie:
+          same-site: none # Needed for SAML2 to work
+logging:
+    level:
+        root: "warn"
+        org.springframework.web: "info"
+        org.hibernate: "error"
+# Application configurations
+application:
+     saml2:
+        enableMetadataEndpoint: false # should only be temporary enabled for security reasons. if enabled then you find it https://<URL>/saml2/service-provider-metadata/myidp (an xml will download as file in your browser)
+        samlRoleAttributeName: "groups" # the SAML Assertation Attribute that contains the role(s)
+        samlRoleAttributeSeparator: "," # if the SAML Asseration Attribute value contains multiple roles then you can specify the separator (if the roles are in multiple attributes then you can ignore it)
+     https:
+        headers:
+          permissionPolicy: "accelerometer=(),  autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(),  encrypted-media=(),  fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(),  payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(),  hid=(), idle-detection=(), serial=(),  window-placement=()"
+          csp: "default-src 'none'; base-uri 'self'; script-src 'unsafe-inline' 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'none'; child-src 'self'; form-action 'self'; frame-ancestors 'none'; navigate-to 'self'; block-all-mixed-content"
+          referrerPolicy: "no-referrer" # possible values: https://github.com/spring-projects/spring-security/blob/main/web/src/main/java/org/springframework/security/web/header/writers/ReferrerPolicyHeaderWriter.java#L101
+          coep: "require-corp; report-to=\"default\""
+          coop: "same-origin; report-to=\"default\""
+          corp: "same-origin"

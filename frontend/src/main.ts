@@ -4,10 +4,16 @@ import { provideAnimations } from "@angular/platform-browser/animations";
 import { provideHttpClient, withXsrfConfiguration } from "@angular/common/http";
 import { GlobalErrorHandlerInterceptorProvider } from "./app/services/globalerrorhandler/interceptor/httpconfig.interceptor";
 import { routes } from "./app/app-routing.module";
-import { provideRouter, withDebugTracing } from "@angular/router";
+import { provideRouter } from "@angular/router";
+import {
+  LogLevel,
+  LoggingService,
+} from "./app/services/logging/logging.service";
 
 bootstrapApplication(AppComponent, {
   providers: [
+    { provide: LoggingService, useClass: LoggingService },
+    { provide: "logLevel", useValue: LogLevel.Info },
     provideAnimations(),
     provideRouter(routes),
     provideHttpClient(

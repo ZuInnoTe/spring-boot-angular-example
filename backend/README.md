@@ -4,26 +4,5 @@ We provide here an example for a modern backend based on Spring Boot and latest 
 Find here information on:
 
 * [Build](./docs/BUILD.md)
-
-
-
-# Run
-
-
-# Test
-## Unit testing
-tbd
-## Static Code Analysis
-tbd
-
-# Code formatting
-tbd
-
-# Continuous Integration (CI) pipeline
-tbd
-
-# Application Configuration
-tbd
-
-# Deploy
-tbd
+* [Architecture](./docs/ARCHITECTURE.md)
+* [Configure](./docs/CONFIGURE.md)

@@ -1,8 +1,24 @@
-## Application
+# Introduction - Build
+
+# Run application
 tbd
 
-## Integrate d
-## Update Dependencies
+# Automated Code Formatting
+tbd
+
+# Generate Modulith Documentation
+tbd
+
+# Database
+tbd
+
+# Build application
+tbd
+# Run tests
+
+tbd
+
+# Update Dependencies
 It is very important to keep your dependencies up-to-date to make your project secure and maintainable.
 
 You can check if there is an update to your dependencies by running:

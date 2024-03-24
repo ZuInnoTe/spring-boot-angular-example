@@ -1,0 +1,12 @@
+# See https://registry.opensuse.org/
+FROM registry.opensuse.org/opensuse/bci/openjdk:21
+
+# Switch to root for installation
+USER root
+# Create app user
+
+# Copy run script
+
+
+
+# Switch to app user
