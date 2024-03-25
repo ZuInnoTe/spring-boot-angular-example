@@ -94,6 +94,8 @@ RANDOM_STR=$(cat /dev/urandom |  tr -dc 'a-zA-Z0-9' | fold -w 50 | head -n 1)
 keytool -genkeypair -alias backend -keyalg EC -groupname secp256r1 -storetype PKCS12 -keystore /home/app/backend.p12 -validity 365  -dname "cn=backend, ou=Spring Boot Angular Application, o=Unknown, c=Unknown" -storepass $RANDOM_STR
 ```
 
+Note: You have to choose an algorithm for the certificate that balances performance and security. This constantly changes and you should at least yearly check that they offer still a good security trade-off.
+
 Usually for production applications you need to have a certificate signed by a certification authority. This can be an enterprise-internal one or one which signs certificate for the public Internet(e.g. [Let's Encrypt](https://letsencrypt.org/)).
 
 # Spring
@@ -115,6 +117,18 @@ spring:
 ```
 
 An example can be also found [here](../src/main/resources/application.yml).
+## Server TLS Protocols
+You should only enable latest TLS protocols with perfect forward secrecy. You can find recommendations in TBD
+
+Example:
+```
+server:
+  ssl:
+    enabled-protocols: TLSv1.3
+    ciphers: TLS_AES_256_GCM_SHA384,TLS_CHACHA20_POLY1305_SHA256
+```
+
+See full example in [../../config/config-oidc.yml](../../config/config-oidc.yml).
 ## Authentication: SAML2
 SAML2 can be configured by activating the profile "saml2". This profile is provided by the application (see [Spring Boot Profiles](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.profiles)) and also the definition of the profile in the code ([../src/main/java/eu/zuinnote/example/springwebdemo/configuration/SecurityConfigurationSaml2.java](../src/main/java/eu/zuinnote/example/springwebdemo/configuration/SecurityConfigurationSaml2.java))).
 The rest of the SAML properties come from [Spring Security for SAML2](https://docs.spring.io/spring-security/reference/servlet/saml2/index.html).
@@ -178,26 +192,93 @@ server:
 ```
 Note: Even though it does not start with Spring, it is a Spring specific config.
 
+## Logging
+You can configure various logging levels. Find here an example configuration where for different packages different log levels are chosen.
+```
+logging:
+    level:
+        root: "warn"
+        org.springframework.web: "info"
+        eu.europa.ecb.peer: "info"
+        org.hibernate: "error"
+```
+We log only to the console as in most container environments the console output is forwarded to a central logging solutions. Nevertheless, you can easily configure a log file that rotates automatically and is compressed.
+See [here](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.logging). Note: We use Log4j2 so you can also benefit from enhanced features provided by log4j2
+
+Please set the logging levels according your environments! A production environment often needs warn or info, but never needs "debug". The more is logged the lower the performance of an application is. However, you should think carefully about what you need to log to operate/monitor/troubleshoot your application and what you need for security reasons. 
+
+By default we make all loggers asynchronously (see [../src/main/resources/log4j2.component.properties](../src/main/resources/log4j2.component.properties)). You can overwrite it with a system property (see [here](https://logging.apache.org/log4j/2.x/manual/async.html#making-all-loggers-asynchronous)). This can increase the performance of logging in high-throughput scenarios (e.g. web applications with many users) significantly.
+
+It can make sense to configure logging for certain Java classes as synchronous (e.g. for audit purposes) and for others as asyncrhonous to beefit from higher performance.
 
 # Application
 We described in the introduction how you can specify a file that contains the configuration of spring properties and application-specific properties. The following application-specific properties are available for this application.
 
+## SAML2 Metadata endpoint
+Enable the SAML2 metadata endpoint. Note: This is only temporarily needed to fetch the SAML2 application metadata to be provided to your SAML2 IDP for configuraing the application.
+The endpoint can be found after enablement under (if you have configured the name igam in the config as described above): https://<URL>/saml2/service-provider-metadata/myidp
+
+After you have downloaded the metadata you can disable the endpoint again.
+
+Example:
+```
+application:
+  saml2:
+      enableMetadataEndpoint: false # should only be temporary enabled for security reasons. if enabled then you find it https://<URL>/saml2/service-provider-metadata/myidp (an xml will download as file in your browser)
+```
+
+You can find a complete example in [](../../config/config-saml2.yml).
+## SAML2 Role extraction
+Depending on your IDP configuration you will find the roles for your application in different SAML2 assertions. You can configure this as follows:
+* samlRoleAttributeName: In which SAML assertitions the role can be found
+* samlRoleAttributeSeparator: If one value contains multiple roles and how they are separated (e.g. using a comma). This is ignored if roles are provided as multi-value attributes
+
+Example:
+```
+application:
+  saml2:
+       samlRoleAttributeName: "groups" # the SAML Assertation Attribute that contains the role(s)
+        samlRoleAttributeSeparator: "," # if the SAML Asseration Attribute value contains multiple roles then you can specify the separator (if the roles are in multiple attributes then you can ignore it)
+```
+
+You can find a complete example in [](../../config/config-saml2.yml).
+
+## OIDC Role Mapping
+By default OIDC claims are made available as a Spring Authority with the prefix "SCOPE_". You can configure any other prefix as follows.
+
+     oidc:
+        mapper: # map jwt claims to Spring Security authorities
+            jwtRoleClaims: ["scope","scp"] # JWT claims that contain authorities
+            authoritiesPrefix: "SCOPE_" # Prefix for Spring Security Authorities
+## Web Security Headers
+Web Security Headers are an additional line of defense to enable specific protection mechanisms against attacks (e.g. cross-site scripting) in the browser of the user.
+
+You can customize some of the security headers of the application. Note: We do not make all headers customizable (e.g. CSFR) as they should be always on.
+
+Example:
+```
+application:
+     https:
+        headers:
+          permissionPolicy: "accelerometer=(),  autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(),  encrypted-media=(),  fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(),  payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(),  hid=(), idle-detection=(), serial=(),  window-placement=()" 
+          csp: "default-src 'none'; base-uri 'self'; script-src 'unsafe-inline' 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'none'; child-src 'self'; form-action 'self'; frame-ancestors 'none'; navigate-to 'self'; block-all-mixed-content" # Currently the most strict policy available for Angular frontends
+          referrerPolicy: "no-referrer" # possible values: https://github.com/spring-projects/spring-security/blob/main/web/src/main/java/org/springframework/security/web/header/writers/ReferrerPolicyHeaderWriter.java#L101
+          coep: "require-corp; report-to=\"default\""
+          coop: "same-origin; report-to=\"default\""
+          corp: "same-origin"
+```
+Here we set the HTTP security headers:
+* [Permission Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy)
+* [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
+* [ReferrerPolicy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy)
+* [Cross Origin Embedder Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy) (COEP)
+* [Cross Origin Opener Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy) (COOP)
+* [Cross Origin Resource Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cross-Origin_Resource_Policy) (CORP)
+
+You should consult the documentation of the headers, especially if you need to load resources (e.g. images) from another origin etc.
 
 # Database
 tbd
 
-# Authentication
-## Overview
-saml2 or oidc, not both at the same time
 
-
-## OIDC
-tbd
-
-## SAML2
-tbd
-
-
-# Logging
-tbd
 
