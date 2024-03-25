@@ -43,6 +43,8 @@ public class SecurityConfigurationDev {
 
     @Bean
     SecurityFilterChain app(HttpSecurity http) throws Exception {
+        this.log.info(
+                "Configuring application security for development - Do NOT use in production");
         CookieCsrfTokenRepository tokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
         CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
 

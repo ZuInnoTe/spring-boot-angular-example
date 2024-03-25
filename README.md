@@ -13,3 +13,8 @@ This example project is supposed to be easily reused, so you can build your own 
 # License
 You can choose to either use [EUPL-1.2](./LICENSE-EUPL-1.2) ([Web](https://spdx.org/licenses/EUPL-1.2.html)) or [Apache-2.0](./LICENSE-Apache-2.0) ([Web](https://spdx.org/licenses/Apache-2.0.html)) license.
 
+# Code
+
+The code is available under:
+
+- Codeberg (a non-commercial European hosted Git for Open Source): https://codeberg.org/ZuInnoTe/spring-boot-angular-example

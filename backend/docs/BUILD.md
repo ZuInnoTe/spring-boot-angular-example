@@ -1,12 +1,27 @@
 # Introduction - Build
 
+# Prerequisites
+You need to have at least JDK 21 (LTS) installed.
+
+Additionally, you need to fulfill the [needs of the frontend](../../frontend/docs/BUILD.md).
+
 # Run application
-tbd
+You can run the application by entering the subfolder "backend" (if not already done) and executing
+```
+./gradlew bootRun
+```
 
 # Automated Code Formatting
-tbd
+During build the build script checks if the code is formatted according to standards defined in the build script. These standard are defined in the block "spotless".
+You can find the possible options in the [Spotless for Gradle](https://github.com/diffplug/spotless/tree/main/plugin-gradle) webpage.
 
-# Generate Modulith Documentation
+You can automatically fix the formatting of all of the code using
+```
+./gradlew spotlessApply
+```
+After it has been executed the build should not fail anymore due to code not formatted according to the defined standard.
+
+# Generate Modulith Documentation & Module Testig
 tbd
 
 # Database
@@ -17,6 +32,8 @@ tbd
 # Run tests
 
 tbd
+
+# Manage Build Tool version - Gradle Wrapper
 
 # Update Dependencies
 It is very important to keep your dependencies up-to-date to make your project secure and maintainable.

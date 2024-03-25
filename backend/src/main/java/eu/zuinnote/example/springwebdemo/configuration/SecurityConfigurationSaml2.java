@@ -60,6 +60,7 @@ public class SecurityConfigurationSaml2 {
      **/
     @Bean
     SecurityFilterChain app(HttpSecurity http) throws Exception {
+        this.log.info("Configuring application security for SAML2");
         // saml2 mapping of SAML attributes => Spring Authorities
         // Spring authorities make it easy then to configure authorization with expressions
         // (https://docs.spring.io/spring-security/reference/servlet/authorization/expression-based.html) or in other contexts
