@@ -77,11 +77,111 @@ HEAP_MEMORY_GB=$(( MEMORY_GB * HEAP_MEMORY_PERCENTAGE / 100 ))
    GARBAGE_COLLECTOR=+UseZGC -XX:+ZGenerational
 java -XX:+UseNUMA -XX:$GARBAGE_COLLECTOR -XX:MaxRAMPercentage=$HEAP_MEMORY_PERCENTAGE [..] -jar springwebdemo.jar  [..]
 ```
+## TLS
+You can configure TLS, so that your application can be accessed through an encrypted channel, on the command line using Java properties as follows:
+```
+java -Dserver.ssl.key-store-type=PKCS12 -Dserver.ssl.key-store=/home/app/backend.p12 -Dserver.ssl.key-alias=backend -Dserver.ssl.enabled=true -Dserver.ssl.key-store-password=$RANDOM_STR -Dserver.port=8443 -jar ManagementUI.jar  
+```
+In this example we set the Java properties "server.ssl.key-store-type", "server.ssl.key-store", "server.ssl.key-alias", "server.ssl.enabled", "server.ssl.key-store-password", "server.port"
+Note: Java properties are supported by Java internal and third party libraries. Consult the Java documentation and your library which one they support.
+
+You can generate a self-signed certificate for testing purposes:
+```
+# Generate self-signed certificate. For production purposes you should have a certificate signed by a private or public Certification Authority (CA).
+RANDOM_STR=$(cat /dev/urandom |  tr -dc 'a-zA-Z0-9' | fold -w 50 | head -n 1)
+
+# please check with security on the algorithm. 
+keytool -genkeypair -alias backend -keyalg EC -groupname secp256r1 -storetype PKCS12 -keystore /home/app/backend.p12 -validity 365  -dname "cn=backend, ou=Spring Boot Angular Application, o=Unknown, c=Unknown" -storepass $RANDOM_STR
+```
+
+Usually for production applications you need to have a certificate signed by a certification authority. This can be an enterprise-internal one or one which signs certificate for the public Internet(e.g. [Let's Encrypt](https://letsencrypt.org/)).
 
 # Spring
+Spring Boot usually has very good production-ready default configurations, because one of the main objectives of Spring Boot was exactly that - good out-of-the-box configuration. However, certain aspects will still require to make good choices for configuration in terms of security, performance etc. We cannot describe them all here, but refer to the Spring documentation and general good practices.
+
+We recommend to always use the latest version of Spring Boot as it contains every version improved default configurations.
+
+We will only describe few selected configurations for Spring.
 ## Virtual Threads
+[Virtual Threads](https://openjdk.org/jeps/444) are a new feature of JDK21 LTS and [Spring boot 3.2 has initial support](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.2-Release-Notes#support-for-virtual-threads) for them (which will be much more extended in future versions). Essentially they can lead to much more efficient use of memory for high-concurrency applications (e.g. web applications).
+
+They can be activated in your application configuration file (see above).
+Example for a configuration file in YAML format:
+```
+spring:
+  threads:
+    virtual: 
+      enabled: true
+```
+
+An example can be also found [here](../src/main/resources/application.yml).
+## Authentication: SAML2
+SAML2 can be configured by activating the profile "saml2". This profile is provided by the application (see [Spring Boot Profiles](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.profiles)) and also the definition of the profile in the code ([../src/main/java/eu/zuinnote/example/springwebdemo/configuration/SecurityConfigurationSaml2.java](../src/main/java/eu/zuinnote/example/springwebdemo/configuration/SecurityConfigurationSaml2.java))).
+The rest of the SAML properties come from [Spring Security for SAML2](https://docs.spring.io/spring-security/reference/servlet/saml2/index.html).
+
+
+The following example shows how to configure SAML2 for an IDP "myidp" in the application properties file. You need to get from your SAML2 IDP the myidp-metadat.xml file containing the IDPs metadata.
+Essentially we provide a key for signing and another one for encrypting SAML messages as well as we configure the IGAM SAML2 metadata for a specific enviroment. You can generate them yourself using keytool. NEVER store them in the container image - this is a security issue. Always fetch them during runtime of the container from a secret vault, such as Hashicorp Vault or AWS Secrets Manager, before starting the web application!
+
+```
+spring:
+  profiles: # important!
+    active: "saml2"
+  security:
+    saml2:
+      relyingparty:
+        registration:
+          myidp:
+            signing:
+              credentials:
+                - private-key-location: file:/home/app/saml-signing.key
+                  certificate-location: file:/home/app/saml-signing.crt
+            decryption: # do not use encryption, because encryption is about the certificate of the IdP and provided in the asserting party metadata uri. Decryption is about the key for the application to encrypt SAML messages for the application
+              credentials:
+                - private-key-location: file:/home/app/saml-encryption.key
+                  certificate-location: file:/home/app/saml-encryption.crt
+            singlelogout:
+              binding: POST
+              response-url: "{baseUrl}/logout/saml2/slo"
+            assertingparty:
+              metadata-uri: file:/home/app/myidp-metadata.xml
+```
+
+Find a complete configuration example in [../../config/config-saml2.yml](../../config/config-saml2.yml).
+## Authentication: OIDC
+You can configure OIDC as follows (see https://docs.spring.io/spring-security/reference/servlet/oauth2/index.html for detailed configuration instructions)
+```
+spring:
+  profiles: # important!
+    active: "oidc"
+  security:
+    oauth2:
+      client:
+        registration: 
+          myidp: 
+            client-id: <client-id>  # Do not store in repository, dynamically load it from a secret vault during RUNTIME of the container
+            client-secret: <secret> # Do not store in repository, dynamically load it from a secret vault during RUNTIME of the container
+```
+
+You need to get the client-id and the secret from your OIDC IDP. You must NEVER store them in the container image. Always fetch them during runtime of the container from a secret vault, such as Hashicorp Vault or AWS Secrets Manager, before starting the web application!
+
+Find a complete configuration example in [../../config/config-oidc.yml](../../config/config-oidc.yml).
+
+### Session cookie
+At the moment, we need to configure the session cookie with a specific samesite policy so that it works with SAML. We use the following configuration.
+```
+server:
+  servlet:
+    session:
+      cookie:
+          same-site: none # Needed for SAML2 to work
+```
+Note: Even though it does not start with Spring, it is a Spring specific config.
+
+
 # Application
-tbd
+We described in the introduction how you can specify a file that contains the configuration of spring properties and application-specific properties. The following application-specific properties are available for this application.
+
 
 # Database
 tbd
