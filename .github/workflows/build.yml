@@ -1,0 +1,15 @@
+name: build-springbootweb
+on: [push]
+jobs:
+  build-springbootweb:
+    runs-on: ubuntu-latest
+steps:
+  - uses: actions/checkout@v4
+  - uses: actions/setup-java@v4
+    with:
+      java-version: '21'
+      distribution: 'temurin'
+  - name: Build with Gradle
+    run: |
+           cd backend
+           ./gradlew clean build
