@@ -6,3 +6,4 @@ Find here information on:
 * [Build](./docs/BUILD.md)
 * [Architecture](./docs/ARCHITECTURE.md)
 * [Configure](./docs/CONFIGURE.md)
+* [Operations](./docs/OPERATIONS.md)

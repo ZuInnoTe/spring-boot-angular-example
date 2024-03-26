@@ -7,6 +7,8 @@ td
 tbd
 # Spring Modulith
 tbd
+# Spring actuator
+tbd
 # Configuration
 tbd
 serialize  into object

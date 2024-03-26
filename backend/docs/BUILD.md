@@ -61,7 +61,13 @@ These tests are executed during the normal build or by running
 ```
 
 # Database
-tbd
+We do not show it here, but as a good practice which is also recommended by Spring, you should have a tool for database change management so that changes to your database are applied in the same order in all environments.
+
+One of those tools is [Liquibase](https://www.liquibase.com/). It offers also integration with [Spring Boot](https://contribute.liquibase.com/extensions-integrations/directory/integration-docs/springboot/).
+
+Another tools is [Flyway](https://flywaydb.org/).
+
+See [here](https://www.baeldung.com/liquibase-vs-flyway) a comparison between the two.
 
 # Manage Build Tool version - Gradle Wrapper
 We use [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) to ensure that the application is build with the correct Gradle version independent which one is installed. This is why we used in the previous commands always "./gradlew" instead of "gradle". 
