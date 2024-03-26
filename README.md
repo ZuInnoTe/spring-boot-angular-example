@@ -18,3 +18,12 @@ You can choose to either use [EUPL-1.2](./LICENSE-EUPL-1.2) ([Web](https://spdx.
 The code is available under:
 
 - Codeberg (a non-commercial European hosted Git for Open Source): https://codeberg.org/ZuInnoTe/spring-boot-angular-example
+
+# Contributing
+Find more information on contributing in [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+# Code of Coduct
+Find more information on the code of conduct in [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
+
+# Security
+Find more information on security of the projects and how to report security issues in [SECURITY.md](./SECURITY.md).
