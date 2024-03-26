@@ -44,6 +44,12 @@ Important [indicators](https://en.wikipedia.org/wiki/IT_disaster_recovery) are:
 * Recovery Point Objective (RPO)
 * Recovery Time Objective (RTO)
 
+# Logging
+You should configure the logging properly and possibly transfer the logs to a central logging service to get a better overview across different application instances what is going on.
+
+If you use log files then make sure 1) that they do not grow infinitely 2) that logs are kept only for a certain amount of days (e.g. 30) 3) that log files are rotated and compressed every day 4) are stored on a separated partiton to avoid that the operating system disk spaces runs out.
+
+All these things can usually be done by configuring the log4j2 of the application (see [documentation](https://logging.apache.org/log4j/2.x/manual/configuration.html)) and no custom code or shell scripts are required for this.
 # Monitoring
 This depends on your environment and the existing monitoring application that you have. 
 

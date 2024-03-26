@@ -39,6 +39,7 @@ public class SecurityConfigurationOidc {
      **/
     @Bean
     SecurityFilterChain app(HttpSecurity http) throws Exception {
+        this.log.info("Configuring application security for OIDC");
         // oidc
         http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
                 .oauth2Login(withDefaults());
