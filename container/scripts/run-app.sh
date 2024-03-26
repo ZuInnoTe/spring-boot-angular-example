@@ -22,6 +22,16 @@ RANDOM_STR=$(cat /dev/urandom |  tr -dc 'a-zA-Z0-9' | fold -w 50 | head -n 1)
 # please check with security on the algorithm. 
 keytool -genkeypair -alias backend -keyalg EC -groupname secp256r1 -storetype PKCS12 -keystore /home/app/backend.p12 -validity 365  -dname "cn=backend, ou=Spring Boot Angular Application, o=Unknown, c=Unknown" -storepass $RANDOM_STR
 
+# Extract the database credentials from environment variables
+# We expect DB_HOST, DB_USER, DB_PASS, DB_NAME are injected from a secret vault
+cat > /home/app/database.yml << EOF
+spring:
+   datasource:
+       url: jdbc:postgresql://$DB_HOST/$DB_NAME
+       username: $DB_USER
+       password: $DB_PASS
+EOF
+
 # This scripts run the application
 # Use -XX:+UseShenandoahGC if heap < 32 GB, use ZGC if heap > 32 GB
 # Use 80% of the availabe ram for heap
@@ -32,4 +42,4 @@ HEAP_MEMORY_GB=$(( MEMORY_GB * HEAP_MEMORY_PERCENTAGE / 100 ))
 [ "$HEAP_MEMORY_GB"  -lt 32 ] &&
    GARBAGE_COLLECTOR=+UseShenandoahGC ||
    GARBAGE_COLLECTOR=+UseZGC -XX:+ZGenerational
-java -XX:+UseNUMA -XX:$GARBAGE_COLLECTOR -XX:MaxRAMPercentage=$HEAP_MEMORY_PERCENTAGE -Dserver.ssl.key-store-type=PKCS12 -Dserver.ssl.key-store=/home/app/backend.p12 -Dserver.ssl.key-alias=backend -Dserver.ssl.enabled=true -Dserver.ssl.key-store-password=$RANDOM_STR -Dserver.port=8443 -jar springwebdemo.jar  --spring.config.location=/home/app/$CONFIG_FILE
+java -XX:+UseNUMA -XX:$GARBAGE_COLLECTOR -XX:MaxRAMPercentage=$HEAP_MEMORY_PERCENTAGE -Dserver.ssl.key-store-type=PKCS12 -Dserver.ssl.key-store=/home/app/backend.p12 -Dserver.ssl.key-alias=backend -Dserver.ssl.enabled=true -Dserver.ssl.key-store-password=$RANDOM_STR -Dserver.port=8443 -jar springwebdemo.jar  --spring.config.location=/home/app/$CONFIG_FILE,/home/app/database.yml

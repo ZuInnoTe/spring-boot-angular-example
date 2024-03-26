@@ -1,0 +1,81 @@
+# Spring configurations (see also: https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html)
+spring:
+  threads:
+    virtual: 
+      enabled: true # since JDK 21 LTS supported. Can reduce memory consumption and response time in high-traffic scenarios
+  profiles: # important!
+    active: "oidc"
+  security:
+    oauth2:
+      client:
+        registration: 
+          oidcidp: 
+            client-id: <client-id>  # Do not store in version repository - inject them dynamically during runtime
+            client-secret: <secret> # Do not store in version repository - inject them dynamically during runtime
+  jackson:
+      serialization:
+          FAIL_ON_EMPTY_BEANS: false # This option facilitates lazy loading of JPA Entities
+  h2:
+   console.enabled: false
+  datasource:
+      hikari:
+        maximum-pool-size: 5 # have a reasonable low number: https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing
+        data-source-properties:
+                assumeMinServerVersion: "16" # This makes for postgres dbs sense (cf. https://jdbc.postgresql.org/documentation/use/). Check valid values here: https://github.com/pgjdbc/pgjdbc/blob/master/pgjdbc/src/main/java/org/postgresql/core/ServerVersion.java
+                reWriteBatchedInserts: true # This makes for postgres dbs sense (cf. https://jdbc.postgresql.org/documentation/use/)
+                ApplicationName: "SpringBootWeb" # This makes for postgres dbs sense (cf. https://jdbc.postgresql.org/documentation/use/)
+                cleanupSavePoints: true # This makes for postgres dbs sense (cf. https://jdbc.postgresql.org/documentation/use/)
+                defaultRowFetchSize: 100 # This makes for postgres dbs sense (cf. https://jdbc.postgresql.org/documentation/use/)
+                adaptiveFetch: true # This makes for postgres dbs sense (cf. https://jdbc.postgresql.org/documentation/use/)
+                adaptiveFetchMaximum: 200 # This makes for postgres dbs sense (cf. https://jdbc.postgresql.org/documentation/use/)
+                maxResultBuffer: "10p" # This makes for postgres dbs sense (cf. https://jdbc.postgresql.org/documentation/use/)
+                ssl: true # This makes for postgres dbs sense (cf. https://jdbc.postgresql.org/documentation/use/)
+                sslmode: "require" # This makes for postgres dbs sense (cf. https://jdbc.postgresql.org/documentation/use/). Note for high-security settings you should also validate the certificate from the database: https://jdbc.postgresql.org/documentation/ssl/
+  jpa: # note: jdbc URL, User, password etc. should be injected into the configuration by a script. you must NOT add them here.
+     hibernate:
+        ddl-auto: none
+     show-sql: false
+     naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+     properties:
+         hibernate:
+            globally_quoted_identifiers: true
+            dialect: org.hibernate.dialect.PostgreSQLDialect
+            enable_lazy_load_no_trans: true # EXPERIMENTAL FOR LAZY LOADING MIGHT NEED TO BE REMOVED AND REPLACED WITH A MORE FINETUNED EAGER VS LAZU
+            jdbc:
+              batch_size: 20 # have a reasonable number between 5-30
+            order_inserts: true
+            order_updates: true
+            javax:
+                cache:
+                  provider: org.ehcache.jsr107.EhcacheCachingProvider
+            cache:
+              use_second_level_cache: true
+              use_query_cache: true
+              region:
+                factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+# Logging
+logging:
+    level:
+        root: "warn"
+        org.springframework.web: "info"
+        org.hibernate: "error"
+# Server
+server:
+  ssl:
+    enabled-protocols: TLSv1.3
+    ciphers: TLS_AES_256_GCM_SHA384,TLS_CHACHA20_POLY1305_SHA256
+# Application configurations
+application:
+     oidc:
+        mapper: # map jwt claims to Spring Security authorities
+            jwtRoleClaims: ["scope","scp"] # JWT claims that contain authorities
+            authoritiesPrefix: "SCOPE_" # Prefix for Spring Security Authorities
+     https:
+        headers:
+          permissionPolicy: "accelerometer=(),  autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(),  encrypted-media=(),  fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(),  payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(),  hid=(), idle-detection=(), serial=(),  window-placement=()"
+          csp: "default-src 'none'; base-uri 'self'; script-src 'unsafe-inline' 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'none'; child-src 'self'; form-action 'self'; frame-ancestors 'none'; navigate-to 'self'; block-all-mixed-content"
+          referrerPolicy: "no-referrer" # possible values: https://github.com/spring-projects/spring-security/blob/main/web/src/main/java/org/springframework/security/web/header/writers/ReferrerPolicyHeaderWriter.java#L101
+          coep: "require-corp; report-to=\"default\""
+          coop: "same-origin; report-to=\"default\""
+          corp: "same-origin"

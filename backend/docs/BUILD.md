@@ -5,11 +5,18 @@ You need to have at least JDK 21 (LTS) installed.
 
 Additionally, you need to fulfill the [needs of the frontend](../../frontend/docs/BUILD.md).
 
-# Run application
-You can run the application by entering the subfolder "backend" (if not already done) and executing
+# Run application for development
+You can run the application for development purposes by entering the subfolder "backend" (if not already done) and executing
 ```
 ./gradlew bootRun
 ```
+
+# Add test data to application for bootRun
+If you need to run the application for development purposes then it is useful to add to the in-memory database some test data so you can properly check your user interface (e.g. listing of all the orders) or for testing some data processing (e.g. order validation).
+
+This data should only be available when running your application locally during bootRun and not when deployed in production. 
+
+Spring boot has a mechanism for this called [data initialization](https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.data-initialization). In this example, we put a file called [../src/main/resources/data.sql](../src/main/resources/data.sql) in the project that already contains some statements to insert test data. You will also see that exactly the same data can be found when running the application for development.
 
 # Building the application
 You can build the application using the following command:
@@ -19,6 +26,8 @@ You can build the application using the following command:
 This also triggers the build of the frontend.
 
 As an output you will have in the folder build/libs multiple jar files. The one called springwebdemo-$VERSION-*.jar contains the full application including an embedded HTTP server, so you can directly run the JAR file and you can directly access the server exposed by it.
+
+
 
 # Automated Code Formatting
 During build the build script checks if the code is formatted according to standards defined in the build script. These standard are defined in the block "spotless".

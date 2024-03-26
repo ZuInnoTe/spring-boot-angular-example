@@ -15,7 +15,7 @@ serialize  into object
 tbd
 
 # Singletons
-tbd
+tbd, clients - if they are thread-safe - should be singletons (e.g. AWS SDK)
 
 # Database
 tbd

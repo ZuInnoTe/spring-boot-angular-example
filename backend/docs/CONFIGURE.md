@@ -91,10 +91,14 @@ You can generate a self-signed certificate for testing purposes:
 RANDOM_STR=$(cat /dev/urandom |  tr -dc 'a-zA-Z0-9' | fold -w 50 | head -n 1)
 
 # please check with security on the algorithm. 
-keytool -genkeypair -alias backend -keyalg EC -groupname secp256r1 -storetype PKCS12 -keystore /home/app/backend.p12 -validity 365  -dname "cn=backend, ou=Spring Boot Angular Application, o=Unknown, c=Unknown" -storepass $RANDOM_STR
+keytool -genkeypair -alias backend -keyalg EC -groupname secp256r1 -storetype PKCS12 -keystore /home/app/backend.p12 -validity 90  -dname "cn=backend, ou=Spring Boot Angular Application, o=Unknown, c=Unknown" -storepass $RANDOM_STR
 ```
 
-Note: You have to choose an algorithm for the certificate that balances performance and security. This constantly changes and you should at least yearly check that they offer still a good security trade-off.
+Note: You have to choose an algorithm for the certificate that balances performance and security. This constantly changes and you should at least yearly check that they offer still a good security trade-off. You can find a list of algorithms supported in JDK 21 LTS [here](https://docs.oracle.com/en/java/javase/21/docs/specs/security/standard-names.html#parameterspec-names).
+
+[According to recommendations by Mozilla](https://wiki.mozilla.org./Security/Server_Side_TLS) you should have a certificate validity of maximum 90 days and you should replace them before they end.
+
+More information on [save curves for elliptic-curve cryptography](https://safecurves.cr.yp.to/).
 
 Usually for production applications you need to have a certificate signed by a certification authority. This can be an enterprise-internal one or one which signs certificate for the public Internet(e.g. [Let's Encrypt](https://letsencrypt.org/)).
 
@@ -118,7 +122,7 @@ spring:
 
 An example can be also found [here](../src/main/resources/application.yml).
 ## Server TLS Protocols
-You should only enable latest TLS protocols with perfect forward secrecy. You can find recommendations in TBD
+You should only enable latest TLS protocols with [perfect forward secrecy](https://en.wikipedia.org/wiki/Forward_secrecy). You can find them in [recommendations by Mozilla](https://wiki.mozilla.org./Security/Server_Side_TLS).
 
 Example:
 ```
@@ -269,6 +273,7 @@ application:
 ```
 Here we set the HTTP security headers:
 * [Permission Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy)
+  * Find here an online generator for permission policies: https://www.permissionspolicy.com/
 * [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
 * [ReferrerPolicy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy)
 * [Cross Origin Embedder Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy) (COEP)
@@ -278,7 +283,204 @@ Here we set the HTTP security headers:
 You should consult the documentation of the headers, especially if you need to load resources (e.g. images) from another origin etc.
 
 # Database
-tbd
+There are various configuration options for a database. We describe first some general configuration applicable for a wide range of databases and afterwards we explain additional specific database configuration settings. Keep in mind that there are much more options then that can be covered here and we recommend to read the corresponding documentation of Spring Boot and your database. You should always validate your database settings with automated realistic performance tests.
+
+You can find a complete configuration example in [../../config/config-postgres.yml](../../config/config-postgres.yml).
+## General
+### Set the right database connection pool size
+[Connection pooling](https://en.wikipedia.org/wiki/Connection_pool) is a very effective mean to quickly connect to your database, because connections will be reused avoiding time-consuming reconnects. Furthermore it reduces the connection overhead on the database significantly, meaning more compute is available for your queries. A common misconception is that you need to provide a large number of connections in the connection pool to serve thousands of users. In fact, the higher the number of connections in your connection pool the slower your queries on the database may be.
+
+This means you should have a low total number of connections in a given connection pool, e.g. between 5-30. For most of the databases it is better that is more towards the lower end! Even if you have thousands of users it is very often fine to live with 5 connections in a connection pool. The number of optimal connections is NOT only determined by cores in the database or by how many users you have concurrently on the database. It is simply based on combination of factors (cores, disk, network). See also here for a video and detailed discussion (and some ideas to find your optimal pool size): https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing
+
+If you have multiple application instances (ie containers, VMs etc.) accessing the database you should divide the low total number by the number of instances. E.g. let us assume you find out with testing that the total number of connections in a connection pool should be 10 and that you have two instances. Then configure 5 connections in the connection pool of each instance.
+
+Note: If you work in a cloud setting with a lot of application instances (>3-4) and/or different applications accessing your database then you may consider a "central" connection pool, such as  [AWS RDS Proxy](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-proxy.html) as the individual pools of your application may become too small.
+ 
+
+Spring Boot has in recent versions out of the box support for a hikari connection pool (very fast, read the documentation to learn how to properly connect to a database avoiding anti-patterns). You can configure it as follows in recent Spring Boot versions:
+
+Yaml-version:
+```
+spring:   
+   datasource:
+      hikari:
+        maximum-pool-size: 5
+```
+ 
+
+You have also a couple of other settings in the Hikari pool:
+
+https://github.com/brettwooldridge/HikariCP#gear-configuration-knobs-baby
+
+There is no magic number that is right or wrong - work with a pool size taking into account also https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing and do testing!
+
+### Configure JPA Batch inserts
+JPA inserts/updates are by default executed in individual statements. This means it is very slow if they need to be done in large quantities. You can configure hibernate to batch them and this means the performance significantly increases (see [here](https://www.baeldung.com/spring-data-jpa-batch-inserts) and also the related [Hibernate documentation](https://docs.jboss.org/hibernate/orm/6.4/userguide/html_single/Hibernate_User_Guide.html#batch)).
+
+You can configure them as follows
+```
+spring:
+  jpa: 
+     properties:
+         hibernate:
+            jdbc:
+              batch_size: 20 # have a reasonable number between 5-30
+            order_inserts: true
+            order_updates: true
+```
+### Enable JPA Hibernate Caching
+Hibernate allows to enable different types of caches (see [Hibernate documentation](https://docs.jboss.org/hibernate/orm/6.4/userguide/html_single/Hibernate_User_Guide.html#caching)):
+* Second-Level Cache: If entity is not in the session-specific first-level cache then it is loaded from the session-independent second level cache
+* Query Cache: Caches results from selected queries so that rarely changing data is directly delivered from the query cache. Note: You additionally must specify for each query that should be cacheable in your code base that is is cacheable (see [here](https://docs.spring.io/spring-framework/reference/integration/cache.html)).
+
+Hibernate supports [different caching providers](https://docs.jboss.org/hibernate/orm/6.4/userguide/html_single/Hibernate_User_Guide.html#caching-config-provider). We use here [Ehcache](https://www.ehcache.org/) through its [JCache interface](https://www.ehcache.org/documentation/3.10/107.html). It must be included in the application (see [../build.gradle](../build.gradle)) 
+
+```
+spring:
+  jpa:
+     properties:
+         hibernate:
+            javax:
+                cache:
+                  provider: org.ehcache.jsr107.EhcacheCachingProvider
+            cache:
+              use_second_level_cache: true
+              use_query_cache: true
+              region:
+                factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+```
+
+## Postgres
+We describe here some specific recommendation for configuration the connection to Postgres databases.
+
+### Read the documentation of the Postgres JDBC driver
+Read the latest documentation on configuring the Postgres JDBC driver: https://jdbc.postgresql.org/documentation/use/
+### Use the latest Postgres JDBC driver
+
+Latest Postgres JDBC drivers have performance and security fixes, so you need to always include the latest version. You can install in your build tool (e.g. Gradle or Maven) a version plugin that show you if there are newer versions.
+
+The Postgres website shows you also a recent version (note: they work also perfectly fine with recent LTS versions 17,21 etc.): https://jdbc.postgresql.org/download/
+### Set assumeMinServer version
+
+By setting assumeMinServer version you can make sure that the JDBC drivers use also some latest features for that server version. You can find valid values for this property here: 
+
+https://github.com/pgjdbc/pgjdbc/blob/master/pgjdbc/src/main/java/org/postgresql/core/ServerVersion.java
+
+Note: Do NOT set too low version - you may miss important performance features! Set it as high as possible for your setup.
+
+You can configure it as follows in recent Spring Boot versions:
+
+Yaml-version:
+```
+spring:   
+   datasource:
+      hikari:
+        data-source-properties:
+                assumeMinServerVersion: "16"
+```
+ 
+
+### Set ApplicationName to make requests for your application traceable
+
+You should set an ApplicationName for your application - in this way it is easy to trace issues related to your application within the database. From the documentation:
+
+"This allows a database administrator to see what applications are connected to the server and what resources they are using through views like pg_stat_activity."
+
+Yaml-version:
+```
+spring:   
+   datasource:
+      hikari:
+        data-source-properties:
+                ApplicationName: "SpringBootWeb"
+```
+ 
+### Require SSL
+
+You should enforce always SSL on the Postgres database server side. Independent of this it makes always sense to enforce it additionally at client-side, ie JDBC as well. As a minimum you should enable ssl and have as sslmode-require. Example Spring Boot configuration (assuming a recent (warning) Spring Boot version).
+
+You can configure it as follows in recent Spring Boot versions:
+
+Yaml-version:
+```
+spring:   
+   datasource:
+      hikari:
+        data-source-properties:
+                ssl: true
+                sslmode: "require"
+```
+ 
+
+ 
+In this way you can simply connect via SSL to the database without managing truststores etc. at client side. This is already much better than an unencrypted connection.
+
+Additionally you may want also to verify the public certificate of the database server. Postgres provides an extensive documentation how to do this: 
+
+https://jdbc.postgresql.org/documentation/ssl/
+### reWriteBatchedInserts
+Set reWriteBatchedInserts to true.
+
+This combines multiple inserts statements (as they often occur with JPA/hibernate) into one. According to the documentation this improves performance 2x-3x.
+
+You can configure it as follows in recent Spring Boot versions:
+
+Yaml-version:
+```
+spring:   
+   datasource:
+      hikari:
+        data-source-properties:
+                reWriteBatchedInserts: true
+```
+ 
+
+### Limit Buffering size
+
+By default the Postgres driver uses all available Heap for buffering results from the database. This has many issues, such as that a lot of memory maybe taken by one large query result set or that a lot of Garbage collection needs to happen at once. Instead it can be faster and more reliable (no sudden out of memory errors for your application or unnecessary large provisioning of memory) to limit this.
+
+Even if you limit the buffer size - it is still possible to query data much larger than your buffer size - it is just the amount of data fetched at once from the database. All this happens transparently in the background if you use Spring Boot - ie your application code does not change.
+
+ 
+
+One important property to define there is maxResultBuffer. You can define it as a percentage of the heap or as an absolute value. Keep in mind that the available memory should be more then that amount * the number of connections in the connection pool (another reason for having only few connections in a connection pool). 
+
+Then you should also limit the maximum number of rows that are fetched from the database in one go. Important: The result from the query can be much larger - the driver will transparently fetch the other rows once the first rows have been processed. E.g. let us assume your query result number of rows are 1000. You define on the driver configuration only 200 are fetched. Then once the driver fetched the first 200 it will fetch the next 200 transparently for the application (No need to develop some logic for that!).
+
+Furthermore, limiting the buffering may also reduce the load on your database.
+
+Postgres has also adapativeFetch - depending on the expected size of the query result it will decide itself how much it fetches in one go (up to the limit what fits into the buffer!).
+
+You can configure it as follows in recent Spring Boot versions (note you may test/fine-tune a bit the concrete numbers):
+
+Yaml-version:
+```
+spring:   
+   datasource:
+      hikari:
+        data-source-properties:
+                maxResultBuffer: "10p"
+                adaptiveFetch: true
+                adaptiveFetchMaximum: 200
+                defaultRowFetchSize: 100
+```
+ 
+### Cleanup Savepoints
+
+You can free a lot of resources on the database server if you cleanup savepoints (if you use them!) - especially if there are a lot of queries.
+
+You can configure it as follows in recent Spring Boot versions 
+
+Yaml-version:
+```
+spring:   
+   datasource:
+      hikari:
+        data-source-properties:
+                cleanupSavePoints: true
+```
+ 
+ 
 
 
 

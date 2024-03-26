@@ -3,10 +3,25 @@ FROM registry.opensuse.org/opensuse/bci/openjdk:21
 
 # Switch to root for installation
 USER root
-# Create app user
+# Create dedicated user for security reasons and to limit to minimal permissions
+ARG DEDICATED_USER=app
+ARG DEDICATED_USER_WORKDIR=/home/$DEDICATED_USER
+RUN mkdir -p $DEDICATED_USER_WORKDIR
+RUN groupadd $DEDICATED_USER
+RUN useradd -d $DEDICATED_USER_WORKDIR -s /bin/false -g $DEDICATED_USER $DEDICATED_USER
+# deactivate login
+RUN passwd -l $DEDICATED_USER
+RUN chown $DEDICATED_USER:$DEDICATED_USER $DEDICATED_USER_WORKDIR
 
 # Copy run script
+COPY scripts/run-app.sh /home/$DEDICATED_USER/run-app.sh
+RUN chmod +x /home/$DEDICATED_USER/run-app.sh
 
+# Copy Application
+COPY build/libs/springwebdemo-0.0.1.jar /home/$DEDICATED_USER/springwebdemo.jar
 
-
+# Switch user
+USER $DEDICATED_USER
+WORKDIR $DEDICATED_USER_WORKDIR
+CMD ["/home/app/run-app.sh"]
 # Switch to app user
