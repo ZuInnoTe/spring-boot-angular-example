@@ -12,4 +12,5 @@ steps:
   - name: Build with Gradle
     run: |
            cd backend
+           ./gradlew dependencyUpdates -DoutputFormatter=json,xml,html,txt,plain --refresh-dependencies
            ./gradlew clean build

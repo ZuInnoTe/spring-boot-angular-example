@@ -19,6 +19,9 @@ The code is available under:
 
 - Codeberg (a non-commercial European hosted Git for Open Source): https://codeberg.org/ZuInnoTe/spring-boot-angular-example
 
+# Changelog
+We keep an active changelog ([CHANGELOG.md](./CHANGELOG.md)) to keep track of all changes so that users are informed what changes in which version.
+
 # Contributing
 Find more information on contributing in [CONTRIBUTING.md](./CONTRIBUTING.md).
 

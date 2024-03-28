@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'maven-publish'
-    id 'org.springframework.boot' version '3.2.3'
+    id 'org.springframework.boot' version '3.2.4'
     id 'io.spring.dependency-management' version '1.1.4'
     id 'com.github.ben-manes.versions' version '0.51.0'
     id 'com.diffplug.spotless' version '6.25.0'
@@ -35,7 +35,7 @@ ext {
     set('hibernateVersion','6.4.4.Final')
     set('disruptorVersion','3.4.4')
     set('bcVersion','1.77')
-    set('owaspSanitizerVersion','20220608.1')
+    set('owaspSanitizerVersion','20240325.1')
 }
 
 

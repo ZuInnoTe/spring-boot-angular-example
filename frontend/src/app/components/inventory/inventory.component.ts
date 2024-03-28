@@ -7,6 +7,7 @@ import {
   Product,
   ProductPage,
 } from "../../services/inventoryservice/inventory.model";
+import { LoggingService } from "../../services/logging/logging.service";
 
 @Component({
   selector: "app-inventory",
@@ -31,7 +32,10 @@ export class InventoryComponent {
 
   pageEvent: PageEvent;
 
-  constructor(private inventoryService: InventoryService) {
+  constructor(
+    private inventoryService: InventoryService,
+    private log: LoggingService,
+  ) {
     this.refreshInventory();
   }
 
@@ -52,6 +56,7 @@ export class InventoryComponent {
   }
 
   refreshInventory() {
+    this.log.info("Refreshing inventory");
     this.inventoryService.getAllProducts().subscribe((productPage) => {
       this.dataSource = productPage.content;
       this.pageSize = productPage.size;

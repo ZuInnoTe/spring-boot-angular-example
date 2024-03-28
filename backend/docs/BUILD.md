@@ -1,6 +1,6 @@
 # Introduction - Build
 
-# Prerequisites
+## Prerequisites
 You need to have at least JDK 21 (LTS) installed.
 
 Additionally, you need to fulfill the [needs of the frontend](../../frontend/docs/BUILD.md).
@@ -10,6 +10,17 @@ You can run the application for development purposes by entering the subfolder "
 ```
 ./gradlew bootRun
 ```
+
+You can open the application in the browser using http://localhost:8080.
+
+You should login with the username "user" and the random password that is outputted to the console.
+
+![Spring Boot Web - bootRun - console - password](./img/springbootweb_example_bootrun.png).
+
+![Spring Boot Web - bootRun - browser - login](./img/springbootweb_example_bootrun_login.png).
+
+![Spring Boot Web - bootRun - browser - application](./img/springbootweb_example_bootrun_app.png).
+
 
 # Add test data to application for bootRun
 If you need to run the application for development purposes then it is useful to add to the in-memory database some test data so you can properly check your user interface (e.g. listing of all the orders) or for testing some data processing (e.g. order validation).
@@ -30,6 +41,8 @@ As an output you will have in the folder build/libs multiple jar files. The one 
 
 
 # Automated Code Formatting
+Having consistend formatting of code is crucial for its understanding by different developers. We employ here a tool that does this automatically for us.
+
 During build the build script checks if the code is formatted according to standards defined in the build script. These standard are defined in the block "spotless".
 You can find the possible options in the [Spotless for Gradle](https://github.com/diffplug/spotless/tree/main/plugin-gradle) webpage.
 

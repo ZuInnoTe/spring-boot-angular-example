@@ -74,7 +74,7 @@ application:
      https:
         headers:
           permissionPolicy: "accelerometer=(),  autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(),  encrypted-media=(),  fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(),  payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(),  hid=(), idle-detection=(), serial=(),  window-placement=()"
-          csp: "default-src 'none'; base-uri 'self'; script-src 'unsafe-inline' 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'none'; child-src 'self'; form-action 'self'; frame-ancestors 'none'; navigate-to 'self'; block-all-mixed-content"
+          csp: "default-src 'none'; base-uri 'self'; script-src 'unsafe-inline' 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'none'; child-src 'self'; form-action 'self'; frame-ancestors 'none'; navigate-to 'self'; block-all-mixed-content;  trusted-types angular; require-trusted-types-for 'script';"
           referrerPolicy: "no-referrer" # possible values: https://github.com/spring-projects/spring-security/blob/main/web/src/main/java/org/springframework/security/web/header/writers/ReferrerPolicyHeaderWriter.java#L101
           coep: "require-corp; report-to=\"default\""
           coop: "same-origin; report-to=\"default\""
