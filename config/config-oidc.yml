@@ -12,6 +12,9 @@ spring:
           oidcidp: 
             client-id: <client-id>  # Do not store in version repository - inject them dynamically during runtime
             client-secret: <secret> # Do not store in version repository - inject them dynamically during runtime
+        provider:
+           oidcidp:
+            issuer-uri: <issuer-uri> # idp metadata uri for auto-configuration. See https://docs.spring.io/spring-security/reference/servlet/oauth2/login/core.html#oauth2login-sample-application-config 
 logging:
     level:
         root: "warn"

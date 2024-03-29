@@ -176,9 +176,12 @@ spring:
     oauth2:
       client:
         registration: 
-          myidp: 
+          oidcidp: 
             client-id: <client-id>  # Do not store in repository, dynamically load it from a secret vault during RUNTIME of the container
             client-secret: <secret> # Do not store in repository, dynamically load it from a secret vault during RUNTIME of the container
+        provider:
+           oidcidp:
+            issuer-uri: <issuer-uri> # idp metadata uri for auto-configuration. See https://docs.spring.io/spring-security/reference/servlet/oauth2/login/core.html#oauth2login-sample-application-config 
 ```
 
 You need to get the client-id and the secret from your OIDC IDP. You must NEVER store them in the container image. Always fetch them during runtime of the container from a secret vault, such as Hashicorp Vault or AWS Secrets Manager, before starting the web application!
