@@ -42,4 +42,4 @@ HEAP_MEMORY_GB=$(( MEMORY_GB * HEAP_MEMORY_PERCENTAGE / 100 ))
 [ "$HEAP_MEMORY_GB"  -lt 32 ] &&
    GARBAGE_COLLECTOR=+UseShenandoahGC ||
    GARBAGE_COLLECTOR=+UseZGC -XX:+ZGenerational
-java -XX:+UseNUMA -XX:$GARBAGE_COLLECTOR -XX:MaxRAMPercentage=$HEAP_MEMORY_PERCENTAGE -Dserver.ssl.key-store-type=PKCS12 -Dserver.ssl.key-store=/home/app/backend.p12 -Dserver.ssl.key-alias=backend -Dserver.ssl.enabled=true -Dserver.ssl.key-store-password=$RANDOM_STR -Dserver.port=8443 -jar springwebdemo.jar  --spring.config.location=/home/app/$CONFIG_FILE,/home/app/database.yml
+java -XX:+UseNUMA -XX:$GARBAGE_COLLECTOR -XX:MaxRAMPercentage=$HEAP_MEMORY_PERCENTAGE -Dserver.ssl.key-store-type=PKCS12 -Dserver.ssl.key-store=/home/app/backend.p12 -Dserver.ssl.key-alias=backend -Dserver.ssl.enabled=true -Dserver.ssl.key-store-password=$RANDOM_STR -Dserver.port=8443 -jar springwebdemo.jar  --spring.config.location=/home/app/config.yml,/home/app/database.yml

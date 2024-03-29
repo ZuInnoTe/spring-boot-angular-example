@@ -12,10 +12,15 @@ RUN useradd -d $DEDICATED_USER_WORKDIR -s /bin/false -g $DEDICATED_USER $DEDICAT
 # deactivate login
 RUN passwd -l $DEDICATED_USER
 RUN chown $DEDICATED_USER:$DEDICATED_USER $DEDICATED_USER_WORKDIR
+# security hardening: make read only
+RUN chown -R 0400 $DEDICATED_USER_WORKDIR
 
 # Copy run script
 COPY scripts/run-app.sh /home/$DEDICATED_USER/run-app.sh
 RUN chmod +x /home/$DEDICATED_USER/run-app.sh
+
+# Copy config
+COPY config/config-postgres.yml /home/$DEDICATED_USER/config.yml
 
 # Copy Application
 COPY build/libs/springwebdemo-0.0.1.jar /home/$DEDICATED_USER/springwebdemo.jar
