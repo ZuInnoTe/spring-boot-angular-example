@@ -61,3 +61,11 @@ For example, on AWS you can choose [AWS Fargate](https://docs.aws.amazon.com/Ama
 
 Of course you can use any other monitoring stack to do essentially the same.
 
+# Load balancer and web application firewall
+You should configure a [load balancer](https://en.wikipedia.org/wiki/Load_balancing_(computing)) for high availability and meeting your users demands. This may also mean to have a cache deployed for the session management. There are various way on how you can configure a load balancer - from a self-managed one (e.g. NGINX, Apache HTTPD, Traefik) to a cloud managed one (e.g. AWS Application Load Balancer). Usually the load balancer take also care that traffic is not redirected to unhealthy nodes (e.g. overwhelmed web application instances). You need to keep the software of the load balancer up-to-date to have the latest security fixes, support latest encryption algorithms and performance benefits.
+
+Note: You should ALWAYS encrypt traffic (TLS) between backend and load balancer as well as between load balancer and browser. Nowadays it is NOT acceptable anymore to have anywhere unencrypted traffic (even in the own data centre).
+
+Additionally you should configure a [web application firewall](https://en.wikipedia.org/wiki/Web_application_firewall) (WAF) (often you have this as an additional module to your load balancer). Keep the WAF up-to-date - this includes the software, but also the rules. The rules change continuously! You find an updated ruleset by OWASP [here](https://coreruleset.org/). Choose the right [paranoia level](https://coreruleset.org/docs/concepts/paranoia_levels/) of your rules. Usually paranoia level describe the trade-off between false positives and false negatives. The more your application needs protection (e.g. processing of sensitive or personal data) the higher the level should be.
+
+If your application is exposed to the Internet then you should seek for mechanism for protecting against [Distributed Denial of Service](https://en.wikipedia.org/wiki/Denial-of-service_attack) (DDoS) attacks.
