@@ -67,3 +67,15 @@ By default we configured asynchronous logging for all loggers as according to th
 We defined this in [../src/main/resources/log4j2.component.properties](../src/main/resources/log4j2.component.properties)
 
 It can make sense to configure certain loggers for certain classes/packages as synchronous (e.g. for audit logging). See the log4j2 documentation how to do this.
+# Security
+## General
+We use Spring Boot Security defaults with [Spring Http Firewall](https://docs.spring.io/spring-security/reference/servlet/exploits/firewall.html) Strict mode (default).
+## Cross-Site Request Forgery (CSRF) token
+We activated Cross-Site Request Forgery (CSRF) Protection (see [../src/main/java/eu/zuinnote/example/springwebdemo/configuration/](../src/main/java/eu/zuinnote/example/springwebdemo/configuration/)):
+* We opt-in for additional [BREACH](https://en.wikipedia.org/wiki/BREACH) protection.
+* We opt-out of deferred loading of CSRF token, ie the CSRF token is refreshed each page request. The reason is that it can cause some issues with certain authentication methods (e.g. SAML2) after returning from the IDP website (afterwards it would work normal).
+* We make the CSRF token available in a Javascript-accessible token (see [here](https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-javascript)). Otherwise [XMLHttpRequests](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) (XHR) would not be possible. However, they are needed so that the frontend can talk with the backend. 
+
+More information can be found in the [Spring Security CSRF documentation](https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html).
+
+Note: This is also configured in the frontend (see [../../frontend/docs/ARCHITECTURE.md](../../frontend/docs/ARCHITECTURE.md)), so it includes the CSRF token automatically in all requests.

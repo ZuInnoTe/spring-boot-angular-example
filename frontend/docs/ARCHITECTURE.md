@@ -34,6 +34,12 @@ There are some other services, such as the LoggingService, to provide a centrali
 
 You find the services in [../src/app/services/](../src/app/services/).
 
+# Global HTTP Error interceptor
+
+We configure a global HTTP Error interceptor, so that any requests (e.g. to the backend) that fail with a HTTP Status Code indicating an error, are showing in the UI using the Angular Material Snackbar. Thus, one does not need to configure this per service reducing a lot of redundant code.
+
+See [../src/app/services/globalerrorhandler/](../src/app/services/globalerrorhandler/).
+
 # Logger
 
 We provide a LoggingService centrally so you can easily change the logging implementation (e.g. instead of displaying logs in the browser console you can also send them to a backend endpoint to analzye them).
