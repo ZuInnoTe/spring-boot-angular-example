@@ -12,12 +12,12 @@ spring:
           myidp: # you can configure multiple idps here
             signing:
               credentials:
-                - private-key-location: file:/home/app/saml-signing.key # never put the key in the container image - dynamically load it from a secret vault when running the application
-                  certificate-location: file:/home/app/saml-signing.crt # never put the key in the container image - dynamically load it from a secret vault when running the application
+                - private-key-location: file:/home/app/saml-signing.key # never put the key in the container image - dynamically load it from a secret vault when running the application. See: https://codeberg.org/ZuInnoTe/spring-boot-angular-example/src/branch/main/container/scripts/run-app.sh
+                  certificate-location: file:/home/app/saml-signing.crt # never put the key in the container image - dynamically load it from a secret vault when running the application.  See: https://codeberg.org/ZuInnoTe/spring-boot-angular-example/src/branch/main/container/scripts/run-app.sh
             decryption: # do not use encryption, because encryption is about the certificate of the IdP and provided in the asserting party metadata uri. Decryption is about the key for the application to encrypt SAML messages for the application
               credentials:
-                - private-key-location: file:/home/app/saml-encryption.key # never put the key in the container image - dynamically load it from a secret vault when running the application
-                  certificate-location: file:/home/app/saml-encryption.crt # never put the key in the container image - dynamically load it from a secret vault when running the application
+                - private-key-location: file:/home/app/saml-encryption.key # never put the key in the container image - dynamically load it from a secret vault when running the application.  See: https://codeberg.org/ZuInnoTe/spring-boot-angular-example/src/branch/main/container/scripts/run-app.sh
+                  certificate-location: file:/home/app/saml-encryption.crt # never put the key in the container image - dynamically load it from a secret vault when running the application.  See: https://codeberg.org/ZuInnoTe/spring-boot-angular-example/src/branch/main/container/scripts/run-app.sh
             singlelogout:
               binding: POST
               response-url: "{baseUrl}/logout/saml2/slo"

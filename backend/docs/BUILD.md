@@ -78,7 +78,7 @@ We do not show it here, but as a good practice which is also recommended by Spri
 
 One of those tools is [Liquibase](https://www.liquibase.com/). It offers also integration with [Spring Boot](https://contribute.liquibase.com/extensions-integrations/directory/integration-docs/springboot/).
 
-Another tools is [Flyway](https://flywaydb.org/).
+Another tool is [Flyway](https://flywaydb.org/).
 
 See [here](https://www.baeldung.com/liquibase-vs-flyway) a comparison between the two.
 

@@ -6,7 +6,7 @@ spring:
   profiles: # important!
     active: "oidc"
   security:
-    oauth2:
+    oauth2: # Remove this from the configuration (it is just an example) to avoid that this is leaked to the code repository and inject them dyamically during runtime. See: https://codeberg.org/ZuInnoTe/spring-boot-angular-example/src/branch/main/container/scripts/run-app.sh
       client:
         registration: 
           oidcidp: 
