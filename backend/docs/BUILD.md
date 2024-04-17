@@ -102,4 +102,6 @@ You can check if there is an update to your dependencies by running:
 
 The command has also other features (e.g. generate a report in different formats). Please check directly [its documentation](https://github.com/ben-manes/gradle-versions-plugin).
 
-Note: If your dependency has reached end-of-life (EOL), ie it is not maintained anymore, then this will command will NOT inform you. You need then check regularly if you dependencies have reached end-of-life and find alternatives yourself.
+Note: If your dependency has reached end-of-life (EOL), ie it is not maintained anymore, then this will command will NOT inform you. You need then check regularly if you dependencies have reached end-of-life (e.g. on their web sites) and find alternatives yourself.
+
+You can partially find end-of-life dates on the crowd-sourced website https://endoflife.date

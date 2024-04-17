@@ -5,11 +5,13 @@ spring:
       enabled: true # since JDK 21 LTS supported. Can reduce memory consumption and response time in high-traffic scenarios
   profiles: # important!
     active: "oidc"
-  security:
-    oauth2: # Remove this from the configuration (it is just an example) to avoid that this is leaked to the code repository and inject them dyamically during runtime. See: https://codeberg.org/ZuInnoTe/spring-boot-angular-example/src/branch/main/container/scripts/run-app.sh
+  security: # More Oauth2 properties: https://docs.spring.io/spring-security/reference/servlet/oauth2/login/core.html
+     oauth2: # Remove this from the configuration (it is just an example) to avoid that this is leaked to the code repository and inject them dyamically during runtime. See: https://codeberg.org/ZuInnoTe/spring-boot-angular-example/src/branch/main/container/scripts/run-app.sh
       client:
         registration: 
           oidcidp: 
+            redirect-uri: <your application uri> # put here the URI of your own application
+            authorization-grant-type: authorization_code # there are others - make sure you use the most secure for your use case. See also: https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html
             client-id: <client-id>  # Do not store in version repository - inject them dynamically during runtime
             client-secret: <secret> # Do not store in version repository - inject them dynamically during runtime
         provider:
