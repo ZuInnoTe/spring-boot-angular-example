@@ -14,9 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.0.2] - 2024-04-22
+### Changed
+* Backend: Updated Spring Boot to 3.2.5, Bouncycastle to 1.78.1
 
-
-## [0.0.1] - 2024-04-30
+## [0.0.1] - 2024-03-30
 
 ### Added
 * Initial version of the application with documentation
