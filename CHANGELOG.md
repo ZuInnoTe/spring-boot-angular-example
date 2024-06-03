@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-
+* Backend: Added [CycloneDX Gradle Plugin](https://github.com/CycloneDX/cyclonedx-gradle-plugin) to support [Software Bill of Material](https://en.wikipedia.org/wiki/Software_supply_chain) (SBOM)
 ### Changed
 
 
