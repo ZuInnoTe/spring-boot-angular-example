@@ -14,9 +14,11 @@ spring:
             authorization-grant-type: authorization_code # there are others - make sure you use the most secure for your use case. See also: https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html
             client-id: <client-id>  # Do not store in version repository - inject them dynamically during runtime
             client-secret: <secret> # Do not store in version repository - inject them dynamically during runtime
+            scope: openid # refers to the scope. There can be others such as profile,email,address and possibly custom ones
         provider:
            oidcidp:
-            issuer-uri: <issuer-uri> # idp metadata uri for auto-configuration. See https://docs.spring.io/spring-security/reference/servlet/oauth2/login/core.html#oauth2login-sample-application-config 
+            issuer-uri: <issuer-uri> # idp metadata uri for auto-configuration. See https://docs.spring.io/spring-security/reference/servlet/oauth2/login/core.html#oauth2login-sample-application-config
+            user-name-attribute: sub # needs to refer to the claim containing the unique user id, this is specific to the oauth provider
 logging:
     level:
         root: "warn"
