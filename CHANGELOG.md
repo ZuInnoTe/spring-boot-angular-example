@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Backend: Upgraded to [Gradle 8.8](https://docs.gradle.org/8.8/release-notes.html)
 ### Changed
 * Backend: Change content security policy (CSP) to use [upgrade-insecure-requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests), because [block-all-mixed-content](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content) has been deprecated.
+* Backend: Refactor SecurityConfiguration to avoid redundant code
+* Backend/Frontend: CSP remove unsafe-inline from script-src and style-src and replace it with a [nonce-based security mechanism](https://v17.angular.io/guide/security#content-security-policy)
 
 
 ### Removed

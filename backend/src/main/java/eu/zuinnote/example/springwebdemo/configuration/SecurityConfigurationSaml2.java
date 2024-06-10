@@ -3,11 +3,6 @@ package eu.zuinnote.example.springwebdemo.configuration;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 import eu.zuinnote.example.springwebdemo.configuration.application.ApplicationConfig;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Set;
 import lombok.extern.log4j.Log4j2;
 import org.opensaml.core.xml.XMLObject;
@@ -33,14 +28,6 @@ import org.springframework.security.saml2.provider.service.web.DefaultRelyingPar
 import org.springframework.security.saml2.provider.service.web.Saml2MetadataFilter;
 import org.springframework.security.saml2.provider.service.web.authentication.Saml2WebSsoAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.security.web.csrf.CsrfTokenRequestHandler;
-import org.springframework.security.web.csrf.XorCsrfTokenRequestAttributeHandler;
-import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy;
-import org.springframework.security.web.header.writers.StaticHeadersWriter;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 /** SAML2 Security Configuration. Use this when you deploy to an environment */
 @Configuration
@@ -50,6 +37,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class SecurityConfigurationSaml2 {
 
     @Autowired ApplicationConfig config;
+    @Autowired GeneralSecurityConfiguration generalSecurityConfiguration;
 
     @Autowired RelyingPartyRegistrationRepository relyingPartyRegistrationRepository;
 
@@ -131,94 +119,8 @@ public class SecurityConfigurationSaml2 {
                     .saml2Logout(withDefaults());
         }
 
-        // security headers
-        // csp
-        http.headers(
-                        headers ->
-                                headers.contentSecurityPolicy(
-                                        csp ->
-                                                csp.policyDirectives(
-                                                        config.getHttps().getHeaders().getCsp())))
-                // permission policy
-                .headers(
-                        headers ->
-                                headers.permissionsPolicy(
-                                        permissions ->
-                                                permissions.policy(
-                                                        config.getHttps()
-                                                                .getHeaders()
-                                                                .getPermissionPolicy())))
-                // referrer policy
-                .headers(
-                        headers ->
-                                headers.referrerPolicy(
-                                        permissions ->
-                                                permissions.policy(
-                                                        ReferrerPolicy.get(
-                                                                config.getHttps()
-                                                                        .getHeaders()
-                                                                        .getReferrerPolicy()))))
-                // Cross Origin Embedder Policy (COEP)
-                .headers(
-                        headers ->
-                                headers.addHeaderWriter(
-                                        new StaticHeadersWriter(
-                                                "Cross-Origin-Embedder-Policy",
-                                                config.getHttps().getHeaders().getCoep())))
-                // Cross Origin Opener Policy (COOP)
-                .headers(
-                        headers ->
-                                headers.addHeaderWriter(
-                                        new StaticHeadersWriter(
-                                                "Cross-Origin-Opener-Policy",
-                                                config.getHttps().getHeaders().getCoop())))
-
-                // Cross Origin Resource Policy (CORP)
-                .headers(
-                        headers ->
-                                headers.addHeaderWriter(
-                                        new StaticHeadersWriter(
-                                                "Cross-Origin-Resource-Policy",
-                                                config.getHttps().getHeaders().getCorp())));
-
-        // Activate CSRF - we need for Angular currently the CSFR token also in a Javascript
-        // accessible cookie
-        // currently we opt in to BREACH protection and opt out to defer loading. The reason is that
-        // otherwise we receive a CSFR 403 issue after the first post by Javascript after saml login
-        // https://docs.spring.io/spring-security/reference/features/exploits/csrf.html
-
-        CookieCsrfTokenRepository tokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
-        XorCsrfTokenRequestAttributeHandler delegate = new XorCsrfTokenRequestAttributeHandler();
-
-        // set the name of the attribute the CsrfToken will be populated on
-        delegate.setCsrfRequestAttributeName("_csrf");
-
-        // Use only the handle() method of XorCsrfTokenRequestAttributeHandler and the
-        // default implementation of resolveCsrfTokenValue() from CsrfTokenRequestHandler
-        CsrfTokenRequestHandler requestHandler = delegate::handle;
-
-        http.csrf(
-                        (csrf) ->
-                                csrf.csrfTokenRepository(tokenRepository)
-                                        .csrfTokenRequestHandler(requestHandler))
-                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
+        this.generalSecurityConfiguration.setGeneralHttpSecurityConfiguration(http);
         return http.build();
-    }
-
-    // We have to add this filter to refresh the CSFR token every time - otherwise the first post
-    // after SAML login will fail
-    private static final class CsrfCookieFilter extends OncePerRequestFilter {
-
-        @Override
-        protected void doFilterInternal(
-                HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-                throws ServletException, IOException {
-            CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
-            // Render the token value to a cookie by causing the deferred token to be loaded
-            csrfToken.getToken();
-
-            filterChain.doFilter(request, response);
-        }
     }
 
     /**
