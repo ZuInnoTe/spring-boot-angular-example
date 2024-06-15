@@ -31,7 +31,7 @@ public class SecurityConfigurationDev {
 
     @Bean
     SecurityFilterChain app(HttpSecurity http) throws Exception {
-        this.log.info(
+        this.log.warn(
                 "Configuring application security for development - Do NOT use in production");
         this.generalSecurityConfiguration.setGeneralHttpSecurityConfiguration(http);
 

@@ -14,6 +14,7 @@ public class SpringWebSPAController {
 
     SpringWebSPAController() {}
 
+    /*** This controller is triggered if an Angular UI component (via Angular route that we configured on /ui/**) is called. The goal is that the Angular component is shown and not a call to the backend is executed, e.g. if user calls in browser https://localhost:8080/ui/inventory directly to go directly to the inventory component) */
     @RequestMapping({"/ui/**"})
     public String delegateToClient() {
         return "forward:/index.html";

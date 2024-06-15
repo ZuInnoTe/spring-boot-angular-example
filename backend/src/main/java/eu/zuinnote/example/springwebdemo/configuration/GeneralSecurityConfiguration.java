@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -18,36 +19,34 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
-public final class GeneralSecurityConfiguration {
+@Log4j2
+public class GeneralSecurityConfiguration {
 
     @Autowired ApplicationConfig config;
 
+    /**
+     * We configure here general http security configuration, such as Csrf and HTTP security headers
+     *
+     * @param http
+     * @throws Exception
+     */
     public void setGeneralHttpSecurityConfiguration(HttpSecurity http) throws Exception {
-        // Cross Site Request Forgery (CSRF)
-        CookieCsrfTokenRepository tokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
-        CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
+        this.setCsrf(http);
+        this.setHttpSecurityHeaders(http);
+    }
 
-        // set the name of the attribute the CsrfToken will be populated on
-        requestHandler.setCsrfRequestAttributeName("_csrf");
-        // https://docs.spring.io/spring-security/reference/5.8/migration/servlet/exploits.html
-        // Use only the handle() method of XorCsrfTokenRequestAttributeHandler and the
-        // default implementation of resolveCsrfTokenValue() from CsrfTokenRequestHandler
-        http.csrf(
-                        (csrf) ->
-                                csrf.csrfTokenRepository(tokenRepository)
-                                        .csrfTokenRequestHandler(requestHandler))
-                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
+    private void setHttpSecurityHeaders(HttpSecurity http) throws Exception {
         // HTTP Security Filters
         // security headers
         // csp
         http.headers(
-                        headers ->
-                                headers.contentSecurityPolicy(
-                                        csp ->
-                                                csp.policyDirectives(
-                                                        config.getHttps().getHeaders().getCsp())))
-                // permission policy
-                .headers(
+                headers ->
+                        headers.contentSecurityPolicy(
+                                csp ->
+                                        csp.policyDirectives(
+                                                config.getHttps().getHeaders().getCsp())));
+        // permission policy
+        http.headers(
                         headers ->
                                 headers.permissionsPolicy(
                                         referrer ->
@@ -87,6 +86,23 @@ public final class GeneralSecurityConfiguration {
                                         new StaticHeadersWriter(
                                                 "Cross-Origin-Resource-Policy",
                                                 config.getHttps().getHeaders().getCorp())));
+    }
+
+    private void setCsrf(HttpSecurity http) throws Exception {
+        // Cross Site Request Forgery (CSRF)
+        CookieCsrfTokenRepository tokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+        CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
+
+        // set the name of the attribute the CsrfToken will be populated on
+        requestHandler.setCsrfRequestAttributeName("_csrf");
+        // https://docs.spring.io/spring-security/reference/5.8/migration/servlet/exploits.html
+        // Use only the handle() method of XorCsrfTokenRequestAttributeHandler and the
+        // default implementation of resolveCsrfTokenValue() from CsrfTokenRequestHandler
+        http.csrf(
+                        (csrf) ->
+                                csrf.csrfTokenRepository(tokenRepository)
+                                        .csrfTokenRequestHandler(requestHandler))
+                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
     }
 
     private static final class CsrfCookieFilter extends OncePerRequestFilter {
