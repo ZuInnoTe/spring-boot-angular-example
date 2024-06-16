@@ -262,7 +262,7 @@ Web Security Headers are an additional line of defense to enable specific protec
 
 You can customize some of the security headers of the application. Note: We do not make all headers customizable (e.g. CSFR) as they should be always on.
 
-Additionally: If you configure a Content-Security-Policy (CSP) with "script-src" and "style-src" as below then the [application adds for web frameworks](../src/main/java/eu/zuinnote/example/springwebdemo/configuration/SPACspNonceFilter.java) - like [Angular](https://v17.angular.io/guide/security#content-security-policy) - additionally a nonce and updates the [index.html](../../frontend/src/index.html) with the nonce by replacing the string ${cspNonce} with it. In this way you do not need to specify unsafe-inline.
+Additionally: If you configure a Content-Security-Policy (CSP) with "script-src" and "style-src" as below then the [application adds for web frameworks](../src/main/java/eu/zuinnote/example/springwebdemo/configuration/SPACspNonceFilter.java) - like [Angular](https://v17.angular.io/guide/security#content-security-policy) - additionally a nonce and updates the [index.html](../../frontend/src/index.html) dynamically each request with the securely random nonce by replacing the string ${cspNonce} with it. In this way you do not need to specify unsafe-inline.
 
 Example:
 ```
