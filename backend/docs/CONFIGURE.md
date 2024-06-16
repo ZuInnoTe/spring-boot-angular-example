@@ -262,13 +262,15 @@ Web Security Headers are an additional line of defense to enable specific protec
 
 You can customize some of the security headers of the application. Note: We do not make all headers customizable (e.g. CSFR) as they should be always on.
 
+Additionally: If you configure a Content-Security-Policy (CSP) with "script-src" and "style-src" as below then the [application adds for web frameworks](../src/main/java/eu/zuinnote/example/springwebdemo/configuration/SPACspNonceFilter.java) - like [Angular](https://v17.angular.io/guide/security#content-security-policy) - additionally a nonce and updates the [index.html](../../frontend/src/index.html) with the nonce by replacing the string ${cspNonce} with it. In this way you do not need to specify unsafe-inline.
+
 Example:
 ```
 application:
      https:
         headers:
           permissionPolicy: "accelerometer=(),  autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(),  encrypted-media=(),  fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(),  payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(),  hid=(), idle-detection=(), serial=(),  window-placement=()" 
-          csp: "default-src 'none'; base-uri 'self'; script-src 'unsafe-inline' 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'none'; child-src 'self'; form-action 'self'; frame-ancestors 'none'; navigate-to 'self'; block-all-mixed-content" # Currently the most strict policy available for Angular frontends
+          csp: "default-src 'none'; base-uri 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'none'; child-src 'self'; form-action 'self'; frame-ancestors 'none'; navigate-to 'self'; block-all-mixed-content" # Currently the most strict policy available for Angular frontends
           referrerPolicy: "no-referrer" # possible values: https://github.com/spring-projects/spring-security/blob/main/web/src/main/java/org/springframework/security/web/header/writers/ReferrerPolicyHeaderWriter.java#L101
           coep: "require-corp; report-to=\"default\""
           coop: "same-origin; report-to=\"default\""
