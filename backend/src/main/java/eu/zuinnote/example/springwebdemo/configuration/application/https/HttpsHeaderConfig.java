@@ -6,8 +6,9 @@ import org.springframework.validation.annotation.Validated;
 public class HttpsHeaderConfig {
     private String permissionPolicy;
     private String csp;
-    private String cspNonceFilterPath;
+    private String[] cspNonceFilterPath;
     private String cspNonceFilterValue;
+    private String cspSPAPage;
     private String referrerPolicy;
     private String coep;
     private String coop;
@@ -29,12 +30,20 @@ public class HttpsHeaderConfig {
         this.csp = csp;
     }
 
-    public String getCspNonceFilterPath() {
+    public String[] getCspNonceFilterPath() {
         return cspNonceFilterPath;
     }
 
-    public void setCspNonceFilterPath(String cspNonceFilterPath) {
+    public void setCspNonceFilterPath(String[] cspNonceFilterPath) {
         this.cspNonceFilterPath = cspNonceFilterPath;
+    }
+
+    public String getCspSPAPage() {
+        return cspSPAPage;
+    }
+
+    public void setCspSPAPage(String cspSPAPage) {
+        this.cspSPAPage = cspSPAPage;
     }
 
     public String getCspNonceFilterValue() {

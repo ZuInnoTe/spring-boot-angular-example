@@ -264,13 +264,18 @@ You can customize some of the security headers of the application. Note: We do n
 
 Additionally: If you configure a Content-Security-Policy (CSP) with "script-src" and "style-src" as below then the [application adds for web frameworks](../src/main/java/eu/zuinnote/example/springwebdemo/configuration/SPACspNonceFilter.java) - like [Angular](https://v17.angular.io/guide/security#content-security-policy) - additionally a nonce and updates the [index.html](../../frontend/src/index.html) dynamically each request with the securely random nonce by replacing the string ${cspNonce} with it. In this way you do not need to specify unsafe-inline.
 
+You can configure for this cspNonceFilterPath which is an array of regex expressions that match the application paths of the frontend (e.g. in our case it is /, /ui/.*). The backend then when this path matches read the SPA html page from the classpath defineed in configuration value cspSPAPage (e.g. public/index.html). Within this html page it replaces the text configured in cspNonceFilterValue (e.g. ${cspNonce}) dynamically with the randomly generated CSP nonce value of each request.
+
 Example:
 ```
 application:
      https:
         headers:
           permissionPolicy: "accelerometer=(),  autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(),  encrypted-media=(),  fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(),  payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(),  hid=(), idle-detection=(), serial=(),  window-placement=()" 
-          csp: "default-src 'none'; base-uri 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'none'; child-src 'self'; form-action 'self'; frame-ancestors 'none'; navigate-to 'self'; block-all-mixed-content" # Currently the most strict policy available for Angular frontends
+          csp: "default-src 'none'; base-uri 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'none'; child-src 'self' form-action 'self'; frame-ancestors 'none'; navigate-to 'self'; block-all-mixed-content" # Currently the most strict policy available for Angular frontends
+          cspNonceFilterPath: ["/","/ui/.*"]
+          cspNonceFilterValue: "${cspNonce}"
+          cspSPAPage: "public/index.html"
           referrerPolicy: "no-referrer" # possible values: https://github.com/spring-projects/spring-security/blob/main/web/src/main/java/org/springframework/security/web/header/writers/ReferrerPolicyHeaderWriter.java#L101
           coep: "require-corp; report-to=\"default\""
           coop: "same-origin; report-to=\"default\""
