@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * Backend: Change content security policy (CSP) to use [upgrade-insecure-requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests), because [block-all-mixed-content](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content) has been deprecated.
 * Backend: Refactor SecurityConfiguration to avoid redundant code
-* Backend/Frontend: CSP remove unsafe-inline from script-src and style-src and replace it with a [nonce-based security mechanism](https://angular.dev/best-practices/security#content-security-policy). This includes in the Backend a filter [SPACspNonceFilter.java](./backend/src/main/java/eu/zuinnote/example/springwebdemo/configuration/SPACspNonceFilter.java) that inejcts the nounce in the headers when requesting the Angular root component ("/") or directly an Angular frontend component ("/ui/*).
+* Backend/Frontend: CSP remove unsafe-inline from script-src and style-src and replace it with a [nonce-based security mechanism](https://angular.dev/best-practices/security#content-security-policy). This includes in the Backend a filter [SPACspNonceFilter.java](./backend/src/main/java/eu/zuinnote/example/springwebdemo/configuration/SPACspNonceFilter.java) that inejcts the nonce in the headers when requesting the Angular root component ("/") or directly an Angular frontend component ("/ui/*).
 
 
 ## [0.0.3] - 2024-05-25
