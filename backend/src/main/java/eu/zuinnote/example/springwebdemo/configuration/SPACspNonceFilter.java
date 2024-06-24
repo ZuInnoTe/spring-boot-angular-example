@@ -1,3 +1,8 @@
+/**
+ * Filter for requests to the Single-Page-Application (SPA) frontend to inject a
+ * Content-Security-Policy (CSP) secure random nonce on each request for script-src and style-src:
+ * https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce
+ */
 package eu.zuinnote.example.springwebdemo.configuration;
 
 import eu.zuinnote.example.springwebdemo.configuration.application.ApplicationConfig;

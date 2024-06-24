@@ -10,7 +10,7 @@ plugins {
 }
 
 group = 'eu.zuinnote.example.springangular'
-version = '0.0.4-SNAPSHOT'
+version = '0.0.5-SNAPSHOT'
 
 java {
     sourceCompatibility = '21'

@@ -6,8 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.0.5] - 2024-06-24
 ### Added
 * Backend: Make options for CSP script-src and style-src nonce more configurable. See [documentation](./backend/docs/CONFIGURE.md).
+### Changed
+* Backend: Register the BouncyCastleProvider for security algorithms (needed for SAML authentication). See [./backend/src/main/java/eu/zuinnote/example/springwebdemo/SpringwebdemoApplication.java](./backend/src/main/java/eu/zuinnote/example/springwebdemo/SpringwebdemoApplication.java).
+
+
 
 ## [0.0.4] - 2024-06-15
 ### Added
@@ -16,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * Backend: Change content security policy (CSP) to use [upgrade-insecure-requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests), because [block-all-mixed-content](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content) has been deprecated.
 * Backend: Refactor SecurityConfiguration to avoid redundant code
-* Backend/Frontend: CSP remove unsafe-inline from script-src and style-src and replace it with a [nonce-based security mechanism](https://v17.angular.io/guide/security#content-security-policy). This includes in the Backend a filter [SPACspNonceFilter.java](./backend/src/main/java/eu/zuinnote/example/springwebdemo/configuration/SPACspNonceFilter.java) that inejcts the nounce in the headers when requesting the Angular root component ("/") or directly an Angular frontend component ("/ui/*).
+* Backend/Frontend: CSP remove unsafe-inline from script-src and style-src and replace it with a [nonce-based security mechanism](https://angular.dev/best-practices/security#content-security-policy). This includes in the Backend a filter [SPACspNonceFilter.java](./backend/src/main/java/eu/zuinnote/example/springwebdemo/configuration/SPACspNonceFilter.java) that inejcts the nounce in the headers when requesting the Angular root component ("/") or directly an Angular frontend component ("/ui/*).
 
 
 ## [0.0.3] - 2024-05-25
