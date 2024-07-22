@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 * Frontend: Update to [Angular 18.1.x](https://github.com/angular/angular/releases/tag/18.1.1)
-* Backend: Update to [Spring Boot 3.3.1](https://spring.io/blog/2024/06/20/spring-boot-3-3-1-available-now), [Spring Modulith 1.2.1](https://spring.io/blog/2024/06/21/spring-modulith-1-1-6-and-1-2-1-released)
+* Backend: Update to [Spring Boot 3.3.2](https://spring.io/blog/2024/07/18/spring-boot-3-3-2-available-now), [Spring Modulith 1.2.2](https://spring.io/blog/2024/06/21/spring-modulith-1-1-6-and-1-2-1-released)
 * Backend: Update to [Gradle 8.9](https://docs.gradle.org/8.9/release-notes.html), Spring Gradle Dependency Plugin 1.1.6, h2 2.3.230
 
 
