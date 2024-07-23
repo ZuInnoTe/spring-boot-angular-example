@@ -22,12 +22,14 @@ public class OrderController {
     @GetMapping("/order/{id}")
     public Order getOrder(@PathVariable UUID id) {
         this.log.debug(String.format("Returning order for order id: %s", id));
-        return orders.findById(id);
+        // sanitze for malicious HTML/scripts
+        return orders.findById(id).sanitize();
     }
 
     @GetMapping("/order")
     public Page<Order> getAllOrders(Pageable pageable) {
         this.log.debug("Returning all orders");
-        return orders.findAll(pageable);
+        // sanitize for malicious HTML/scripts
+        return orders.findAll(pageable).map(order -> order.sanitize());
     }
 }

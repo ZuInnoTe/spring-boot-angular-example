@@ -22,12 +22,14 @@ public class InventoryController {
     @GetMapping("/product/{id}")
     public Product getProduct(@PathVariable UUID id) {
         this.log.debug(String.format("Returning product for product id: %s", id));
-        return products.findById(id);
+        // sanitze for malicious HTML/scripts
+        return products.findById(id).sanitize();
     }
 
     @GetMapping("/product")
     public Page<Product> getAllProducts(Pageable pageable) {
         this.log.debug("Returning all products");
-        return products.findAll(pageable);
+        // sanitze for malicious HTML/scripts
+        return products.findAll(pageable).map(product -> product.sanitize());
     }
 }

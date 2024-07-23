@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.0.6] - 2024-07-23
+### Added
+* Backend: Sanitze DTOs to avoid that they contain malicious HTML/scripts. This is based on the [OWASP HTML Java Sanitizer](https://owasp.org/www-project-java-html-sanitizer/). See also [the documentation](./backend/docs/ARCHITECTURE.md). Note: The frontend in additions uses [Angular mechanism for sanitization](https://v17.angular.io/guide/security) and [content-security-policies](https://v17.angular.io/guide/security#content-security-policy) (CSP) without unsafe-* and [trusted types](https://v17.angular.io/guide/security#enforcing-trusted-types).
 ### Changed
 * Frontend: Update to [Angular 18.1.x](https://github.com/angular/angular/releases/tag/18.1.1)
 * Backend: Update to [Spring Boot 3.3.2](https://spring.io/blog/2024/07/18/spring-boot-3-3-2-available-now), [Spring Modulith 1.2.2](https://spring.io/blog/2024/06/21/spring-modulith-1-1-6-and-1-2-1-released)

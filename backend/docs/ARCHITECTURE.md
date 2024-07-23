@@ -70,6 +70,16 @@ It can make sense to configure certain loggers for certain classes/packages as s
 # Security
 ## General
 We use Spring Boot Security defaults with [Spring Http Firewall](https://docs.spring.io/spring-security/reference/servlet/exploits/firewall.html) Strict mode (default).
+## Input/Output Sanitization
+We provide input/output sanitization mechanisms based on the [OWASP HTML Java Sanitizer](https://owasp.org/www-project-java-html-sanitizer/). This sanitization removes malicious HTML/scripts from any text input from the user/output to the user. The idea is that you can sanitize any user input (e.g. new orders) before storing it in the database and to sanitize anything that comes from the database before returning it to the users. By doing so you can protect your users and your business from any harm coming from cross-site-scripting attacks (e.g. in our demo case malicious orders from customers or leaking of orders of other customers).
+
+One crucial aspect is where you do the sanitization. We configure the possible policies in a central singleton (see [../src/main/java/eu/zuinnote/example/springwebdemo/utility/SanitizerService.java](../src/main/java/eu/zuinnote/example/springwebdemo/utility/SanitizerService.java)). Then we provide in each DTO (e.g. [Product](../src/main/java/eu/zuinnote/example/springwebdemo/inventory/Product.java) or [Order](../src/main/java/eu/zuinnote/example/springwebdemo/order/Order.java)) a method sanitize that you can call when sanitization is needed (e.g. [InventoryController](../src/main/java/eu/zuinnote/example/springwebdemo/controller/InventoryController.java) or [OrderController](../src/main/java/eu/zuinnote/example/springwebdemo/controller/OrderController.java)). If you want to be very secure then you should not have a dedicated method sanitize in the DTO but sanitize in the controller, the get and setMethod directly. 
+
+Currently we use the default policy to not allow any HTML or scripts in text fields. You can customize it to allow certain things (e.g. allow HTML formatting, but no scripts). See the OWASP HTML Sanitizer documentation for [prepackaged and custom policies](https://github.com/OWASP/java-html-sanitizer/tree/main?tab=readme-ov-file#prepackaged-policies).
+
+***IMPORTANT: YOU ALWAYS NEED TO SANITZE IN BACKEND AND FRONTEND*** (see for frontend the [documentation](../../frontend/docs/ARCHITECTURE.md).
+
+Additionally, you should prevent SQL injection attacks. Normally Spring Data/JPA takes this into account, but if you do anything custom you may want to use the new [Spring JDBCClient](https://www.baeldung.com/spring-6-jdbcclient-api). This one automatically uses PreparedStatements to avoid SQL injection attacks (see [documentation](https://docs.spring.io/spring-boot/reference/data/sql.html#data.sql.jdbc-client)).
 ## Cross-Site Request Forgery (CSRF) token
 We activated Cross-Site Request Forgery (CSRF) Protection (see [../src/main/java/eu/zuinnote/example/springwebdemo/configuration/](../src/main/java/eu/zuinnote/example/springwebdemo/configuration/)):
 * We opt-in for additional [BREACH](https://en.wikipedia.org/wiki/BREACH) protection.

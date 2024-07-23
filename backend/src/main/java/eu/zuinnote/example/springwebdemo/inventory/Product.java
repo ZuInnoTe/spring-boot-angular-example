@@ -1,5 +1,6 @@
 package eu.zuinnote.example.springwebdemo.inventory;
 
+import eu.zuinnote.example.springwebdemo.utility.SanitizerService;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -40,5 +41,10 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Product sanitize() {
+        this.setName(SanitizerService.NO_HTML.sanitize(this.getName()));
+        return this;
     }
 }

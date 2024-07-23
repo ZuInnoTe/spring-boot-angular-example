@@ -44,4 +44,9 @@ public class Order {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+    public Order sanitize() {
+        this.setProduct(this.getProduct().sanitize());
+        return this;
+    }
 }
