@@ -64,9 +64,11 @@ The backend implements a mechanism for protecting against cross-site request for
 
 See [../src/main.ts](../src/main.ts).
 
-## Input Validation
+## Input/Output Sanitzation
 
-As a web frontend it is crucial that you do proper input/output validation in frontend AND backend. For the frontend the following mechanisms are relevant:
+As a web frontend it is crucial that you do proper input/output sanitization in frontend AND backend. For the frontend the following mechanisms are relevant:
 
 - Angular automated [built-in sanitization](https://angular.io/guide/security#sanitization-example)
 - Angular Content Security Policy [Trusted Types](https://angular.io/guide/security#enforcing-trusted-types). The policy is configured in the backend as Content-Security Policy. You can change it in [../../backend/src/main/resources/application.yml](../../backend/src/main/resources/application.yml) or if you use one of the example configurations [../../config/](../../config/)
+
+Note: You always need to ADDITIONALLY do sanitization in the backend (see [documentation](../../backend/docs/ARCHITECTURE.md)).
