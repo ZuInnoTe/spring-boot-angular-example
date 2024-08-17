@@ -1,6 +1,6 @@
 # Introduction
 
-We give here only a small excerpt of the architecture of the frontend in Angular. You are encouraged to read the [Angular documentation](https://angular.io/docs) and related documentation (e.g. [Angular Material documentation](https://material.angular.io/) or [Angular Security](https://angular.io/guide/security)).
+We give here only a small excerpt of the architecture of the frontend in Angular. You are encouraged to read the [Angular documentation](https://angular.dev/overview) and related documentation (e.g. [Angular Material documentation](https://material.angular.io/) or [Angular Security](https://angular.dev/best-practices/security)).
 
 Angular has a lot of features and it is time well-spend to read about them.
 
@@ -18,7 +18,7 @@ All static assets to be included in the frontend can be found in [../src/assets/
 
 # Standalone Components
 
-Since Angular 16 [Standalone components](https://angular.io/guide/standalone-components) have become the standard. This means each component declares their dependencies making the code easier to read and understand. Furthermore, the web page can be in certain cases faster rendered.
+Since Angular 16 [Standalone components](https://angular.dev/guide/components/importing#standalone-components) have become the standard. This means each component declares their dependencies making the code easier to read and understand. Furthermore, the web page can be in certain cases faster rendered.
 
 Hence, there is also no central app.module.ts as the dependencies are declared with the components directly.
 
@@ -28,7 +28,7 @@ You find all the components of the frontend in [../src/app/components/](../src/a
 
 # Services
 
-We use [Angular Services](https://angular.io/guide/architecture-services) to communicate in a central place with the endpoints provided by the backend application. This avoids reloading the same data from the backend by different components.
+We use [Angular Services](https://angular.dev/guide/di) to communicate in a central place with the endpoints provided by the backend application. This avoids reloading the same data from the backend by different components.
 
 There are some other services, such as the LoggingService, to provide a centralised way to use a logger that can be easily replaced by different logging implementations.
 
@@ -50,7 +50,7 @@ You can configure the log level for the whole application in [../src/main.ts](..
 
 # Accessibility
 
-You should take care to implement [accessibility](https://angular.io/guide/accessibility) in your application - this makes the application more usable for everyone.
+You should take care to implement [accessibility](https://angular.dev/best-practices/a11y) in your application - this makes the application more usable for everyone.
 
 # Security
 
@@ -68,7 +68,7 @@ See [../src/main.ts](../src/main.ts).
 
 As a web frontend it is crucial that you do proper input/output sanitization in frontend AND backend. For the frontend the following mechanisms are relevant:
 
-- Angular automated [built-in sanitization](https://angular.io/guide/security#sanitization-example)
-- Angular Content Security Policy [Trusted Types](https://angular.io/guide/security#enforcing-trusted-types). The policy is configured in the backend as Content-Security Policy. You can change it in [../../backend/src/main/resources/application.yml](../../backend/src/main/resources/application.yml) or if you use one of the example configurations [../../config/](../../config/)
+- Angular automated [built-in sanitization](https://angular.dev/best-practices/security#sanitization-example)
+- Angular Content Security Policy [Trusted Types](https://angular.dev/best-practices/security#enforcing-trusted-types). The policy is configured in the backend as Content-Security Policy. You can change it in [../../backend/src/main/resources/application.yml](../../backend/src/main/resources/application.yml) or if you use one of the example configurations [../../config/](../../config/)
 
 Note: You always need to ADDITIONALLY do sanitization in the backend (see [documentation](../../backend/docs/ARCHITECTURE.md)).

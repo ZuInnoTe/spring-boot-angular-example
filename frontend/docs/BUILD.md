@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-You need to have at least NodeJs 20 installed. We recommend to always use the last LTS
+You need to have at least NodeJs 20 installed. We recommend to always use the last Long-Term-Support (LTS) version of NodeJs
 
 ## Install dependencies
 
@@ -76,4 +76,4 @@ Note you can update to the latest Angular minor versions using:
 
 where <VERSION> is the current Angular major version you are using (e.g. 18).
 
-For upgrading Angular major versions see the Angular update page: https://update.angular.io/
+For upgrading Angular major versions see the Angular update page: https://angular.dev/update-guide
