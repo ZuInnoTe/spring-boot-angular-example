@@ -119,7 +119,10 @@ public class SecurityConfigurationSaml2 {
                     .saml2Logout(withDefaults());
         }
 
+        // set HTTP security headers
         this.generalSecurityConfiguration.setGeneralHttpSecurityConfiguration(http);
+        // automatically redirect from HTTP to HTTPS
+        this.generalSecurityConfiguration.setRequireSecure(http);
         return http.build();
     }
 

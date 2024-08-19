@@ -8,10 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 * Backend: Update to Gradle 8.10, Gradle Plugin CycloneDX 1.9.0, Dependencies: H2 2.3.232, Hibernate 6.6.0.Final
+* Backend: Automated redirect from HTTP to HTTPs using [requireChannel/requireSecure in SpringBoot](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/config/annotation/web/builders/HttpSecurity.html) for any request. Note: This is complementary to a content-security-policy (CSP) with upgrade-insecure-requests. Both should be used.
+* Frontend: Documentation: Change links to the new Angular.dev web page
+* Frontend: Update [Angular 18.2.0](https://github.com/angular/angular/releases/tag/18.2.0)
 
 ## [0.0.6] - 2024-07-23
 ### Added
-* Backend: Sanitze DTOs to avoid that they contain malicious HTML/scripts. This is based on the [OWASP HTML Java Sanitizer](https://owasp.org/www-project-java-html-sanitizer/). See also [the documentation](./backend/docs/ARCHITECTURE.md). Note: The frontend in additions uses [Angular mechanism for sanitization](https://v17.angular.io/guide/security) and [content-security-policies](https://v17.angular.io/guide/security#content-security-policy) (CSP) without unsafe-* and [trusted types](https://v17.angular.io/guide/security#enforcing-trusted-types).
+* Backend: Sanitze data transfer object (DTOs) (e.g. product,order) to avoid that they contain malicious HTML/scripts. This is based on the [OWASP HTML Java Sanitizer](https://owasp.org/www-project-java-html-sanitizer/). See also [the documentation](./backend/docs/ARCHITECTURE.md). Note: The frontend in additions uses [Angular mechanism for sanitization](https://angular.dev/best-practices/security) and [content-security-policies](https://angular.dev/best-practices/security#content-security-policy) (CSP) without unsafe-* and [trusted types](https://angular.dev/best-practices/security#enforcing-trusted-types).
 ### Changed
 * Frontend: Update to [Angular 18.1.x](https://github.com/angular/angular/releases/tag/18.1.1)
 * Backend: Update to [Spring Boot 3.3.2](https://spring.io/blog/2024/07/18/spring-boot-3-3-2-available-now), [Spring Modulith 1.2.2](https://spring.io/blog/2024/06/21/spring-modulith-1-1-6-and-1-2-1-released)

@@ -31,7 +31,10 @@ public class SecurityConfigurationOidc {
         // oidc
         http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
                 .oauth2Login(withDefaults());
+        // set HTTP security headers
         this.generalSecurityConfiguration.setGeneralHttpSecurityConfiguration(http);
+        // automatically redirect from HTTP to HTTPS
+        this.generalSecurityConfiguration.setRequireSecure(http);
         return http.build();
     }
 }

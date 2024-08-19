@@ -35,6 +35,16 @@ public class GeneralSecurityConfiguration {
         this.setHttpSecurityHeaders(http);
     }
 
+    /*
+     * Automatic redirect from HTTP to HTTPS
+     *
+     * @param http
+     * @throws Exception
+     */
+    public void setRequireSecure(HttpSecurity http) throws Exception {
+        http.requiresChannel((requiresChannel) -> requiresChannel.anyRequest().requiresSecure());
+    }
+
     private void setHttpSecurityHeaders(HttpSecurity http) throws Exception {
         // HTTP Security Filters
         // security headers
