@@ -40,6 +40,8 @@ This central Java class instantiated with the configuration values provided in a
 @Autowired ApplicationConfig config;
 ```
 
+See also [CONFIGURE.md](./CONFIGURE.md)
+
 # Single Page Application
 The frontend is a Single Page Application (SPA) written in Angular. In Angular (and also in many other frameworks) the concept of routes exists, i.e. the URL is changed to redirect the user at the frontend to different frontend views (components). This leads to a situation, where the backend interprets those as requests to the backend, which is incorrect.
 
@@ -77,7 +79,7 @@ One crucial aspect is where you do the sanitization. We configure the possible p
 
 Currently we use the default policy to not allow any HTML or scripts in text fields. You can customize it to allow certain things (e.g. allow HTML formatting, but no scripts). See the OWASP HTML Sanitizer documentation for [prepackaged and custom policies](https://github.com/OWASP/java-html-sanitizer/tree/main?tab=readme-ov-file#prepackaged-policies).
 
-***IMPORTANT: YOU ALWAYS NEED TO SANITZE IN BACKEND AND FRONTEND*** (see for frontend the [documentation](../../frontend/docs/ARCHITECTURE.md).
+***IMPORTANT: YOU ALWAYS NEED TO SANITZE IN BACKEND AND FRONTEND*** (see for frontend the [documentation](../../frontend/docs/ARCHITECTURE.md)).
 
 Additionally, you should prevent SQL injection attacks. Normally Spring Data/JPA takes this into account, but if you do anything custom you may want to use the new [Spring JDBCClient](https://www.baeldung.com/spring-6-jdbcclient-api). This one automatically uses PreparedStatements to avoid SQL injection attacks (see [documentation](https://docs.spring.io/spring-boot/reference/data/sql.html#data.sql.jdbc-client)).
 ## Cross-Site Request Forgery (CSRF) token

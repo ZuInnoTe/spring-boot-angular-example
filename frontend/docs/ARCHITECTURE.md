@@ -58,6 +58,10 @@ You should take care to implement [accessibility](https://angular.dev/best-pract
 
 The backend emits content security policy HTTP headers. They are very strict and aim at avoiding XSS attacks and stealing user data/credentials. This may have impact on developing the frontend. However, instead of relaxing rules you should aim at making the frontend code compliant with those secrity rules.
 
+The application supports strict content-security-policies ***WITHOUT*** unsafe-*. We do so by letting the backend insert every request to the frontend a random nonce (see [backend documentation9](../../backend/docs/CONFIGURE.md)) that is included by the frontend to protect the scripts by using Angulars [ngCspNonce](https://angular.dev/best-practices/security#content-security-policy) mechanism (first one).
+
+For that we defined a placeholder "${cspNonce}" in [index.html](../src/index.html) that is replaced by a random nonce by the backend on every request.
+
 ## CSFR Token
 
 The backend implements a mechanism for protecting against cross-site request forgery attacks. We configured Angular so that it can properly read and use those tokens.
