@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-* Backend: Update to Gradle 8.10, Gradle Plugin CycloneDX 1.9.0, Dependencies: H2 2.3.232, Hibernate 6.6.0.Final
+* Backend: Update to Gradle 8.10.1, Gradle Plugin CycloneDX 1.10.0, Dependencies: H2 2.3.232, Hibernate 6.6.1.Final, [Spring Boot 3.3.4](https://spring.io/blog/2024/09/19/spring-boot-3-3-4-available-now), Spring Modulith 1.2.3
 * Backend: Automated redirect from HTTP to HTTPs using [requireChannel/requireSecure in SpringBoot](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/config/annotation/web/builders/HttpSecurity.html) for any request. Note: This is complementary to a content-security-policy (CSP) with upgrade-insecure-requests. Both should be used.
 * Frontend: Documentation: Change links to the new Angular.dev web page
 * Frontend: Update [Angular 18.2.0](https://github.com/angular/angular/releases/tag/18.2.0)
