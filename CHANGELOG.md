@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Backend: Automated redirect from HTTP to HTTPs using [requireChannel/requireSecure in SpringBoot](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/config/annotation/web/builders/HttpSecurity.html) for any request. Note: This is complementary to a content-security-policy (CSP) with upgrade-insecure-requests. Both should be used.
 * Frontend: Documentation: Change links to the new Angular.dev web page
 * Frontend: Update [Angular 18.2.0](https://github.com/angular/angular/releases/tag/18.2.0)
+* Frontend: add support for [Typedoc](https://typedoc.org/)
 
 ## [0.0.6] - 2024-07-23
 ### Added

@@ -29,6 +29,9 @@ node_modules/
 dist/
 test-results/
 
+# typedocs
+codedocs
+
 # IDE
 ## VSCodium / VS Code
 .vscode/*
