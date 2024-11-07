@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'maven-publish'
-    id 'org.springframework.boot' version '3.3.4'
+    id 'org.springframework.boot' version '3.3.5'
     id 'io.spring.dependency-management' version '1.1.6'
     id 'com.github.ben-manes.versions' version '0.51.0'
     id 'com.diffplug.spotless' version '6.25.0'
@@ -30,12 +30,12 @@ repositories {
 }
 
 ext {
-    set('springModulithVersion', "1.2.3")
+    set('springModulithVersion', "1.2.5")
     set('h2Version','2.3.232')
     set('ehcacheVersion','3.10.8')
     set('hibernateVersion','6.6.1.Final')
     set('disruptorVersion','4.0.0')
-    set('bcVersion','1.78.1')
+    set('bcVersion','1.79')
     set('owaspSanitizerVersion','20240325.1')
 }
 

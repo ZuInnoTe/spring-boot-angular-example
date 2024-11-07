@@ -34,7 +34,7 @@ export class SpringDataPageRequest {
 }
 
 /**
- * Converts a SpringDataPageRequest to HttpParams to be passed to a request to the backedn
+ * Converts a SpringDataPageRequest to HttpParams to be passed to a request to the backend
  *
  * @param pageable SpringDataPageRequest object
  * @returns object converted to HttpParams to be used in an Angular HttpClient
