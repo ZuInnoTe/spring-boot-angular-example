@@ -5,11 +5,10 @@ import { OrderService } from "../../services/orderservice/order.service";
 import { Order } from "../../services/orderservice/order.model";
 
 @Component({
-  selector: "app-order",
-  templateUrl: "./order.component.html",
-  styleUrls: ["./order.component.scss"],
-  standalone: true,
-  imports: [MatPaginatorModule, MatTableModule],
+    selector: "app-order",
+    templateUrl: "./order.component.html",
+    styleUrls: ["./order.component.scss"],
+    imports: [MatPaginatorModule, MatTableModule]
 })
 export class OrderComponent {
   displayedColumns: string[] = [

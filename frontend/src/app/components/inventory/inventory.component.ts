@@ -10,11 +10,10 @@ import {
 import { LoggingService } from "../../services/logging/logging.service";
 
 @Component({
-  selector: "app-inventory",
-  templateUrl: "./inventory.component.html",
-  styleUrls: ["./inventory.component.scss"],
-  standalone: true,
-  imports: [MatPaginatorModule, MatTableModule],
+    selector: "app-inventory",
+    templateUrl: "./inventory.component.html",
+    styleUrls: ["./inventory.component.scss"],
+    imports: [MatPaginatorModule, MatTableModule]
 })
 export class InventoryComponent {
   displayedColumns: string[] = ["id", "name", "price"];
