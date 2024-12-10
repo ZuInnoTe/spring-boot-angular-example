@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 * Backend: update to [Spring Boot 3.4.0](https://spring.io/blog/2024/11/21/spring-boot-3-4-0-available-now), Hibernate 6.6.3.Final, Spring Modulith 1.3.0
+* Frontend: update to nodejs 22 LTS for the build process
 
 ## [0.0.7] - 2024-11-20
 ### Changed
