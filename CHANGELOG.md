@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Backend: update to [Spring Boot 3.4.1](https://spring.io/blog/2024/12/19/spring-boot-3-4-1-available-now), Hibernate 6.6.4.Final, Spring Modulith 1.3.1
 * Backend: enable [Gradle Configuration Cache](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage:parallel)
 * Frontend: update to nodejs 22 LTS for the build process
-* Frontend: Update [Angular 19.0.5](https://github.com/angular/angular/releases/tag/19.0.5g)
+* Frontend: Update [Angular 19.0.5](https://github.com/angular/angular/releases/tag/19.0.5)
 
 ## [0.0.7] - 2024-11-20
 ### Changed
