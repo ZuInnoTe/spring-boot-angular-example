@@ -59,8 +59,8 @@ public class GeneralSecurityConfiguration {
         http.headers(
                         headers ->
                                 headers.permissionsPolicy(
-                                        referrer ->
-                                                referrer.policy(
+                                        permissions ->
+                                                permissions.policy(
                                                         config.getHttps()
                                                                 .getHeaders()
                                                                 .getPermissionPolicy())))
@@ -68,8 +68,8 @@ public class GeneralSecurityConfiguration {
                 .headers(
                         headers ->
                                 headers.referrerPolicy(
-                                        permissions ->
-                                                permissions.policy(
+                                        referrer ->
+                                                referrer.policy(
                                                         ReferrerPolicy.get(
                                                                 config.getHttps()
                                                                         .getHeaders()
