@@ -46,6 +46,16 @@ logging:
         root: "warn"
         org.springframework.web: "info"
         org.hibernate: "info"
+# actuator: be careful what you expose and only expose selected minimal health endpoints to authenticated specific users
+management:
+   endpoints:
+        jmx:
+           exposure:
+              exclude: "*"  # Do not expose any endpoint and carefully assess which one to expose as it can be a security risk
+        web:
+           exposure:
+              exclude: "*" # Do not expose any endpoint and carefully assess which one to expose as it can be a security risk
+        show-values: never # Redact sensitive values
 # Application configurations
 application:
      https:

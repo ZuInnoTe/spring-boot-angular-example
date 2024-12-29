@@ -218,6 +218,22 @@ By default we make all loggers asynchronously (see [../src/main/resources/log4j2
 
 It can make sense to configure logging for certain Java classes as synchronous (e.g. for audit purposes) and for others as asyncrhonous to beefit from higher performance.
 
+## Actuator
+Spring Actuator provides useful information on the health of an application. However, the information exposed can contain sensitive data (such as heap dumps). You should carefully assess which [Spring Actuator Endpoints you want to expose](https://docs.spring.io/spring-boot/reference/actuator/endpoints.html#actuator.endpoints.exposing). You should never expose them to unauthenticated users and never on the public Internet. Hence, we have in the default configuration all Spring Actuator endpoints deactivated and configure Actuator to sanitize sensitive data (does not help with heapdumps). Please read carefully the SpringBoot documentation if you want to enable one endpoint.
+
+```
+# actuator: be careful what you expose and only expose selected minimal health endpoints to authenticated specific users
+management:
+   endpoints:
+        jmx:
+           exposure:
+              exclude: "*"  # Do not expose any endpoint and carefully assess which one to expose as it can be a security risk
+        web:
+           exposure:
+              exclude: "*" # Do not expose any endpoint and carefully assess which one to expose as it can be a security risk
+        show-values: never # Redact sensitive values
+```
+
 # Application
 We described in the introduction how you can specify a file that contains the configuration of spring properties and application-specific properties. The following application-specific properties are available for this application.
 

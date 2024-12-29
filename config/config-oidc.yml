@@ -30,6 +30,16 @@ server:
   ssl:
     enabled-protocols: TLSv1.3
     ciphers: TLS_AES_256_GCM_SHA384,TLS_CHACHA20_POLY1305_SHA256
+# actuator: be careful what you expose and only expose selected minimal health endpoints to authenticated specific users
+management:
+   endpoints:
+        jmx:
+           exposure:
+              exclude: "*"  # Do not expose any endpoint and carefully assess which one to expose as it can be a security risk
+        web:
+           exposure:
+              exclude: "*" # Do not expose any endpoint and carefully assess which one to expose as it can be a security risk
+        show-values: never # Redact sensitive values
 # Application configurations
 application:
      oidc:

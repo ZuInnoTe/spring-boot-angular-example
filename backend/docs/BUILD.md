@@ -58,7 +58,7 @@ Tests are run during a build, but can be also triggered as follows:
 ./gradlew test
 ```
 
-# Generate Modulith Documentation & Module Testig
+# Generate Modulith Documentation & Module Testing
 During testing, we define certain [ModularityTests](../src/test/java/eu/zuinnote/example/springwebdemo/ModularityTests.java) that
 * Check if all modules have a well-defined interface and do not access private classes as well as different module interaction scenarios.
 * Generate module documentation (can be found in build/spring-modulith-docs).
