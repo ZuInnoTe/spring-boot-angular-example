@@ -40,6 +40,8 @@ management:
            exposure:
               exclude: "*" # Do not expose any endpoint and carefully assess which one to expose as it can be a security risk
         show-values: never # Redact sensitive values
+h2: # only for testing purposes
+  console.enabled: false
 # Application configurations
 application:
      oidc:
