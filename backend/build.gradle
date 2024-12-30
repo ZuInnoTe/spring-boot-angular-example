@@ -70,13 +70,13 @@ dependencies {
     implementation 'org.springframework.modulith:spring-modulith-starter-core'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    // database for local development (note: real database jdbc drivers should be included using implementation)
+    developmentOnly "com.h2database:h2:${h2Version}"
     // log4j2
     implementation "com.lmax:disruptor:${disruptorVersion}"
     // cache
     implementation "org.ehcache:ehcache:${ehcacheVersion}:jakarta"
     implementation "org.hibernate:hibernate-jcache:${hibernateVersion}"
-    // database
-    implementation "com.h2database:h2:${h2Version}"
     // runtime
     runtimeOnly 'org.springframework.modulith:spring-modulith-actuator'
     runtimeOnly 'org.springframework.modulith:spring-modulith-observability'
