@@ -8,6 +8,12 @@ You should have different environments for your application so that you do not i
 * Test - here developers and users do functional tests, integration tests, performance tests etc.
 * Production - here the application is provided to the end users to support them in their business tasks
 
+# Compute
+You will need to eventually run the application on a server. This can be, for example,
+* A virtual machine (VM) as a Linux service (e.g. using systemd)
+* A container on a VM that is run as a Linux service (e.g. use [podman-systemd](https://docs.podman.io/en/latest/markdown/podman-systemd.unit.5.html) (Quadlet)). This can be useful if your application needs to start up related containers on the same VM (e.g. [Web Application Firewall](https://en.wikipedia.org/wiki/Web_application_firewall) or an external cache). It can make sense to combine it with an immutable Linux operating system, such as [OpenSuse MicroOs](https://microos.opensuse.org/) to increase reliability and simplify operations.
+* Container scheduler (e.g. [Kata Containers](https://katacontainers.io/), cloud-vendor orcehstrators (e.g. [OVH Rancher](https://www.ovhcloud.com/en/learn/what-is-rancher/)) or cloud-vendor specific serverless offerings, such as [AWS Fargate](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html))
+
 # Secrets Management
 You should manage secrets (e.g. database passwords) in dedicated secret vaults and fetch them during runtime.
 
@@ -17,7 +23,7 @@ Secret vaults often also allow rotating  (changing) regularly secrets for an imp
 
 An example for a secret vault is [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/) or [HashiCorp Vault](https://developer.hashicorp.com/vault/docs).
 
-The best way would be though to avoid using secrets at all in your application. Cloud provider offer for this short-living tokens (e.g. AWS IAM Execution Roles or Azure Managed Identities). Their advantage is that you do not need to manage secrets anymore at all.
+The best way would be though to avoid using secrets at all in your application. Cloud provider offer for this short-living tokens (e.g. AWS IAM Roles or Azure Managed Identities). Their advantage is that you do not need to manage secrets anymore at all.
 
 Standards are emerging to enable this [cross-cloud](https://zuinnote.eu/blog/?p=2273).
 
