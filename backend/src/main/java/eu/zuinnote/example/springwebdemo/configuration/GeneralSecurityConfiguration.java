@@ -58,7 +58,7 @@ public class GeneralSecurityConfiguration {
         // permission policy
         http.headers(
                         headers ->
-                                headers.permissionsPolicy(
+                                headers.permissionsPolicyHeader(
                                         permissions ->
                                                 permissions.policy(
                                                         config.getHttps()
