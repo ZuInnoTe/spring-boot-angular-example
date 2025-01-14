@@ -91,3 +91,8 @@ We activated Cross-Site Request Forgery (CSRF) Protection (see [../src/main/java
 More information can be found in the [Spring Security CSRF documentation](https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html).
 
 Note: This is also configured in the frontend (see [../../frontend/docs/ARCHITECTURE.md](../../frontend/docs/ARCHITECTURE.md)), so it includes the CSRF token automatically in all requests.
+
+## Authentication and Authorisation
+The application supports [SAML2](https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language) and OAuth/[OIDC](https://en.wikipedia.org/wiki/OpenID) for authentication and authorisation. You can activate with a configuration one or both on the same instance.
+
+It is recommended for security reasons (i.e. no intermixing issues) to have only one of them per instance activated. If you need to support both you can configure also two instances.
