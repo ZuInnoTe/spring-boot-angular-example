@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Backend: Configure HTTP Security Header permission policy with .permissionsPolicyHeader as .permissionPolicy is deprecated
 * Backend: Gradle Plugins: Spring Dependency Plugin 1.1.7, Spotless 7.0.2, CycloneDX 2.0.0
 * Backend: Build tool Gradle 8.12, BouncyCastle 1.80
+* Frontend: Angular 19.1.1
 * Container: Remove JDK parameter for generational ZGC as it will be anyway the [only possible in upcoming JDKs](https://openjdk.org/jeps/474).
 
 ## [0.0.8] - 2024-12-23
