@@ -5,8 +5,8 @@ plugins {
     id 'org.springframework.boot' version '3.4.1'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'com.github.ben-manes.versions' version '0.51.0'
-    id 'com.diffplug.spotless' version '7.0.1'
-    id 'org.cyclonedx.bom' version '1.10.0'
+    id 'com.diffplug.spotless' version '7.0.2'
+    id 'org.cyclonedx.bom' version '2.0.0'
 }
 
 group = 'eu.zuinnote.example.springangular'
@@ -35,7 +35,7 @@ ext {
     set('ehcacheVersion','3.10.8')
     set('hibernateVersion','6.6.4.Final')
     set('disruptorVersion','4.0.0')
-    set('bcVersion','1.79')
+    set('bcVersion','1.80')
     set('owaspSanitizerVersion','20240325.1')
 }
 
