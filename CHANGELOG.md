@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Backend: Hardened configuration of actuator and [improved configuration documentation](./backend/docs/CONFIGURE.md) around it
 * Backend: Include H2 in-memory database only when using bootRun (Gradle: developmentOnly) and not when deploying as it is only for local development. Real database drivers (e.g. postgres JDBC) for production should be included using implementation.
 * Backend: Configure HTTP Security Header permission policy with .permissionsPolicyHeader as .permissionPolicy is deprecated
-* Backend: Gradle Plugins: Spring Dependency Plugin 1.1.7, Spotless 7.0.2, CycloneDX 2.0.0
+* Backend: Spring Boot 3.4.2, Spring Modulith 1.3.2
+* Backend: Gradle Plugins: Spring Dependency Plugin 1.1.7, Spotless 7.0.2, CycloneDX 2.0.0, Ben Names Update Plugin 0.52.0
 * Backend: Build tool Gradle 8.12, BouncyCastle 1.80
 * Frontend: Angular 19.1.1
 * Container: Remove JDK parameter for generational ZGC as it will be anyway the [only possible in upcoming JDKs](https://openjdk.org/jeps/474).
