@@ -125,7 +125,7 @@ public class SecurityConfigurationOidc {
                         this.config.getOidc().getMapper().getClaimsSeparatorMap();
                 if ((separatorMap != null)
                         && separatorMap.containsKey(
-                                claim)) { // check if we should parse the a list from the claim
+                                claim)) { // check if we should parse a list from the claim
                     String separator =
                             this.config.getOidc().getMapper().getClaimsSeparatorMap().get(claim);
 
