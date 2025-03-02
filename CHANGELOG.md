@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Backend: Spring Boot 3.4.3, Spring Modulith 1.3.2, Hibernate 6.6.8.Final
 * Backend: Gradle Plugins: Spring Dependency Plugin 1.1.7, Spotless 7.0.2, CycloneDX 2.1.0, Ben Names Update Plugin 0.52.0
 * Backend: Build tool Gradle 8.12, BouncyCastle 1.80
+* Backend: OIDC: Support extraction of claims from IdToken, EndUser Endpoint and end user attributes. Claims are converted to Granted Authorities (roles) thart can natively be used in Spring for authorizing access
 * Frontend: Angular 19.1.1
 * Container: Remove JDK parameter for generational ZGC as it will be anyway the [only possible in upcoming JDKs](https://openjdk.org/jeps/474).
 

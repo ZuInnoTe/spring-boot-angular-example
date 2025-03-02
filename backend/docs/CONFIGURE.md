@@ -261,18 +261,26 @@ Example:
 application:
   saml2:
        samlRoleAttributeName: "groups" # the SAML Assertation Attribute that contains the role(s)
-        samlRoleAttributeSeparator: "," # if the SAML Asseration Attribute value contains multiple roles then you can specify the separator (if the roles are in multiple attributes then you can ignore it)
+       samlRoleAttributeSeparator: "," # if the SAML Asseration Attribute value contains multiple roles then you can specify the separator (if the roles are in multiple attributes then you can ignore it)
 ```
 
 You can find a complete example in [](../../config/config-saml2.yml).
 
-## OIDC Role Mapping
-By default OIDC claims are made available as a Spring Authority with the prefix "SCOPE_". You can configure any other prefix as follows.
+## OIDC Claims to Role Mapping
+By default OIDC claims "scope, scp" are made available as a Spring Authority with the prefix "SCOPE_". These come from the [OIDC IdToken](https://openid.net/specs/openid-connect-core-1_0-final.html#StandardClaims). However, often additional claims are needed for Spring Security Authorities (roles), e.g. "groups" in a user directory. Those usually do not come from the OIDC IdToken, but only from the [UserInfo Endpoint](https://openid.net/specs/openid-connect-core-1_0-final.html#UserInfoResponse). You can configure here for both, IdToken and UserInfo endpoint, which claims should be mapped to Spring Security Authorities. Furthermore, you can configure for each claim how they are mapped to authorities. By default, it is assumed that the claims are JSON String arrays, but in case they are string you can define how they are extracted from the String using the claimsSeparatorMap. For example, lets assume the claim "groups" is returned by the UserInfo Endpoint as one String representing a comma-separated list groups. You can define as a separator the "," and the claim is then split accordingly so that you do not have the list of groups as one Spring Security Authority, but multiple representing each one of the groups.
 
+Independent of this you can also map user attributes to Spring Security Authorities.
+
+Finally, you can optionally define a prefix for each claim in the Spring Security Authorities. If you do not want any prefix just specify an empty String.
+```
      oidc:
         mapper: # map jwt claims to Spring Security authorities
-            jwtRoleClaims: ["scope","scp"] # JWT claims that contain authorities
-            authoritiesPrefix: "SCOPE_" # Prefix for Spring Security Authorities
+            jwtIdTokenClaims: ["scope","scp"] # claims from a standard OIDC IdToken https://openid.net/specs/openid-connect-core-1_0-final.html#StandardClaims
+            userClaims: ["groups"] # claims from the UserInfo OIDC Endpoint (https://openid.net/specs/openid-connect-core-1_0-final.html#UserInfoResponse)
+            userAttributes: [] # user attributes to be mapped to Spring Security Authorities
+            claimsSeparatorMap: {"scope": " ", "scp": " ", "groups": ","} # separator if claims are one string, otherwise a JSON array is assumed
+            authoritiesPrefix: "ROLE_" # Prefix for Spring Security Authorities
+```
 ## Web Security Headers
 Web Security Headers are an additional line of defense to enable specific protection mechanisms against attacks (e.g. cross-site scripting) in the browser of the user.
 
