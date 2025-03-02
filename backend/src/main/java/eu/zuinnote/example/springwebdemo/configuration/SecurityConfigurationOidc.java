@@ -148,8 +148,7 @@ public class SecurityConfigurationOidc {
                                         .map(SimpleGrantedAuthority::new)
                                         .collect(Collectors.toCollection(HashSet::new)));
             } else { // unknown type of claim cannot be processed
-                this.log.error(
-                        String.format("Error: Claim %s in %type has an unknown type", claim, type));
+                this.log.error(String.format("Claim %s in %type has an unknown type", claim, type));
             }
         }
         return result;
