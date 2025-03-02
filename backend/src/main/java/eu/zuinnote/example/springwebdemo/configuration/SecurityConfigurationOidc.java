@@ -79,12 +79,12 @@ public class SecurityConfigurationOidc {
                                         this.parseClaim("IdToken", idTokenClaim, claim));
                             }
                             // map all claims from the EndUser Endpoint
-                            for (String endUserEndpointClaim :
+                            for (String userEndpointClaim :
                                     this.config.getOidc().getMapper().getUserClaims()) {
-                                Object claim = userInfo.getClaim(endUserEndpointClaim);
+                                Object claim = userInfo.getClaim(userEndpointClaim);
                                 mappedAuthorities.addAll(
                                         this.parseClaim(
-                                                "EndUser Endpoint", endUserEndpointClaim, claim));
+                                                "EndUser Endpoint", userEndpointClaim, claim));
                             }
 
                         } else if (OAuth2UserAuthority.class.isInstance(authority)) {
@@ -99,8 +99,7 @@ public class SecurityConfigurationOidc {
                                     this.config.getOidc().getMapper().getUserAttributes()) {
                                 Object claim = userAttributes.get(userAttribute);
                                 mappedAuthorities.addAll(
-                                        this.parseClaim(
-                                                "EndUser Attributes", userAttribute, claim));
+                                        this.parseClaim("User Attributes", userAttribute, claim));
                             }
                         }
                     });
