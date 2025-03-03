@@ -272,6 +272,8 @@ By default OIDC claims "scope, scp" are made available as a Spring Authority wit
 Independent of this you can also map user attributes to Spring Security Authorities.
 
 Finally, you can optionally define a prefix for each claim in the Spring Security Authorities. If you do not want any prefix just specify an empty String.
+
+See [ARCHITECTURE.md](./ARCHITECTURE.md) on how to use the Spring Security Authorities to define permissions in your application.
 ```
      oidc:
         mapper: # map jwt claims to Spring Security authorities

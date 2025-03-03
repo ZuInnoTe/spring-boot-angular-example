@@ -96,3 +96,7 @@ Note: This is also configured in the frontend (see [../../frontend/docs/ARCHITEC
 The application supports [SAML2](https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language) and OAuth/[OIDC](https://en.wikipedia.org/wiki/OpenID) for authentication and authorisation. You can activate with a configuration one or both on the same instance.
 
 It is recommended for security reasons (i.e. no intermixing issues) to have only one of them per instance activated. If you need to support both you can configure also two instances.
+
+In both cases claims, such as roles or user attributes, are mapped to [Spring Security Authorities](https://docs.spring.io/spring-security/reference/servlet/authorization/architecture.html).
+
+See here how you can use the Spring Security Authorities to manage authorization by using [annotations on the methods](https://docs.spring.io/spring-security/reference/servlet/authorization/method-security.html#authorizing-with-annotations) or [endpoints](https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html#authorizing-endpoints).
