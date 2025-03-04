@@ -54,7 +54,7 @@ public class SecurityConfigurationOidc {
 
     /*
      * Custom OIDC claim to Spring GrantedAuthority  so that they can be used natively in Spring.
-     * 
+     *
      * Extracts OIDC claims from the IdToken, from the UserInfo Endpoint and the user attributes
      *
      * See: https://docs.spring.io/spring-security/reference/servlet/oauth2/login/advanced.html#oauth2login-advanced-map-authorities
