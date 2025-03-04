@@ -80,7 +80,7 @@ public class SecurityConfigurationOidc {
                                 mappedAuthorities.addAll(
                                         this.parseClaim("IdToken", idTokenClaim, claim));
                             }
-                            // map all claims from the EndUser Endpoint
+                            // map all claims from the UserInfo Endpoint
                             for (String userEndpointClaim :
                                     this.config.getOidc().getMapper().getUserClaims()) {
                                 Object claim = userInfo.getClaim(userEndpointClaim);
