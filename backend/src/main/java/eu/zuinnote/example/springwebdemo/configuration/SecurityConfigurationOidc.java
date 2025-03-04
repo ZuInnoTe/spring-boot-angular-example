@@ -105,7 +105,11 @@ public class SecurityConfigurationOidc {
                             }
                         }
                     });
-
+            if (this.log.isDebugEnabled()) {
+                for (GrantedAuthority grantedAuthority : mappedAuthorities) {
+                    this.log.debug("Found authority {}", grantedAuthority.getAuthority());
+                }
+            }
             return mappedAuthorities;
         };
     }
