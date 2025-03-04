@@ -9,8 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Backend: Hardened configuration of actuator and [improved configuration documentation](./backend/docs/CONFIGURE.md) around it
 * Backend: Include H2 in-memory database only when using bootRun (Gradle: developmentOnly) and not when deploying as it is only for local development. Real database drivers (e.g. postgres JDBC) for production should be included using implementation.
 * Backend: Configure HTTP Security Header permission policy with .permissionsPolicyHeader as .permissionPolicy is deprecated
+* Backend: Gradle 8.13
 * Backend: Spring Boot 3.4.3, Spring Modulith 1.3.2, Hibernate 6.6.8.Final
-* Backend: Gradle Plugins: Spring Dependency Plugin 1.1.7, Spotless 7.0.2, CycloneDX 2.1.0, Ben Names Update Plugin 0.52.0
+* Backend: Gradle Plugins: Spring Dependency Plugin 1.1.7, Spotless 7.0.2, Spotless googleJavaFormat 1.25.2, CycloneDX 2.1.0, Ben Names Update Plugin 0.52.0, jacoco 0.8.12
 * Backend: Build tool Gradle 8.12, BouncyCastle 1.80
 * Backend: OIDC: Support extraction of claims from IdToken, EndUser Endpoint and end user attributes. Claims are converted to Granted Authorities (roles) thart can natively be used in Spring for authorizing access
 * Frontend: Angular 19.1.1
