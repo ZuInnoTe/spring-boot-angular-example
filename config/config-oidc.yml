@@ -8,7 +8,7 @@ spring:
     active: "oidc"
   security: # More Oauth2 properties: https://docs.spring.io/spring-security/reference/servlet/oauth2/login/core.html
      oauth2: # Remove this from the configuration (it is just an example) to avoid that this is leaked to the code repository and inject them dyamically during runtime. See: https://codeberg.org/ZuInnoTe/spring-boot-angular-example/src/branch/main/container/scripts/run-app.sh
-      client:
+      client: # see also under section application.oidc to make sure that claims are mapped correctly to use them for authorisation
         registration: 
           oidcidp: 
             redirect-uri: <your application rediect uri> # put here the URI of your own application redirect. Default in Spring is "{baseUrl}/login/oauth2/code/<providername>", e.g. "https://example.org/login/oauth2/code/oidcidp"
@@ -45,7 +45,7 @@ h2: # only for testing purposes
   console.enabled: false
 # Application configurations
 application:
-     oidc:
+     oidc: # see also section on spring.security.oauth2
         mapper: # map jwt claims to Spring Security authorities
             jwtIdTokenClaims: ["scope","scp"] # claims from a standard OIDC IdToken https://openid.net/specs/openid-connect-core-1_0-final.html#StandardClaims
             userClaims: ["groups"] # claims from the UserInfo OIDC Endpoint (https://openid.net/specs/openid-connect-core-1_0-final.html#UserInfoResponse)

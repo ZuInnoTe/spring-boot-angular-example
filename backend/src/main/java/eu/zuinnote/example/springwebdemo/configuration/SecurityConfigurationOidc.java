@@ -86,7 +86,7 @@ public class SecurityConfigurationOidc {
                                 Object claim = userInfo.getClaim(userEndpointClaim);
                                 mappedAuthorities.addAll(
                                         this.parseClaim(
-                                                "EndUser Endpoint", userEndpointClaim, claim));
+                                                "UserInfo Endpoint", userEndpointClaim, claim));
                             }
 
                         } else if (OAuth2UserAuthority.class.isInstance(authority)) {
@@ -150,7 +150,7 @@ public class SecurityConfigurationOidc {
                                         .map(SimpleGrantedAuthority::new)
                                         .collect(Collectors.toCollection(HashSet::new)));
             } else { // unknown type of claim cannot be processed
-                this.log.error(String.format("Claim %s in %type has an unknown type", claim, type));
+                this.log.error(String.format("Claim %s in %s has an unknown type", claim, type));
             }
         }
         return result;

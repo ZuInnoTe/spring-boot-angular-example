@@ -6,7 +6,7 @@ spring:
   profiles: # important!
     active: "oidc"
   security:
-    oauth2:
+    oauth2: # see also under section application.oidc to make sure that claims are mapped correctly to use them for authorisation
       client:
         registration: 
           oidcidp: 
@@ -80,10 +80,13 @@ management:
         show-values: never # Redact sensitive values
 # Application configurations
 application:
-     oidc:
+     oidc: # see also section on spring.security.oauth2
         mapper: # map jwt claims to Spring Security authorities
-            jwtRoleClaims: ["scope","scp"] # JWT claims that contain authorities
-            authoritiesPrefix: "SCOPE_" # Prefix for Spring Security Authorities
+            jwtIdTokenClaims: ["scope","scp"] # claims from a standard OIDC IdToken https://openid.net/specs/openid-connect-core-1_0-final.html#StandardClaims
+            userClaims: ["groups"] # claims from the UserInfo OIDC Endpoint (https://openid.net/specs/openid-connect-core-1_0-final.html#UserInfoResponse)
+            userAttributes: [] # user attributes to be mapped to Spring Security Authorities
+            claimsSeparatorMap: {"scope": " ", "scp": " ", "groups": ","} # separator if claims are one string, otherwise a JSON array is assumed
+            authoritiesPrefix: "ROLE_" # Prefix for Spring Security Authorities
      https:
         headers:
           permissionPolicy: "accelerometer=(),  autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(),  encrypted-media=(),  fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(),  payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(),  hid=(), idle-detection=(), serial=(),  window-placement=()"
