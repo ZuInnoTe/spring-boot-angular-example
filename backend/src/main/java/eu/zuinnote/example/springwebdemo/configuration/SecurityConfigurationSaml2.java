@@ -79,10 +79,7 @@ public class SecurityConfigurationSaml2 {
                                                         config.getSaml2()
                                                                 .getSamlRoleAttributeSeparator());
                                         for (String authorityString : attributeValueArray) {
-                                            log.debug(
-                                                    String.format(
-                                                            "Adding authority: %s",
-                                                            authorityString));
+                                            log.debug("Adding authority: {}", authorityString);
                                             authorities.add(authorityString);
                                         }
                                     }
