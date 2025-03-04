@@ -176,7 +176,7 @@ tasks.named('javadoc') {
 
 // jacoco coverage reporting
 jacoco {
-    toolVersion = "0.8.11"
+    toolVersion = "0.8.12"
 }
 
 // code formatting
@@ -195,7 +195,7 @@ spotless {
     // don't need to set target, it is inferred from java
 
     // apply a specific flavor of google-java-format
-    googleJavaFormat('1.19.2').aosp().reflowLongStrings()
+    googleJavaFormat('1.25.2').aosp().reflowLongStrings()
     // make sure every file has the following copyright header.
     // optionally, Spotless can set copyright years by digging
     // through git history (see "license" section below)
