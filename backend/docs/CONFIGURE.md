@@ -186,7 +186,10 @@ spring:
 
 You need to get the client-id and the secret from your OIDC IDP. You must NEVER store them in the container image. Always fetch them during runtime of the container from a secret vault, such as Hashicorp Vault or AWS Secrets Manager, before starting the web application!
 
+You can also configure an [OIDC Claims to Role Mapping](#oidc-claims-to-role-mapping) (see below). This allows you to authorise access to your controllers or even more fine-granular access using declarative policies with Spring Security Authorities in your application.
+
 Find a complete configuration example in [../../config/config-oidc.yml](../../config/config-oidc.yml).
+
 
 ### Session cookie
 At the moment, we need to configure the session cookie with a specific samesite policy so that it works with SAML. We use the following configuration.
@@ -267,6 +270,8 @@ application:
 You can find a complete example in [](../../config/config-saml2.yml).
 
 ## OIDC Claims to Role Mapping
+This allows you to authorise access within your application when you configure [OIDC for authentication](#authentication-oidc) (see above).
+
 By default OIDC claims "scope, scp" are made available as a Spring Authority with the prefix "SCOPE_". These come from the [OIDC IdToken](https://openid.net/specs/openid-connect-core-1_0-final.html#StandardClaims). However, often additional claims are needed for Spring Security Authorities (roles), e.g. "groups" in a user directory. Those usually do not come from the OIDC IdToken, but only from the [UserInfo Endpoint](https://openid.net/specs/openid-connect-core-1_0-final.html#UserInfoResponse). You can configure here for both, IdToken and UserInfo endpoint, which claims should be mapped to Spring Security Authorities. Furthermore, you can configure for each claim how they are mapped to authorities. By default, it is assumed that the claims are JSON String arrays, but in case they are string you can define how they are extracted from the String using the claimsSeparatorMap. For example, lets assume the claim "groups" is returned by the UserInfo Endpoint as one String representing a comma-separated list groups. You can define as a separator the "," and the claim is then split accordingly so that you do not have the list of groups as one Spring Security Authority, but multiple representing each one of the groups.
 
 Independent of this you can also map user attributes to Spring Security Authorities.
