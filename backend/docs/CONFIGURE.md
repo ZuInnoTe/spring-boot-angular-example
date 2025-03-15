@@ -417,7 +417,7 @@ spring:
    datasource:
       hikari:
         data-source-properties:
-                assumeMinServerVersion: "16"
+                assumeMinServerVersion: "17"
 ```
  
 

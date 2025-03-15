@@ -24,7 +24,7 @@ spring:
       hikari:
         maximum-pool-size: 5 # have a reasonable low number: https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing
         data-source-properties:
-                assumeMinServerVersion: "16" # This makes for postgres dbs sense (cf. https://jdbc.postgresql.org/documentation/use/). Check valid values here: https://github.com/pgjdbc/pgjdbc/blob/master/pgjdbc/src/main/java/org/postgresql/core/ServerVersion.java
+                assumeMinServerVersion: "17" # This makes for postgres dbs sense (cf. https://jdbc.postgresql.org/documentation/use/). Check valid values here: https://github.com/pgjdbc/pgjdbc/blob/master/pgjdbc/src/main/java/org/postgresql/core/ServerVersion.java
                 reWriteBatchedInserts: true # This makes for postgres dbs sense (cf. https://jdbc.postgresql.org/documentation/use/)
                 ApplicationName: "SpringBootWeb" # This makes for postgres dbs sense (cf. https://jdbc.postgresql.org/documentation/use/)
                 cleanupSavePoints: true # This makes for postgres dbs sense (cf. https://jdbc.postgresql.org/documentation/use/)
