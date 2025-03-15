@@ -74,7 +74,7 @@ MEMORY_GB=$(( MEMORY_KB /  (1024*1024) ))
 HEAP_MEMORY_GB=$(( MEMORY_GB * HEAP_MEMORY_PERCENTAGE / 100 ))
 [ "$HEAP_MEMORY_GB"  -lt 32 ] &&
    GARBAGE_COLLECTOR=+UseShenandoahGC ||
-   GARBAGE_COLLECTOR=+UseZGC -XX:+ZGenerational
+   GARBAGE_COLLECTOR=+UseZGC
 java -XX:+UseNUMA -XX:$GARBAGE_COLLECTOR -XX:MaxRAMPercentage=$HEAP_MEMORY_PERCENTAGE [..] -jar springwebdemo.jar  [..]
 ```
 ## TLS
