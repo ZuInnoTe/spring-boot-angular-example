@@ -80,7 +80,7 @@ java -XX:+UseNUMA -XX:$GARBAGE_COLLECTOR -XX:MaxRAMPercentage=$HEAP_MEMORY_PERCE
 ## TLS
 You can configure TLS, so that your application can be accessed through an encrypted channel, on the command line using Java properties as follows:
 ```
-java -Dserver.ssl.key-store-type=PKCS12 -Dserver.ssl.key-store=/home/app/backend.p12 -Dserver.ssl.key-alias=backend -Dserver.ssl.enabled=true -Dserver.ssl.key-store-password=$RANDOM_STR -Dserver.port=8443 -jar ManagementUI.jar  
+java -Dserver.ssl.key-store-type=PKCS12 -Dserver.ssl.key-store=/home/app/backend.p12 -Dserver.ssl.key-alias=backend -Dserver.ssl.enabled=true -Dserver.ssl.key-store-password=$RANDOM_STR -Dserver.port=8443 -jar springwebdemo.jar  
 ```
 In this example we set the Java properties "server.ssl.key-store-type", "server.ssl.key-store", "server.ssl.key-alias", "server.ssl.enabled", "server.ssl.key-store-password", "server.port"
 Note: Java properties are supported by Java internal and third party libraries. Consult the Java documentation and your library which one they support.
