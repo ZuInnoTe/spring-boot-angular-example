@@ -20,6 +20,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestCustomizers;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
@@ -40,16 +44,43 @@ public class SecurityConfigurationOidc {
      *
      **/
     @Bean
-    SecurityFilterChain app(HttpSecurity http) throws Exception {
+    SecurityFilterChain app(
+            HttpSecurity http, OAuth2AuthorizationRequestResolver oauthRequestResolver)
+            throws Exception {
         this.log.info("Configuring application security for OIDC");
         // oidc
         http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
-                .oauth2Login(withDefaults());
+                .oauth2Login(withDefaults())
+                .oauth2Login(
+                        oauth2 ->
+                                oauth2.authorizationEndpoint(
+                                        authorization ->
+                                                authorization.authorizationRequestResolver(
+                                                        oauthRequestResolver)));
         // set HTTP security headers
         this.generalSecurityConfiguration.setGeneralHttpSecurityConfiguration(http);
         // automatically redirect from HTTP to HTTPS
         this.generalSecurityConfiguration.setRequireSecure(http);
         return http.build();
+    }
+
+
+    /***
+     * Automatically configure to have PKCE enabled for Authorization Code Flow. This should be the secure default and is supported by OAuth 2.1 (https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-12)
+     * Spring currently does not enable it by default: https://github.com/spring-projects/spring-security/issues/16391
+     * 
+     * @param clientRegistrationRepository
+     * @return
+     */
+    @Bean
+    OAuth2AuthorizationRequestResolver configurePKCE(
+            ClientRegistrationRepository clientRegistrationRepository) {
+        DefaultOAuth2AuthorizationRequestResolver resolver =
+                new DefaultOAuth2AuthorizationRequestResolver(
+                        clientRegistrationRepository, "/oauth2/authorization");
+        resolver.setAuthorizationRequestCustomizer(
+                OAuth2AuthorizationRequestCustomizers.withPkce());
+        return resolver;
     }
 
     /*
