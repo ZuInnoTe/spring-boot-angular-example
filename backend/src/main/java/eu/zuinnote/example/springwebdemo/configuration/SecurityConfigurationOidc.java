@@ -64,11 +64,10 @@ public class SecurityConfigurationOidc {
         return http.build();
     }
 
-
     /***
      * Automatically configure to have PKCE enabled for Authorization Code Flow. This should be the secure default and is supported by OAuth 2.1 (https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-12)
      * Spring currently does not enable it by default: https://github.com/spring-projects/spring-security/issues/16391
-     * 
+     *
      * @param clientRegistrationRepository
      * @return
      */
