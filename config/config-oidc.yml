@@ -11,7 +11,7 @@ spring:
       client: # see also under section application.oidc to make sure that claims are mapped correctly to use them for authorisation
         registration: 
           oidcidp: 
-            redirect-uri: <your application rediect uri> # put here the URI of your own application redirect. Default in Spring is "{baseUrl}/login/oauth2/code/<providername>", e.g. "https://example.org/login/oauth2/code/oidcidp"
+            redirect-uri: <your application redirect uri> # put here the URI of your own application redirect. Default in Spring is "{baseUrl}/login/oauth2/code/<providername>", e.g. "https://example.org/login/oauth2/code/oidcidp"
             authorization-grant-type: authorization_code # there are others - make sure you use the most secure for your use case. See also: https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html
             client-id: <client-id>  # Do not store in version repository - inject them dynamically during runtime
             client-secret: <secret> # Do not store in version repository - inject them dynamically during runtime
