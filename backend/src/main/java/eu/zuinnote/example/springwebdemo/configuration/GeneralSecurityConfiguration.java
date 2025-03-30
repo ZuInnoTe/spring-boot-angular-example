@@ -42,7 +42,9 @@ public class GeneralSecurityConfiguration {
      * @throws Exception
      */
     public void setRequireSecure(HttpSecurity http) throws Exception {
-        http.requiresChannel((requiresChannel) -> requiresChannel.anyRequest().requiresSecure());
+        if (!this.config.getHttps().getDisableRedirectHttps())
+            http.requiresChannel(
+                    (requiresChannel) -> requiresChannel.anyRequest().requiresSecure());
     }
 
     private void setHttpSecurityHeaders(HttpSecurity http) throws Exception {
