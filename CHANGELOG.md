@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
+* Backend: Update to [Gradle 8.14.1](https://docs.gradle.org/8.14.1/release-notes.html)
 * Backend: Provide an example how to [configure Codeberg.org as an OIDC IdP for the application](./backend/docs/EXAMPLE-CODEBERG-OIDC.md)
 
 ## [0.0.9] - 2025-03-25
