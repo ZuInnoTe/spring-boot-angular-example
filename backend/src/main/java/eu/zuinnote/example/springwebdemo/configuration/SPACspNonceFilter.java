@@ -97,8 +97,8 @@ public final class SPACspNonceFilter implements Filter {
                                     config.getHttps().getHeaders().getCspNonceFilterValue(),
                                     nonce); // replace what is configured with the nonce in the SPA
                     // html page (e.g. replace all occurrences of
-                    // ${cspNonce]})
-                    resWriter.write(line);
+                    // ${cspNonce})
+                    resWriter.write(line + System.lineSeparator());
                 }
                 // update CSP
                 String cspHeaderValue =
