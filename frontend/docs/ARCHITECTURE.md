@@ -14,7 +14,11 @@ Mainly we use Angular for the following reasons:
 
 # Static assets
 
-All static assets to be included in the frontend can be found in [../src/assets/](../src/assets/). We have mainly a local copy of the Material icons used in the application. This is also recommended by [Google](https://developers.google.com/fonts/docs/material_icons#setup_method_2_self_hosting). This is faster and more secure than directly fetching them every time when the application us opened by th user from a Google server.
+All static assets to be included in the frontend can be found in [../static/](../static/) (except fonts/icons).
+
+Fonts are NPM packages from [Fontsource](https://fontsource.org/). This means they are included in the web app instead of fetching them during runtime from an external source. You need to install the fonts as devDependency and include them in [../src/styles.scss](../src/styles.scss).
+
+We have mainly a local copy of the Material icons used in the application. This is also recommended by [Google](https://developers.google.com/fonts/docs/material_icons#setup_method_2_self_hosting). This is faster and more secure than directly fetching them every time when the application us opened by th user from a Google server.
 
 # Standalone Components
 

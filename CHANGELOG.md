@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Backend: Provide an example how to [configure Codeberg.org as an OIDC IdP for the application](./backend/docs/EXAMPLE-CODEBERG-OIDC.md)
 * Backend: Update [Spring Boot 3.5.0](https://spring.io/blog/2025/05/22/spring-boot-3-5-0-available-now), Spring Modulith 1.3.5, Hibernate 7.0.0.Final, Gradle Plugins: Spotless 7.0.3, CycloneDX 2.3.1
 * Frontend: Update [Angular 20](https://blog.angular.dev/announcing-angular-v20-b5c9c06cf301)
+* Frontend: Include offline fonts/icons from https://fontsource.org/ instead of static repository
 
 ## [0.0.9] - 2025-03-25
 * Backend: Hardened configuration of actuator and [improved configuration documentation](./backend/docs/CONFIGURE.md) around it

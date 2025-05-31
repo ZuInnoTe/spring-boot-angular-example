@@ -1,4 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
+@use "pkg:@fontsource-utils/scss" as fontsource;
+
+@use "pkg:@fontsource/material-icons/scss" as MaterialIcons;
+@use "pkg:@fontsource/material-symbols-outlined/scss" as
+  MaterialSymbolesOutlined;
+@use "pkg:@fontsource/roboto/scss" as Roboto;
+
+@include fontsource.faces($metadata: MaterialIcons.$metadata);
+@include fontsource.faces($metadata: MaterialSymbolesOutlined.$metadata);
+
+@include fontsource.faces($metadata: Roboto.$metadata);
+
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -moz-font-feature-settings: "liga";
+  -moz-osx-font-smoothing: grayscale;
+}
 
 html,
 body {
