@@ -186,6 +186,8 @@ spring:
 
 You need to get the client-id and the secret from your OIDC IDP. You must NEVER store them in the container image. Always fetch them during runtime of the container from a secret vault, such as Hashicorp Vault or AWS Secrets Manager, before starting the web application!
 
+You may need to select an [OIDC client authentication method](https://docs.spring.io/spring-security/reference/servlet/oauth2/client/client-authentication.html).
+
 You can also configure an [OIDC Claims to Role Mapping](#oidc-claims-to-role-mapping) (see below). This allows you to authorise access to your controllers or even more fine-granular access using declarative policies with Spring Security Authorities in your application.
 
 Find a complete configuration example in [../../config/config-oidc.yml](../../config/config-oidc.yml).
