@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Backend: Fixed SPACspNonceFilter - it originally omitted the end of line character when parsing static HTML files to insert CSPNonce. This lead to obscure bugs in the Angular frontend ("Unexpected end of input")
 * Frontend: Update [Angular 20](https://blog.angular.dev/announcing-angular-v20-b5c9c06cf301)
 * Frontend: Include offline fonts/icons from https://fontsource.org/ instead of static repository
+* Frontend: Software Bill of Material (SBOM) for frontend using [CycloneDX for Node](https://github.com/CycloneDX/cyclonedx-node-npm).
 
 
 ## [0.0.9] - 2025-03-25

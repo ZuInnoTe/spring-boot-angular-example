@@ -8,7 +8,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "typedoc": "typedoc"
+    "typedoc": "typedoc",
+    "sbom": "cyclonedx-npm  --output-file angular-sbom.json --output-format json"
   },
   "private": true,
   "dependencies": {
@@ -35,6 +36,7 @@
     "@fontsource/material-symbols-outlined": "^5.2.10",
     "@fontsource/roboto": "^5.2.5",
     "@types/jasmine": "~5.1.8",
+    "@cyclonedx/cyclonedx-npm": "^4.0.0",
     "jasmine-core": "~5.7.1",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",

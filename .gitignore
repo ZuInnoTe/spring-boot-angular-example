@@ -32,7 +32,13 @@ test-results/
 # typedocs
 codedocs
 
+# sbom npm
+angular-sbom.json
+
 # IDE
+## Eclipse Theia
+*.theia-workspace
+
 ## VSCodium / VS Code
 .vscode/*
 !.vscode/settings.json
