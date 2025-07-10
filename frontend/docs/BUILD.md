@@ -77,3 +77,13 @@ Note you can update to the latest Angular minor versions using:
 where <VERSION> is the current Angular major version you are using (e.g. 18).
 
 For upgrading Angular major versions see the Angular update page: https://angular.dev/update-guide
+
+# Create Software Bill of Material (SBOM)
+The [Software Bill of Material](https://en.wikipedia.org/wiki/Software_supply_chain) (SBOM) is an important machine-readable document that contains all the software and versions that you have used to build the software.
+
+You can create it for the frontend as follows:
+```
+npm run sbom
+```
+
+It will create a file called "angular-sbom.json" that contains the SBOM for the frontend.
