@@ -86,4 +86,4 @@ You can create it for the frontend as follows:
 npm run sbom
 ```
 
-It will create a file called "angular-sbom.json" that contains the SBOM for the frontend.
+It will create a file called "frontend-sbom.json" that contains the SBOM for the frontend.

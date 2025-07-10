@@ -33,7 +33,7 @@ test-results/
 codedocs
 
 # sbom npm
-angular-sbom.json
+frontend-sbom.json
 
 # IDE
 ## Eclipse Theia

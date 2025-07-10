@@ -9,7 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "typedoc": "typedoc",
-    "sbom": "cyclonedx-npm  --output-file angular-sbom.json --output-format json"
+    "sbom": "cyclonedx-npm  --output-file frontend-sbom.json --output-format json"
   },
   "private": true,
   "dependencies": {
