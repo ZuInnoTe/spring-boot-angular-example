@@ -105,3 +105,14 @@ The command has also other features (e.g. generate a report in different formats
 Note: If your dependency has reached end-of-life (EOL), ie it is not maintained anymore, then this will command will NOT inform you. You need then check regularly if you dependencies have reached end-of-life (e.g. on their web sites) and find alternatives yourself.
 
 You can partially find end-of-life dates on the crowd-sourced website https://endoflife.date
+
+
+# Create Software Bill of Material (SBOM)
+The [Software Bill of Material](https://en.wikipedia.org/wiki/Software_supply_chain) (SBOM) is an important machine-readable document that contains all the software and versions that you have used to build the software.
+
+You can create it for the backend as follows:
+```
+./gradlew cyclonedxBom
+```
+
+It will create a file called "./build/reports/appplication.cdx.json" that contains the SBOM for the backend.
