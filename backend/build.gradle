@@ -5,7 +5,7 @@ plugins {
     id 'org.springframework.boot' version '3.5.4'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'com.github.ben-manes.versions' version '0.52.0'
-    id 'com.diffplug.spotless' version '7.0.3'
+    id 'com.diffplug.spotless' version '7.2.1'
     id 'org.cyclonedx.bom' version '2.3.1'
 }
 
@@ -35,7 +35,7 @@ ext {
     set('ehcacheVersion','3.10.8')
     set('hibernateVersion','7.1.0.Final')
     set('disruptorVersion','4.0.0')
-    set('bcVersion','1.80')
+    set('bcVersion','1.81')
     set('owaspSanitizerVersion','20240325.1')
 }
 
@@ -176,7 +176,7 @@ tasks.named('javadoc') {
 
 // jacoco coverage reporting
 jacoco {
-    toolVersion = "0.8.12"
+    toolVersion = "0.8.13"
 }
 
 // code formatting
@@ -195,7 +195,7 @@ spotless {
     // don't need to set target, it is inferred from java
 
     // apply a specific flavor of google-java-format
-    googleJavaFormat('1.25.2').aosp().reflowLongStrings()
+    googleJavaFormat('1.28.0').aosp().reflowLongStrings()
     // make sure every file has the following copyright header.
     // optionally, Spotless can set copyright years by digging
     // through git history (see "license" section below)
