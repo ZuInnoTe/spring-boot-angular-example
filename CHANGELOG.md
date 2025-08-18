@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.10] - 2025-08-18
 * Backend: Update to [Gradle 9.0.0](https://docs.gradle.org/9.0.0/release-notes.html). Also enabling the new [configuration cache feature](https://docs.gradle.org/current/userguide/configuration_cache.html)
 * Backend: Provide an example how to [configure Codeberg.org as an OIDC IdP for the application](./backend/docs/EXAMPLE-CODEBERG-OIDC.md)
-* Backend: Update [Spring Boot 3.5.4](https://spring.io/blog/2025/05/22/spring-boot-3-5-0-available-now), Spring Modulith 1.3.5, Hibernate 7.0.0.Final, Gradle Plugins: Spotless 7.0.3, CycloneDX 2.3.1
+* Backend: Update [Spring Boot 3.5.4](https://spring.io/blog/2025/05/22/spring-boot-3-5-0-available-now), Spring Modulith 1.4.2, Hibernate 7.1.0.Final, Gradle Plugins: Spotless 7.0.3, CycloneDX 2.3.1
 * Backend: Fixed SPACspNonceFilter - it originally omitted the end of line character when parsing static HTML files to insert CSPNonce. This lead to obscure bugs in the Angular frontend ("Unexpected end of input")
 * Backend: Added documentation how to generate Software Bill of Material (SBOM) for backend using [CycloneDX for Gradle](https://github.com/CycloneDX/cyclonedx-gradle-plugin)
 * Frontend: Update [Angular 20](https://blog.angular.dev/announcing-angular-v20-b5c9c06cf301)
