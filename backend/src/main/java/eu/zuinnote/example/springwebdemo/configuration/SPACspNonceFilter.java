@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
 @Component
-public final class SPACspNonceFilter implements Filter {
+public class SPACspNonceFilter implements Filter {
 
     private static final String NONCE_PREFIX = "nonce-";
     private static final int NONCE_SIZE = 64;
