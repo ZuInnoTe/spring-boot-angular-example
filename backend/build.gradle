@@ -2,11 +2,11 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'maven-publish'
-    id 'org.springframework.boot' version '3.5.4'
+    id 'org.springframework.boot' version '3.5.6'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'com.github.ben-manes.versions' version '0.52.0'
     id 'com.diffplug.spotless' version '7.2.1'
-    id 'org.cyclonedx.bom' version '2.3.1'
+    id 'org.cyclonedx.bom' version '2.4.1'
 }
 
 group = 'eu.zuinnote.example.springangular'
@@ -30,12 +30,12 @@ repositories {
 }
 
 ext {
-    set('springModulithVersion', "1.4.2")
+    set('springModulithVersion', "1.4.3")
     set('h2Version','2.3.232')
-    set('ehcacheVersion','3.10.8')
-    set('hibernateVersion','7.1.0.Final')
+    set('ehcacheVersion','3.11.1')
+    set('hibernateVersion','7.1.1.Final')
     set('disruptorVersion','4.0.0')
-    set('bcVersion','1.81')
+    set('bcVersion','1.82')
     set('owaspSanitizerVersion','20240325.1')
 }
 

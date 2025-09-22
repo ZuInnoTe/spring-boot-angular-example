@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 * Backend: Updater to [JDK 25 LTS](https://openjdk.org/projects/jdk/25/)
-* Backend: Update to [Gradle 9.1.0](https://docs.gradle.org/9.1.0/release-notes.html).
+* Backend: Update to [Gradle 9.1.0](https://docs.gradle.org/9.1.0/release-notes.html)
+* Backend: Update Spring Boot 3.5.6, Spring Modulith 1.4.3, BouncyCastle 1.82,  Hibernate 7.1.1.Final, ehcache 3.11.1, Gradle Plugins: CycloneDX 2.4.1 
 
 ## [0.0.10] - 2025-08-18
 * Backend: Update to [Gradle 9.0.0](https://docs.gradle.org/9.0.0/release-notes.html). Also enabling the new [configuration cache feature](https://docs.gradle.org/current/userguide/configuration_cache.html)
