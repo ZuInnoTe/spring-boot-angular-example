@@ -52,6 +52,7 @@ Activate it with the option
 -XX:+UseNUMA
 ```
 If your environment does not support NUMA then the application will continue without NUMA support.
+
 ## Garbage Collection (GC)
 The [Garbage Collection](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)) is an important part of any Java-based application. 
 Recent Java versions (>= LTS 17) have added novel low-latency GC algorithms, which are very suitable - amongst others - for web applications:
@@ -77,6 +78,16 @@ HEAP_MEMORY_GB=$(( MEMORY_GB * HEAP_MEMORY_PERCENTAGE / 100 ))
    GARBAGE_COLLECTOR=+UseZGC
 java -XX:+UseNUMA -XX:$GARBAGE_COLLECTOR -XX:MaxRAMPercentage=$HEAP_MEMORY_PERCENTAGE [..] -jar springwebdemo.jar  [..]
 ```
+
+## Compact Object Headers
+Since JDK25 Compact Object Headers ([JEP 519](https://openjdk.org/jeps/519)) are considered as production ready and have been backported by some JDK vendors to JDK 17 and 21. Extensive experiments showed significant reduction of memory usage, significant reduction of CPU usage and significant reduction of garbage collection times.
+
+
+Activate it with the option
+```
+-XX:+UseCompactObjectHeaders
+```
+
 ## TLS
 You can configure TLS, so that your application can be accessed through an encrypted channel, on the command line using Java properties as follows:
 ```
