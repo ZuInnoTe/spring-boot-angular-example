@@ -12,9 +12,6 @@ plugins {
 group = 'eu.zuinnote.example.springangular'
 version = '0.0.11-SNAPSHOT'
 
-java {
-    sourceCompatibility = '25'
-}
 
 configurations {
     compileOnly {
@@ -164,6 +161,7 @@ tasks.named("dependencyUpdates").configure {
 
 // publishing
 java {
+    sourceCompatibility = JavaVersion.VERSION_25
     withJavadocJar()
     withSourcesJar()
 }
