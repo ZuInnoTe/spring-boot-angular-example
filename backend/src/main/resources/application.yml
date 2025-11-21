@@ -62,7 +62,7 @@ application:
      https:
         headers:
           permissionPolicy: "accelerometer=(),  autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(),  encrypted-media=(),  fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(),  payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(),  hid=(), idle-detection=(), serial=(),  window-placement=()"
-          csp: "default-src 'none'; base-uri 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'none'; child-src 'self'; form-action 'self'; frame-ancestors 'none'; navigate-to 'self'; upgrade-insecure-requests; trusted-types angular; require-trusted-types-for 'script';" # minimal policy working with current Angular - to be reviewed in newer Angular versions
+          csp: "default-src 'none'; base-uri 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'none'; child-src 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests; trusted-types angular; require-trusted-types-for 'script';" # minimal policy working with current Angular - to be reviewed in newer Angular versions
           cspNonceFilterPath: ["/","/ui/.*"]
           cspNonceFilterValue: "${cspNonce}"
           cspSPAPage: "public/index.html"
