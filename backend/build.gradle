@@ -4,9 +4,9 @@ plugins {
     id 'maven-publish'
     id 'org.springframework.boot' version '3.5.6'
     id 'io.spring.dependency-management' version '1.1.7'
-    id 'com.github.ben-manes.versions' version '0.52.0'
-    id 'com.diffplug.spotless' version '7.2.1'
-    id 'org.cyclonedx.bom' version '2.4.1'
+    id 'com.github.ben-manes.versions' version '0.53.0'
+    id 'com.diffplug.spotless' version '8.1.0'
+    id 'org.cyclonedx.bom' version '3.0.2'
 }
 
 group = 'eu.zuinnote.example.springangular'
@@ -28,9 +28,9 @@ repositories {
 
 ext {
     set('springModulithVersion', "1.4.3")
-    set('h2Version','2.3.232')
+    set('h2Version','2.4.240')
     set('ehcacheVersion','3.11.1')
-    set('hibernateVersion','7.1.1.Final')
+    set('hibernateVersion','7.1.9.Final')
     set('disruptorVersion','4.0.0')
     set('bcVersion','1.82')
     set('owaspSanitizerVersion','20240325.1')
@@ -193,7 +193,7 @@ spotless {
     // don't need to set target, it is inferred from java
 
     // apply a specific flavor of google-java-format
-    googleJavaFormat('1.28.0').aosp().reflowLongStrings()
+    googleJavaFormat('1.32.0').aosp().reflowLongStrings()
     // make sure every file has the following copyright header.
     // optionally, Spotless can set copyright years by digging
     // through git history (see "license" section below)
