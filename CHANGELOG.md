@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.0.11] - 2025-11-21
 * Backend: Update to [JDK 25 LTS](https://openjdk.org/projects/jdk/25/)
 * Backend: Update to [Gradle 9.2.1](https://docs.gradle.org/9.2.1/release-notes.html)
 * Backend: Update Spring Boot 4.0.0, Spring Modulith 2.0.0, BouncyCastle 1.82,  Hibernate 7.1.9.Final, ehcache 3.11.1, H2 2.4.240, Gradle Plugins: CycloneDX 3.0.2, Spotless 8.1.0, Update Plugin 0.53.0, Google Java Format 1.32.0
