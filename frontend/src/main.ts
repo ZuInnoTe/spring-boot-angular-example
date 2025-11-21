@@ -1,7 +1,11 @@
 import { bootstrapApplication } from "@angular/platform-browser";
 import { provideZonelessChangeDetection } from "@angular/core";
 import { AppComponent } from "./app/app.component";
-import { provideHttpClient, withXsrfConfiguration } from "@angular/common/http";
+import {
+  provideHttpClient,
+  withXsrfConfiguration,
+  withInterceptorsFromDi,
+} from "@angular/common/http";
 import { GlobalErrorHandlerInterceptorProvider } from "./app/services/globalerrorhandler/interceptor/httpconfig.interceptor";
 import { routes } from "./app/app-routing.module";
 import { provideRouter } from "@angular/router";
@@ -21,6 +25,7 @@ bootstrapApplication(AppComponent, {
         // Spring Boot standard: https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html#csrf-token-repository-cookiecd
         { cookieName: "XSRF-TOKEN", headerName: "X-XSRF-TOKEN" },
       ),
+      withInterceptorsFromDi(),
     ),
     GlobalErrorHandlerInterceptorProvider,
   ],

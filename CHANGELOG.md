@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Frontend: Move to vitest from karma
 * Frontend: Remove zone.js
 * Frontend: Fix view refresh for data loaded during component initialisation
+* Frontend: Fix http interceptor showing error message for http requests. [withInterceptorsFromDi](https://angular.dev/guide/http/interceptors#di-based-interceptors) was missing
 
 ## [0.0.10] - 2025-08-18
 * Backend: Update to [Gradle 9.0.0](https://docs.gradle.org/9.0.0/release-notes.html). Also enabling the new [configuration cache feature](https://docs.gradle.org/current/userguide/configuration_cache.html)
