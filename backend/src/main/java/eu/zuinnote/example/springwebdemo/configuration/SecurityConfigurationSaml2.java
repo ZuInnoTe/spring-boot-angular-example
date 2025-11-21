@@ -20,13 +20,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.saml2.provider.service.authentication.OpenSaml4AuthenticationProvider;
+import org.springframework.security.saml2.provider.service.authentication.OpenSaml5AuthenticationProvider;
 import org.springframework.security.saml2.provider.service.authentication.Saml2Authentication;
-import org.springframework.security.saml2.provider.service.metadata.OpenSamlMetadataResolver;
 import org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository;
-import org.springframework.security.saml2.provider.service.web.DefaultRelyingPartyRegistrationResolver;
-import org.springframework.security.saml2.provider.service.web.Saml2MetadataFilter;
-import org.springframework.security.saml2.provider.service.web.authentication.Saml2WebSsoAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 
 /** SAML2 Security Configuration. Use this when you deploy to an environment */
@@ -53,12 +49,12 @@ public class SecurityConfigurationSaml2 {
         // Spring authorities make it easy then to configure authorization with expressions
         // (https://docs.spring.io/spring-security/reference/servlet/authorization/expression-based.html) or in other contexts
 
-        OpenSaml4AuthenticationProvider authenticationProvider =
-                new OpenSaml4AuthenticationProvider();
+        OpenSaml5AuthenticationProvider authenticationProvider =
+                new OpenSaml5AuthenticationProvider();
         authenticationProvider.setResponseAuthenticationConverter(
                 responseToken -> {
                     Saml2Authentication authentication =
-                            OpenSaml4AuthenticationProvider
+                            OpenSaml5AuthenticationProvider
                                     .createDefaultResponseAuthenticationConverter()
                                     .convert(responseToken);
                     Set<String> authorities =
@@ -98,16 +94,11 @@ public class SecurityConfigurationSaml2 {
 
         // saml2
         if (config.getSaml2().getEnableMetadataEndpoint()) {
-            DefaultRelyingPartyRegistrationResolver relyingPartyRegistrationResolver =
-                    new DefaultRelyingPartyRegistrationResolver(
-                            this.relyingPartyRegistrationRepository);
-            Saml2MetadataFilter filter =
-                    new Saml2MetadataFilter(
-                            relyingPartyRegistrationResolver, new OpenSamlMetadataResolver());
+
             http.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
                     .saml2Login(withDefaults())
                     .authenticationManager(new ProviderManager(authenticationProvider))
-                    .addFilterBefore(filter, Saml2WebSsoAuthenticationFilter.class)
+                    .saml2Metadata(withDefaults())
                     .saml2Logout(withDefaults());
         } else {
             http.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())

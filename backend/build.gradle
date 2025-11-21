@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'maven-publish'
-    id 'org.springframework.boot' version '3.5.6'
+    id 'org.springframework.boot' version '4.0.0'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'com.github.ben-manes.versions' version '0.53.0'
     id 'com.diffplug.spotless' version '8.1.0'
@@ -22,12 +22,12 @@ configurations {
 repositories {
     mavenCentral()
     maven {
-        url 'https://build.shibboleth.net/maven/releases/' // needed for SAML
+        url = 'https://build.shibboleth.net/maven/releases/' // needed for SAML
     }
 }
 
 ext {
-    set('springModulithVersion', "1.4.3")
+    set('springModulithVersion', "2.0.0")
     set('h2Version','2.4.240')
     set('ehcacheVersion','3.11.1')
     set('hibernateVersion','7.1.9.Final')
@@ -66,6 +66,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // for oidc authentication
     implementation 'org.springframework.modulith:spring-modulith-starter-core'
     compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     // database for local development (note: real database jdbc drivers should be included using implementation)
     developmentOnly "com.h2database:h2:${h2Version}"
@@ -78,7 +79,8 @@ dependencies {
     runtimeOnly 'org.springframework.modulith:spring-modulith-actuator'
     runtimeOnly 'org.springframework.modulith:spring-modulith-observability'
     runtimeOnly 'io.micrometer:micrometer-tracing-bridge-brave'
-    annotationProcessor 'org.projectlombok:lombok'
+    // test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-log4j2'
     testImplementation "com.lmax:disruptor:${disruptorVersion}"
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -90,7 +92,7 @@ dependencies {
     testImplementation "org.ehcache:ehcache:${ehcacheVersion}:jakarta"
     testImplementation "org.hibernate:hibernate-jcache:${hibernateVersion}"
     testImplementation "com.h2database:h2:${h2Version}"
-    testImplementation 'org.testcontainers:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation "com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:${owaspSanitizerVersion}"
     testImplementation "org.bouncycastle:bcprov-jdk18on:${bcVersion}"
 }
