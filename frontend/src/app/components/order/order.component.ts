@@ -30,7 +30,7 @@ export class OrderComponent {
   showFirstLastButtons = true;
   disabled = false;
 
-  pageEvent: PageEvent;
+  pageEvent?: PageEvent;
 
   constructor(private orderService: OrderService) {
     this.refreshInventory();
@@ -54,10 +54,16 @@ export class OrderComponent {
 
   refreshInventory() {
     this.orderService.getAllProducts().subscribe((orderPage) => {
-      this.dataSource = orderPage.content;
-      this.pageSize = orderPage.size;
-      this.length = orderPage.totalElements;
-      this.pageIndex = orderPage.number;
+      this.dataSource =
+        orderPage.content !== undefined ? orderPage.content : this.dataSource;
+      this.pageSize =
+        orderPage.size !== undefined ? orderPage.size : this.pageSize;
+      this.length =
+        orderPage.totalElements !== undefined
+          ? orderPage.totalElements
+          : this.length;
+      this.pageIndex =
+        orderPage.number !== undefined ? orderPage.number : this.pageIndex;
     });
   }
 }

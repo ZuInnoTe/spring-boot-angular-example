@@ -1,12 +1,14 @@
 import { TestBed } from "@angular/core/testing";
 
-import { LoggingService } from "./logging.service";
+import { LoggingService, LogLevel } from "./logging.service";
 
 describe("LoggingService", () => {
   let service: LoggingService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [{ provide: "logLevel", useValue: LogLevel.Info }],
+    });
     service = TestBed.inject(LoggingService);
   });
 

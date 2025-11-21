@@ -1,36 +1,36 @@
 import { HttpParams } from "@angular/common/http";
 
 export class SpringDataSort {
-  sorted: boolean;
-  unsorted: boolean;
-  empty: boolean;
+  sorted?: boolean;
+  unsorted?: boolean;
+  empty?: boolean;
 }
 export class SpringDataPageable {
-  pageNumber: number;
-  pageSize: number;
-  sort: SpringDataSort;
-  offset: number;
-  paged: boolean;
-  unpaged: boolean;
+  pageNumber?: number;
+  pageSize?: number;
+  sort?: SpringDataSort;
+  offset?: number;
+  paged?: boolean;
+  unpaged?: boolean;
 }
 
 export class SpringDataPaging<Type> {
-  content: Type[];
-  pageable: SpringDataPageable;
-  totalPages: number;
-  totalElements: number;
-  last: boolean;
-  size: number;
-  number: number;
-  sort: SpringDataSort;
-  numberOfElements: number;
-  first: boolean;
-  empty: boolean;
+  content?: Type[];
+  pageable?: SpringDataPageable;
+  totalPages?: number;
+  totalElements?: number;
+  last?: boolean;
+  size?: number;
+  number?: number;
+  sort?: SpringDataSort;
+  numberOfElements?: number;
+  first?: boolean;
+  empty?: boolean;
 }
 
 export class SpringDataPageRequest {
-  size: number;
-  page: number;
+  size?: number;
+  page?: number;
 }
 
 /**
@@ -42,10 +42,10 @@ export class SpringDataPageRequest {
 export function sddrToHttpParams(pageable?: SpringDataPageRequest): HttpParams {
   let httpParams = new HttpParams();
   if (pageable !== null && pageable !== undefined) {
-    if (pageable.size !== null) {
+    if (pageable.size !== null && pageable.size !== undefined) {
       httpParams = httpParams.append("size", pageable.size);
     }
-    if (pageable.page !== null) {
+    if (pageable.page !== null && pageable.page !== undefined) {
       httpParams = httpParams.append("page", pageable.page);
     }
   }

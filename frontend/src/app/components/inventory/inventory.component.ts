@@ -19,8 +19,8 @@ export class InventoryComponent {
   displayedColumns: string[] = ["id", "name", "price"];
   dataSource: Product[] = [];
 
-  length = 50;
-  pageSize = 10;
+  length: number = 50;
+  pageSize: number = 10;
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
 
@@ -29,7 +29,7 @@ export class InventoryComponent {
   showFirstLastButtons = true;
   disabled = false;
 
-  pageEvent: PageEvent;
+  pageEvent?: PageEvent;
 
   constructor(
     private inventoryService: InventoryService,
@@ -57,10 +57,18 @@ export class InventoryComponent {
   refreshInventory() {
     this.log.info("Refreshing inventory");
     this.inventoryService.getAllProducts().subscribe((productPage) => {
-      this.dataSource = productPage.content;
-      this.pageSize = productPage.size;
-      this.length = productPage.totalElements;
-      this.pageIndex = productPage.number;
+      this.dataSource =
+        productPage.content !== undefined
+          ? productPage.content
+          : this.dataSource;
+      this.pageSize =
+        productPage.size !== undefined ? productPage.size : this.pageSize;
+      this.length =
+        productPage.totalElements !== undefined
+          ? productPage.totalElements
+          : this.length;
+      this.pageIndex =
+        productPage.number !== undefined ? productPage.number : this.pageIndex;
     });
   }
 }
