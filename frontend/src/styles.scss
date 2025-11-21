@@ -2,8 +2,7 @@
 @use "pkg:@fontsource-utils/scss" as fontsource;
 
 @use "pkg:@fontsource/material-icons/scss" as MaterialIcons;
-@use "pkg:@fontsource/material-symbols-outlined/scss" as
-  MaterialSymbolsOutlined;
+@use "pkg:@fontsource/material-symbols-outlined/scss" as MaterialSymbolsOutlined;
 @use "pkg:@fontsource/roboto/scss" as Roboto;
 
 @include fontsource.faces($metadata: MaterialIcons.$metadata);

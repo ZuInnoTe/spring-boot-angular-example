@@ -1,6 +1,5 @@
 import { bootstrapApplication } from "@angular/platform-browser";
 import { AppComponent } from "./app/app.component";
-import { provideAnimations } from "@angular/platform-browser/animations";
 import { provideHttpClient, withXsrfConfiguration } from "@angular/common/http";
 import { GlobalErrorHandlerInterceptorProvider } from "./app/services/globalerrorhandler/interceptor/httpconfig.interceptor";
 import { routes } from "./app/app-routing.module";
@@ -14,7 +13,6 @@ bootstrapApplication(AppComponent, {
   providers: [
     { provide: LoggingService, useClass: LoggingService },
     { provide: "logLevel", useValue: LogLevel.Info },
-    provideAnimations(),
     provideRouter(routes),
     provideHttpClient(
       withXsrfConfiguration(
