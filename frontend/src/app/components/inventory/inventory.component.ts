@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectorRef, OnInit } from "@angular/core";
 import { PageEvent, MatPaginatorModule } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
 import { InventoryService } from "../../services/inventoryservice/inventory.service";
@@ -15,7 +15,7 @@ import { LoggingService } from "../../services/logging/logging.service";
   styleUrls: ["./inventory.component.scss"],
   imports: [MatPaginatorModule, MatTableModule],
 })
-export class InventoryComponent {
+export class InventoryComponent implements OnInit {
   displayedColumns: string[] = ["id", "name", "price"];
   dataSource: Product[] = [];
 
@@ -32,9 +32,12 @@ export class InventoryComponent {
   pageEvent?: PageEvent;
 
   constructor(
+    private cd: ChangeDetectorRef,
     private inventoryService: InventoryService,
     private log: LoggingService,
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.refreshInventory();
   }
 
@@ -69,6 +72,7 @@ export class InventoryComponent {
           : this.length;
       this.pageIndex =
         productPage.number !== undefined ? productPage.number : this.pageIndex;
+      this.cd.markForCheck();
     });
   }
 }

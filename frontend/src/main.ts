@@ -1,4 +1,5 @@
 import { bootstrapApplication } from "@angular/platform-browser";
+import { provideZonelessChangeDetection } from "@angular/core";
 import { AppComponent } from "./app/app.component";
 import { provideHttpClient, withXsrfConfiguration } from "@angular/common/http";
 import { GlobalErrorHandlerInterceptorProvider } from "./app/services/globalerrorhandler/interceptor/httpconfig.interceptor";
@@ -11,6 +12,7 @@ import {
 
 bootstrapApplication(AppComponent, {
   providers: [
+    provideZonelessChangeDetection(),
     { provide: LoggingService, useClass: LoggingService },
     { provide: "logLevel", useValue: LogLevel.Info },
     provideRouter(routes),

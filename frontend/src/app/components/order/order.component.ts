@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, ChangeDetectorRef, OnInit } from "@angular/core";
 import { PageEvent, MatPaginatorModule } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
 import { OrderService } from "../../services/orderservice/order.service";
@@ -10,7 +10,7 @@ import { Order } from "../../services/orderservice/order.model";
   styleUrls: ["./order.component.scss"],
   imports: [MatPaginatorModule, MatTableModule],
 })
-export class OrderComponent {
+export class OrderComponent implements OnInit {
   displayedColumns: string[] = [
     "id",
     "orderDateTime",
@@ -32,8 +32,13 @@ export class OrderComponent {
 
   pageEvent?: PageEvent;
 
-  constructor(private orderService: OrderService) {
-    this.refreshInventory();
+  constructor(
+    private cd: ChangeDetectorRef,
+    private orderService: OrderService,
+  ) {}
+
+  ngOnInit() {
+    this.refreshOrders();
   }
 
   handlePageEvent(e: PageEvent) {
@@ -41,7 +46,7 @@ export class OrderComponent {
     this.length = e.length;
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
-    this.refreshInventory();
+    this.refreshOrders();
   }
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -52,7 +57,7 @@ export class OrderComponent {
     }
   }
 
-  refreshInventory() {
+  refreshOrders() {
     this.orderService.getAllProducts().subscribe((orderPage) => {
       this.dataSource =
         orderPage.content !== undefined ? orderPage.content : this.dataSource;
@@ -64,6 +69,7 @@ export class OrderComponent {
           : this.length;
       this.pageIndex =
         orderPage.number !== undefined ? orderPage.number : this.pageIndex;
+      this.cd.markForCheck();
     });
   }
 }
