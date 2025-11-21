@@ -51,16 +51,33 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+@use "@angular/material" as mat;
+
 /** HTTP errors/warnings shown as snackbar by globalerrorhandler.service **/
-::ng-deep .snackbar-success {
-  background-color: green;
-  color: white;
+
+.snackbar-success {
+  @include mat.snack-bar-overrides(
+    (
+      supporting-text-color: white,
+      container-color: green,
+    )
+  );
 }
-::ng-deep .snackbar-warning {
-  background-color: yellow;
-  color: black;
+
+.snackbar-warning {
+  @include mat.snack-bar-overrides(
+    (
+      supporting-text-color: black,
+      container-color: yellow,
+    )
+  );
 }
-::ng-deep .snackbar-error {
-  background-color: red;
-  color: white;
+
+.snackbar-error {
+  @include mat.snack-bar-overrides(
+    (
+      supporting-text-color: white,
+      container-color: red,
+    )
+  );
 }

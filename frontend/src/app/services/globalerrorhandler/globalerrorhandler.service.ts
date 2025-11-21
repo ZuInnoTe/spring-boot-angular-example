@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, NgZone } from "@angular/core";
 
 import { MatSnackBar } from "@angular/material/snack-bar";
 
@@ -6,7 +6,10 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   providedIn: "root",
 })
 export class GlobalerrorhandlerService {
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(
+    private zone: NgZone,
+    private snackBar: MatSnackBar,
+  ) {}
   // note the css styles for the snackbar for this handler are globally defined in styles.css
 
   display_error(errormsg: string) {
@@ -17,15 +20,19 @@ export class GlobalerrorhandlerService {
   }
 
   display_warn(warnmsg: string) {
-    this.snackBar.open(warnmsg, "⚠", {
-      duration: 10000,
-      panelClass: ["snackbar-warning"],
+    this.zone.run(() => {
+      this.snackBar.open(warnmsg, "⚠", {
+        duration: 10000,
+        panelClass: ["snackbar-warning"],
+      });
     });
   }
   display_success(successmsg: string) {
-    this.snackBar.open(successmsg, "✓", {
-      duration: 10000,
-      panelClass: ["snackbar-success"],
+    this.zone.run(() => {
+      this.snackBar.open(successmsg, "✓", {
+        duration: 10000,
+        panelClass: ["snackbar-success"],
+      });
     });
   }
 }
