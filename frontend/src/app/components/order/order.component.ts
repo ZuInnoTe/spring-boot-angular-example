@@ -69,7 +69,7 @@ export class OrderComponent implements OnInit {
           : this.length;
       this.pageIndex =
         orderPage.number !== undefined ? orderPage.number : this.pageIndex;
-       // this is only needed because it is called from an NgInit context. It is not needed if you trigger an async call from a template: https://angular.dev/best-practices/skipping-subtrees
+      // this is only needed because it is called from an NgInit context. It is not needed if you trigger an async call from a template: https://angular.dev/best-practices/skipping-subtrees
       this.cd.markForCheck();
     });
   }
