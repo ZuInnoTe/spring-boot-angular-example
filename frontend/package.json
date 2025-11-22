@@ -33,7 +33,6 @@
     "@fontsource/material-icons": "^5.2.7",
     "@fontsource/material-symbols-outlined": "^5.2.29",
     "@fontsource/roboto": "^5.2.8",
-    "@types/jasmine": "~5.1.8",
     "@cyclonedx/cyclonedx-npm": "^4.0.0",
     "jsdom": "^27.1.0",
     "prettier": "3.6.2",
