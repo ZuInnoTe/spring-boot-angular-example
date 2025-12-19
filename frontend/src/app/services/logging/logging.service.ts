@@ -1,4 +1,4 @@
-import { Inject, Injectable, Provider } from "@angular/core";
+import { Injectable, Provider, inject } from "@angular/core";
 
 export enum LogLevel {
   All = 0,
@@ -13,7 +13,10 @@ export enum LogLevel {
 })
 export class LoggingService {
   private logLevel: LogLevel;
-  constructor(@Inject("logLevel") logLevel: LogLevel) {
+
+  constructor() {
+    const logLevel = inject<LogLevel>("logLevel" as any);
+
     this.logLevel = logLevel;
   }
 
@@ -42,7 +45,7 @@ export class LoggingService {
   }
 
   private formatMessage(msg: string) {
-    let currentDate = new Date();
+    const currentDate = new Date();
     return `${currentDate} - ${msg}`;
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { isDevMode } from "@angular/core";
 import { Observable, of } from "rxjs";
@@ -14,11 +14,12 @@ import { LoggingService } from "../logging/logging.service";
   providedIn: "root",
 })
 export class InventoryService {
+  private http = inject(HttpClient);
+  private log = inject(LoggingService);
+
   private endpoint = "/product";
-  constructor(
-    private http: HttpClient,
-    private log: LoggingService,
-  ) {}
+
+  constructor() {}
 
   getAllProducts(pageable?: SpringDataPageRequest): Observable<ProductPage> {
     if (!isDevMode()) {

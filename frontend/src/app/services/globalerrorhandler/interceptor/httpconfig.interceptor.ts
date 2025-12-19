@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import {
   HttpInterceptor,
   HttpRequest,
@@ -17,7 +17,9 @@ import { GlobalerrorhandlerService } from "../globalerrorhandler.service";
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
-  constructor(private globalerrorhandler: GlobalerrorhandlerService) {}
+  private globalerrorhandler = inject(GlobalerrorhandlerService);
+
+  constructor() {}
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler,

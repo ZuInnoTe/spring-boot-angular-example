@@ -1,4 +1,10 @@
-import { Component, ViewChild, ChangeDetectorRef, OnInit } from "@angular/core";
+import {
+  Component,
+  ViewChild,
+  ChangeDetectorRef,
+  OnInit,
+  inject,
+} from "@angular/core";
 import { PageEvent, MatPaginatorModule } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
 import { OrderService } from "../../services/orderservice/order.service";
@@ -11,6 +17,9 @@ import { Order } from "../../services/orderservice/order.model";
   imports: [MatPaginatorModule, MatTableModule],
 })
 export class OrderComponent implements OnInit {
+  private cd = inject(ChangeDetectorRef);
+  private orderService = inject(OrderService);
+
   displayedColumns: string[] = [
     "id",
     "orderDateTime",
@@ -32,10 +41,7 @@ export class OrderComponent implements OnInit {
 
   pageEvent?: PageEvent;
 
-  constructor(
-    private cd: ChangeDetectorRef,
-    private orderService: OrderService,
-  ) {}
+  constructor() {}
 
   ngOnInit() {
     this.refreshOrders();

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit } from "@angular/core";
+import { Component, ChangeDetectorRef, OnInit, inject } from "@angular/core";
 import { PageEvent, MatPaginatorModule } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
 import { InventoryService } from "../../services/inventoryservice/inventory.service";
@@ -16,6 +16,10 @@ import { LoggingService } from "../../services/logging/logging.service";
   imports: [MatPaginatorModule, MatTableModule],
 })
 export class InventoryComponent implements OnInit {
+  private cd = inject(ChangeDetectorRef);
+  private inventoryService = inject(InventoryService);
+  private log = inject(LoggingService);
+
   displayedColumns: string[] = ["id", "name", "price"];
   dataSource: Product[] = [];
 
@@ -31,11 +35,7 @@ export class InventoryComponent implements OnInit {
 
   pageEvent?: PageEvent;
 
-  constructor(
-    private cd: ChangeDetectorRef,
-    private inventoryService: InventoryService,
-    private log: LoggingService,
-  ) {}
+  constructor() {}
 
   ngOnInit() {
     this.refreshInventory();

@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from "@angular/core";
+import { Injectable, NgZone, inject } from "@angular/core";
 
 import { MatSnackBar } from "@angular/material/snack-bar";
 
@@ -6,10 +6,10 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   providedIn: "root",
 })
 export class GlobalerrorhandlerService {
-  constructor(
-    private zone: NgZone,
-    private snackBar: MatSnackBar,
-  ) {}
+  private zone = inject(NgZone);
+  private snackBar = inject(MatSnackBar);
+
+  constructor() {}
   // note the css styles for the snackbar for this handler are globally defined in styles.css
 
   display_error(errormsg: string) {
