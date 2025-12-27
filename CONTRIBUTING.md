@@ -28,7 +28,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the
-[Spring Boot Angular Example Code of Conduct](https://codeberg.org/ZuInnoTe/spring-boot-angular-exampleblob/main/CODE_OF_CONDUCT.md).
+[Spring Boot Angular Example Code of Conduct](https://codeberg.org/ZuInnoTe/spring-boot-angular-example/blob/main/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report unacceptable behavior
 to <>.
 
