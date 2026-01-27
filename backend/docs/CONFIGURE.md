@@ -177,6 +177,18 @@ spring:
 ```
 
 Find a complete configuration example in [../../config/config-saml2.yml](../../config/config-saml2.yml).
+
+### Session cookie
+At the moment, we need to configure the session cookie with a specific samesite policy so that it works with SAML. We use the following configuration.
+```
+server:
+  servlet:
+    session:
+      cookie:
+          same-site: none # Needed for SAML2 to work
+```
+Note: Even though it does not start with Spring, it is a Spring specific config.
+
 ## Authentication: OIDC
 You can configure OIDC as follows (see https://docs.spring.io/spring-security/reference/servlet/oauth2/index.html for detailed configuration instructions)
 ```
@@ -204,17 +216,6 @@ You can also configure an [OIDC Claims to Role Mapping](#oidc-claims-to-role-map
 Find a complete configuration example in [../../config/config-oidc.yml](../../config/config-oidc.yml).
 
 
-### Session cookie
-At the moment, we need to configure the session cookie with a specific samesite policy so that it works with SAML. We use the following configuration.
-```
-server:
-  servlet:
-    session:
-      cookie:
-          same-site: none # Needed for SAML2 to work
-```
-Note: Even though it does not start with Spring, it is a Spring specific config.
-
 ## Logging
 You can configure various logging levels. Find here an example configuration where for different packages different log levels are chosen.
 ```
@@ -232,7 +233,7 @@ Please set the logging levels according your environments! A production environm
 
 By default we make all loggers asynchronously (see [../src/main/resources/log4j2.component.properties](../src/main/resources/log4j2.component.properties)). You can overwrite it with a system property (see [here](https://logging.apache.org/log4j/2.x/manual/async.html#making-all-loggers-asynchronous)). This can increase the performance of logging in high-throughput scenarios (e.g. web applications with many users) significantly.
 
-It can make sense to configure logging for certain Java classes as synchronous (e.g. for audit purposes) and for others as asyncrhonous to beefit from higher performance.
+It can make sense to configure logging for certain Java classes as synchronous (e.g. for audit purposes) and for others as asynchronous to beefit from higher performance.
 
 ## Actuator
 Spring Actuator provides useful information on the health of an application. However, the information exposed can contain sensitive data (such as heap dumps). You should carefully assess which [Spring Actuator Endpoints you want to expose](https://docs.spring.io/spring-boot/reference/actuator/endpoints.html#actuator.endpoints.exposing). You should never expose them to unauthenticated users and never on the public Internet. Hence, we have in the default configuration all Spring Actuator endpoints deactivated and configure Actuator to sanitize sensitive data (does not help with heapdumps). Please read carefully the SpringBoot documentation if you want to enable one endpoint.
