@@ -349,7 +349,7 @@ This means you should have a low total number of connections in a given connecti
 
 If you have multiple application instances (ie containers, VMs etc.) accessing the database you should divide the low total number by the number of instances. E.g. let us assume you find out with testing that the total number of connections in a connection pool should be 10 and that you have two instances. Then configure 5 connections in the connection pool of each instance.
 
-Note: If you work in a cloud setting with a lot of application instances (>3-4) and/or different applications accessing your database then you may consider a "central" connection pool, such as  [AWS RDS Proxy](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-proxy.html) as the individual pools of your application may become too small.
+Note: If you work in a cloud setting with a lot of application instances (>3-4) and/or different applications accessing your database then you may consider a "central" connection pool, such as  [PgBouncer](https://www.pgbouncer.org/) or [pgpool-II](https://www.pgpool.net/docs/latest/en/html/) as the individual pools of your application may become too small.
  
 
 Spring Boot has in recent versions out of the box support for a hikari connection pool (very fast, read the documentation to learn how to properly connect to a database avoiding anti-patterns). You can configure it as follows in recent Spring Boot versions:
