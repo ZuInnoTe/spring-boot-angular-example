@@ -30,7 +30,7 @@ ext {
     set('springModulithVersion', "2.0.1")
     set('h2Version','2.4.240')
     set('ehcacheVersion','3.11.1')
-    set('hibernateVersion','7.2.0.Final')
+    set('hibernateVersion','7.2.4.Final')
     set('disruptorVersion','4.0.0')
     set('bcVersion','1.83')
     set('owaspSanitizerVersion','20260102.1')
