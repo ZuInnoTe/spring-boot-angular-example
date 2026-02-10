@@ -1,4 +1,7 @@
 # Introduction - Build
+We provide here some instructions on how to build the application on the command line.
+
+Additionally, we provide a CI/CD Forgejo Action flow that uses the [CI/CD actions provided by Forgejo](https://forgejo.org/docs/next/user/actions/basic-concepts/) to run using a [codeberg.org hosted actions](https://codeberg.org/actions/meta): [../../.forgejo/workflows/build.yml](../../.forgejo/workflows/build.yml)
 
 ## Prerequisites
 You need to have at least JDK 21 (LTS) installed.
