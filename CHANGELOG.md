@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Backend: Update to [Spring Boot 4.0.2](https://spring.io/blog/2026/01/22/spring-boot-4-0-2-available-now, Hibernate 7.2.4.Final, Spring Modulith 2.0.2, BouncyCastle 1.83, OWASP HTML Sanitizer: 20260102.1, Gradle Plugin: CycloneDX 3.1.0, Spotless 8.2.1
 * Frontend: Add [linter based on eslint](https://angular.dev/cli/lint)
 * Frontend: Use [inject() instead of constructor injector](https://angular.dev/reference/migrations/inject-function)
+* Frontend: Update to Angular 21.1.3
 
 ## [0.0.11] - 2025-11-21
 * Backend: Update to [JDK 25 LTS](https://openjdk.org/projects/jdk/25/)
