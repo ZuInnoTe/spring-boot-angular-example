@@ -20,8 +20,6 @@ export class OrderService {
 
   private endpoint = "/order";
 
-  constructor() {}
-
   getAllProducts(pageable?: SpringDataPageRequest): Observable<OrderPage> {
     if (!isDevMode()) {
       return this.http.get<OrderPage>(this.endpoint, {

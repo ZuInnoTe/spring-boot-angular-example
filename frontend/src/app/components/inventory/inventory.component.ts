@@ -23,8 +23,8 @@ export class InventoryComponent implements OnInit {
   displayedColumns: string[] = ["id", "name", "price"];
   dataSource: Product[] = [];
 
-  length: number = 50;
-  pageSize: number = 10;
+  length = 50;
+  pageSize = 10;
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
 
@@ -34,8 +34,6 @@ export class InventoryComponent implements OnInit {
   disabled = false;
 
   pageEvent?: PageEvent;
-
-  constructor() {}
 
   ngOnInit() {
     this.refreshInventory();

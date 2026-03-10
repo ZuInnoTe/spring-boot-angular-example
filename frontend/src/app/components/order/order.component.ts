@@ -41,7 +41,6 @@ export class OrderComponent implements OnInit {
 
   pageEvent?: PageEvent;
 
-  constructor() {}
 
   ngOnInit() {
     this.refreshOrders();

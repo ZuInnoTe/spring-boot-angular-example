@@ -19,7 +19,6 @@ import { GlobalerrorhandlerService } from "../globalerrorhandler.service";
 export class HttpConfigInterceptor implements HttpInterceptor {
   private globalerrorhandler = inject(GlobalerrorhandlerService);
 
-  constructor() {}
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler,

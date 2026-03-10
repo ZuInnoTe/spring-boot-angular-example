@@ -19,8 +19,6 @@ export class InventoryService {
 
   private endpoint = "/product";
 
-  constructor() {}
-
   getAllProducts(pageable?: SpringDataPageRequest): Observable<ProductPage> {
     if (!isDevMode()) {
       return this.http.get<ProductPage>(this.endpoint, {
