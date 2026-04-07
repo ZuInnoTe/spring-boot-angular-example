@@ -4,7 +4,7 @@ jobs:
   build-springbootweb:
     runs-on: codeberg-small-lazy
     container:
-       image: registry.opensuse.org/opensuse/bci/nodejs@sha256:234ab02f46bc8e1e7462b6d6228f6aa5 # 05.04.2026
+       image: registry.opensuse.org/opensuse/bci/nodejs@sha256:bf8d151ea54e627335723c9b5e312127f528f415e72baca3b66132d380bcf1b4 # 05.04.2026
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
         with:
