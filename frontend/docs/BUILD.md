@@ -9,13 +9,14 @@ You need to have at least NodeJs 20 installed. We recommend to always use the la
 You can install all the dependencies using the following command:
 
 ```
-npm install
+npm install --allow-git=none --min-release-age=2
 ```
 
 If you want to have an exactly reproducible build then you should use instead:
 
 ```
-npm ci
+npm ci --allow-git=none --min-release-age=2
+
 ```
 
 # Run the frontend locally for development purposes

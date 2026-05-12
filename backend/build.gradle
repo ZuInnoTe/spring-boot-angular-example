@@ -121,7 +121,7 @@ task installFrontEndDependencies(type:Exec) {
      workingDir "$webappDir"
      inputs.dir "$webappDir"
      group = BasePlugin.BUILD_GROUP
-     commandLine "npm", "ci"
+     commandLine "npm", "ci", "--allow-git=none", "--min-release-age=2"
 }
 
 task buildAngular(type:Exec, dependsOn: installFrontEndDependencies) {
