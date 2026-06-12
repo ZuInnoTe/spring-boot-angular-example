@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 * CI/CD: Added [Forgejo CI/CD pipeline](.forgejo/workflows/build.yml) for running job on codeberg.org
 * CI/CD: Refer to specific SHA commits for actions to prevent a certain type of software supply-chain attacks
-* Backend: Update to [Gradle 9.4.0](https://docs.gradle.org/9.4.0/release-notes.html)
+* Backend: Update to [Gradle 9.5.1](https://docs.gradle.org/9.5.1/release-notes.html)
 * Backend: Update to [Spring Boot 4.0.2](https://spring.io/blog/2026/01/22/spring-boot-4-0-2-available-now), Hibernate 7.2.4.Final, Spring Modulith 2.0.2, BouncyCastle 1.83, OWASP HTML Sanitizer: 20260102.1, Gradle Plugin: CycloneDX 3.1.0, Spotless 8.2.1
 * Frontend: Add [linter based on eslint](https://angular.dev/cli/lint)
 * Frontend: Use [inject() instead of constructor injector](https://angular.dev/reference/migrations/inject-function)
