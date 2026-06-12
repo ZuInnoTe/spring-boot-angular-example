@@ -74,7 +74,7 @@ dependencies {
     implementation "com.lmax:disruptor:${disruptorVersion}"
     // cache
     implementation "org.ehcache:ehcache:${ehcacheVersion}:jakarta"
-    implementation "org.hibernate:hibernate-jcache:${hibernateVersion}"
+    implementation "org.hibernate.orm:hibernate-jcache:${hibernateVersion}"
     // runtime
     runtimeOnly 'org.springframework.modulith:spring-modulith-actuator'
     runtimeOnly 'org.springframework.modulith:spring-modulith-observability'
@@ -90,7 +90,7 @@ dependencies {
     testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation "org.ehcache:ehcache:${ehcacheVersion}:jakarta"
-    testImplementation "org.hibernate:hibernate-jcache:${hibernateVersion}"
+    testImplementation "org.hibernate.orm:hibernate-jcache:${hibernateVersion}"
     testImplementation "com.h2database:h2:${h2Version}"
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation "com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:${owaspSanitizerVersion}"
