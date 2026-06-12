@@ -29,7 +29,7 @@ repositories {
 ext {
     set('springModulithVersion', "2.0.2")
     set('h2Version','2.4.240')
-    set('ehcacheVersion','3.11.1')
+    set('ehcacheVersion','3.12.0')
     set('hibernateVersion','7.2.4.Final')
     set('disruptorVersion','4.0.0')
     set('bcVersion','1.84')
