@@ -1,5 +1,5 @@
 # See https://registry.opensuse.org/
-FROM registry.opensuse.org/opensuse/bci/openjdk:21
+FROM registry.opensuse.org/opensuse/bci/openjdk:25
 
 # Switch to root for installation
 USER root
