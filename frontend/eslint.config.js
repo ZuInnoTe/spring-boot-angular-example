@@ -31,9 +31,6 @@ module.exports = defineConfig([
           style: "kebab-case",
         },
       ],
-      "@typescript-eslint/no-empty-object-type": ["warn"],
-      "@typescript-eslint/no-explicit-any": ["off"],
-      "@typescript-eslint/no-unused-vars": ["warn"]
     },
   },
   {
@@ -43,5 +40,5 @@ module.exports = defineConfig([
       angular.configs.templateAccessibility,
     ],
     rules: {},
-  }
+  },
 ]);
