@@ -36,8 +36,7 @@
     "@fontsource/material-symbols-outlined": "^5.2.34",
     "@fontsource/roboto": "^5.2.9",
     "@eslint/js": "^10.0.1",
-    "typescript-eslint": "8.56.1",
-    "angular-eslint": "21.3.0",
+
     "eslint": "^10.0.2",
     "jsdom": "^27.4.0",
     "prettier": "3.7.4",
