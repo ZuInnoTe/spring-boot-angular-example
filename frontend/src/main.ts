@@ -5,6 +5,7 @@ import {
   provideHttpClient,
   withXsrfConfiguration,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import { GlobalErrorHandlerInterceptorProvider } from "./app/services/globalerrorhandler/interceptor/httpconfig.interceptor";
 import { routes } from "./app/app-routing.module";
@@ -21,6 +22,7 @@ bootstrapApplication(AppComponent, {
     { provide: "logLevel", useValue: LogLevel.Info },
     provideRouter(routes),
     provideHttpClient(
+      withXhr(),
       withXsrfConfiguration(
         // Spring Boot standard: https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html#csrf-token-repository-cookiecd
         { cookieName: "XSRF-TOKEN", headerName: "X-XSRF-TOKEN" },
