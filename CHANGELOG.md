@@ -7,12 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 * CI/CD: Added [Forgejo CI/CD pipeline](.forgejo/workflows/build.yml) for running job on codeberg.org
 * CI/CD: Refer to specific SHA commits for actions to prevent a certain type of software supply-chain attacks
+* CI/CD: Update nodejs to nodejs 26
 * Backend: Update to [Gradle 9.5.1](https://docs.gradle.org/9.5.1/release-notes.html)
 * Backend: Update to [Spring Boot 4.1.0](https://spring.io/blog/2026/06/10/spring-boot-4, Hibernate 7.2.4.Final, Spring Modulith 2.1.0, BouncyCastle 1.84, Hibernate JCache 7.4.1.Final, OWASP HTML Sanitizer: 20260313.1, EHCache 3.12.0, Gradle Plugin: CycloneDX 3.2.4, Spotless 8.6.0, version-plugins 0.54.0
 * Frontend: Add [linter based on eslint](https://angular.dev/cli/lint)
 * Frontend: Use [inject() instead of constructor injector](https://angular.dev/reference/migrations/inject-function)
 * Frontend: Build tool: Set for npm [allow-git](https://docs.npmjs.com/cli/v11/commands/npm-install#allow-git) to None and [min-release-age](min-release-age) to 2 days. Both settings aim at avoiding supply chain attacks
-* Frontend: Update to Angular 21.1.3
+* Frontend: Update to Angular 22.0.1
 
 ## [0.0.11] - 2025-11-21
 * Backend: Update to [JDK 25 LTS](https://openjdk.org/projects/jdk/25/)
