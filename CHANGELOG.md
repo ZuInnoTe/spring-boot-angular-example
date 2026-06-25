@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Frontend: Use [inject() instead of constructor injector](https://angular.dev/reference/migrations/inject-function)
 * Frontend: Build tool: Set for npm [allow-git](https://docs.npmjs.com/cli/v11/commands/npm-install#allow-git) to None and [min-release-age](min-release-age) to 2 days. Both settings aim at avoiding supply chain attacks
 * Frontend: Update to Angular 22.0.1
+* Frontend: Update to cyclonedx 5.0.0
 
 ## [0.0.11] - 2025-11-21
 * Backend: Update to [JDK 25 LTS](https://openjdk.org/projects/jdk/25/)
