@@ -2,7 +2,7 @@ name: build-springbootweb
 on: [push]
 jobs:
   build-springbootweb:
-    runs-on: codeberg-small-lazy
+    runs-on: codeberg-medium-lazy
     container:
        image: registry.opensuse.org/opensuse/bci/nodejs # 25.06.2026
     steps:
