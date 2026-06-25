@@ -1,15 +1,8 @@
-import {
-  Component,
-  ChangeDetectorRef,
-  OnInit,
-  inject
-} from "@angular/core";
+import { Component, ChangeDetectorRef, OnInit, inject } from "@angular/core";
 import { PageEvent, MatPaginatorModule } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
 import { InventoryService } from "../../services/inventoryservice/inventory.service";
-import {
-  Product,
-} from "../../services/inventoryservice/inventory.model";
+import { Product } from "../../services/inventoryservice/inventory.model";
 import { LoggingService } from "../../services/logging/logging.service";
 
 @Component({

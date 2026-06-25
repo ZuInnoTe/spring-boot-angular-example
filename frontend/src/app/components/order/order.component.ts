@@ -1,9 +1,4 @@
-import {
-  Component,
-  ChangeDetectorRef,
-  OnInit,
-  inject,
-} from "@angular/core";
+import { Component, ChangeDetectorRef, OnInit, inject } from "@angular/core";
 import { PageEvent, MatPaginatorModule } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
 import { OrderService } from "../../services/orderservice/order.service";
