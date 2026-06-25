@@ -2,16 +2,13 @@ import {
   Component,
   ChangeDetectorRef,
   OnInit,
-  inject,
-  ChangeDetectionStrategy,
+  inject
 } from "@angular/core";
 import { PageEvent, MatPaginatorModule } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
 import { InventoryService } from "../../services/inventoryservice/inventory.service";
-import { Observable } from "rxjs";
 import {
   Product,
-  ProductPage,
 } from "../../services/inventoryservice/inventory.model";
 import { LoggingService } from "../../services/logging/logging.service";
 
@@ -19,7 +16,6 @@ import { LoggingService } from "../../services/logging/logging.service";
   selector: "app-inventory",
   templateUrl: "./inventory.component.html",
   styleUrls: ["./inventory.component.scss"],
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatPaginatorModule, MatTableModule],
 })
 export class InventoryComponent implements OnInit {

@@ -2,7 +2,6 @@ import { Injectable, inject } from "@angular/core";
 import {
   HttpInterceptor,
   HttpRequest,
-  HttpResponse,
   HttpHandler,
   HttpEvent,
   HttpErrorResponse,
@@ -19,6 +18,7 @@ import { GlobalerrorhandlerService } from "../globalerrorhandler.service";
 export class HttpConfigInterceptor implements HttpInterceptor {
   private globalerrorhandler = inject(GlobalerrorhandlerService);
 
+/* eslint  @typescript-eslint/no-explicit-any: "off" -- Intercept any http response. */
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler,

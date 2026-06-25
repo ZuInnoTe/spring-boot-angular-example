@@ -6,4 +6,5 @@ export interface Product {
   price: number;
 }
 
+/* eslint  @typescript-eslint/no-empty-object-type: "off" -- More specialised data type with generics */
 export interface ProductPage extends SpringDataPaging<Product> {}

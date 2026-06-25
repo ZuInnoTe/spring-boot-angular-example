@@ -1,10 +1,8 @@
 import {
   Component,
-  ViewChild,
   ChangeDetectorRef,
   OnInit,
   inject,
-  ChangeDetectionStrategy,
 } from "@angular/core";
 import { PageEvent, MatPaginatorModule } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
@@ -15,7 +13,6 @@ import { Order } from "../../services/orderservice/order.model";
   selector: "app-order",
   templateUrl: "./order.component.html",
   styleUrls: ["./order.component.scss"],
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatPaginatorModule, MatTableModule],
 })
 export class OrderComponent implements OnInit {

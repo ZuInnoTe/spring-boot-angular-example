@@ -1,4 +1,4 @@
-import { Injectable, Provider, inject } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 
 export enum LogLevel {
   All = 0,
@@ -15,6 +15,7 @@ export class LoggingService {
   private logLevel: LogLevel;
 
   constructor() {
+    /* eslint  @typescript-eslint/no-explicit-any: "off" -- Specifity of Angular. */
     const logLevel = inject<LogLevel>("logLevel" as any);
 
     this.logLevel = logLevel;

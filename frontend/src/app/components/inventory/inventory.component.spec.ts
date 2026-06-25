@@ -1,6 +1,3 @@
-import { HarnessLoader } from "@angular/cdk/testing";
-import { Router } from "@angular/router";
-import { RouterTestingHarness } from "@angular/router/testing";
 import { provideRouter } from "@angular/router";
 import { TestbedHarnessEnvironment } from "@angular/cdk/testing/testbed";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
@@ -10,8 +7,6 @@ import {
   LoggingService,
   LogLevel,
 } from "../../services/logging/logging.service";
-
-let loader: HarnessLoader;
 
 describe("InventoryComponent", () => {
   let component: InventoryComponent;
