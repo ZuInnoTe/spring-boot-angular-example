@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## Unreleased
+* Added [subresourceIntegrity](https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Subresource_Integrity) configuration to [angular.json](./frontend/angular.json) for production to have additional protection against tampering
 
 ## [0.0.12] - 2026-06-25
 * CI/CD: Added [Forgejo CI/CD pipeline](.forgejo/workflows/build.yml) for running job on codeberg.org
