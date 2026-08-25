@@ -33,6 +33,7 @@ ext {
     set('hibernateVersion','7.4.6.Final')
     set('disruptorVersion','4.0.0')
     set('bcVersion','1.85.2')
+    set('bcUtilVersion','1.85')
     set('owaspSanitizerVersion','20260313.1')
 }
 
@@ -55,6 +56,7 @@ dependencies {
     implementation "com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:${owaspSanitizerVersion}"
     // needed for ripemd160 in SAML2
     implementation "org.bouncycastle:bcprov-jdk18on:${bcVersion}"
+    implementation "org.bouncycastle:bcutil-jdk18on:${bcUtilVersion}"
     // Spring
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
