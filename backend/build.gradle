@@ -32,7 +32,7 @@ ext {
     set('ehcacheVersion','3.12.0')
     set('hibernateVersion','7.4.2.Final')
     set('disruptorVersion','4.0.0')
-    set('bcVersion','1.84')
+    set('bcVersion','1.85.2')
     set('owaspSanitizerVersion','20260313.1')
 }
 

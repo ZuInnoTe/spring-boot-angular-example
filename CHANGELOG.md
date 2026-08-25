@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 * Added [subresourceIntegrity](https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Subresource_Integrity) configuration to [angular.json](./frontend/angular.json) for production to have additional protection against tampering
 * Backend: Update to [Gradle 9.7.1](https://docs.gradle.org/9.7.1/release-notes.html)
-* Backend: Update to [Spring Boot 4.1.1](https://spring.io/blog/2026/08/20/spring-boot-4-1-1-available-now), Spring Modulith 2.1.1, Gradle Plugin: Spotless 8.10.0, version-plugins 0.61.0
+* Backend: Update to [Spring Boot 4.1.1](https://spring.io/blog/2026/08/20/spring-boot-4-1-1-available-now), Spring Modulith 2.1.1, Gradle Plugin: Spotless 8.10.0, version-plugins 0.61.0, BouncyCastle 1.85.2
 
 
 ## [0.0.12] - 2026-06-25
