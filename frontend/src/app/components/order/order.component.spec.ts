@@ -23,7 +23,8 @@ describe("OrderComponent", () => {
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(OrderComponent);
-    let loader = TestbedHarnessEnvironment.loader(fixture);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const loader = TestbedHarnessEnvironment.loader(fixture);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
