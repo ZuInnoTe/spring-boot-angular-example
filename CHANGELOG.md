@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added [subresourceIntegrity](https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Subresource_Integrity) configuration to [angular.json](./frontend/angular.json) for production to have additional protection against tampering
 * Backend: Update to [Gradle 9.7.1](https://docs.gradle.org/9.7.1/release-notes.html)
 * Backend: Update to [Spring Boot 4.1.1](https://spring.io/blog/2026/08/20/spring-boot-4-1-1-available-now), Spring Modulith 2.1.1, BouncyCastle 1.85.2, Hibernate 7.4.6.Final, Gradle Plugin: Spotless 8.10.0, version-plugins 0.61.0, CycloneDX 3.4.1, Jacoco 0.8.15, Google Java Format 1.36.1
-* Frontend: Update to Angular 22.1.3, npm plugin: cyclone dx 6.0.1, @fontsource-utils/scss 0.2.4, @fontsource/material-icons 5.3.0, @fontsource/material-symbols-outlined 5.3.3, @fontsource/roboto 5.3.0, angular-eslint 22.1.0, eslint 10.9.0, jsdom 30.0.1, prettier 3.9.6, typedoc 0.28.20, typescript-eslint 8.67.0
+* Frontend: Update to Angular 22.1.3, npm plugin: cyclone dx 6.0.1, @fontsource-utils/scss 0.2.4, @fontsource/material-icons 5.3.0, @fontsource/material-symbols-outlined 5.3.3, @fontsource/roboto 5.3.0, angular-eslint 22.1.0, eslint 10.9.0, jsdom 30.0.1, prettier 3.9.6, typedoc 0.28.20, typescript-eslint 8.67.0, vitest 4.1.11
 
 
 ## [0.0.12] - 2026-06-25

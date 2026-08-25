@@ -22,7 +22,7 @@ describe("InventoryComponent", () => {
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(InventoryComponent);
-    loader = TestbedHarnessEnvironment.loader(fixture);
+    let loader = TestbedHarnessEnvironment.loader(fixture);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

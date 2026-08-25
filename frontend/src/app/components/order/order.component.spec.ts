@@ -23,7 +23,7 @@ describe("OrderComponent", () => {
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(OrderComponent);
-    loader = TestbedHarnessEnvironment.loader(fixture);
+    let loader = TestbedHarnessEnvironment.loader(fixture);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
