@@ -34,7 +34,7 @@ ext {
     set('disruptorVersion','4.0.0')
     set('bcVersion','1.85.2')
     set('bcUtilVersion','1.85')
-    set('owaspSanitizerVersion','20260313.1')
+    set('owaspSanitizerVersion','20261110.1')
 }
 
 
