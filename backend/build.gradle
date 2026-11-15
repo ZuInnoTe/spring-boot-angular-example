@@ -178,7 +178,7 @@ tasks.named('javadoc') {
 
 // jacoco coverage reporting
 jacoco {
-    toolVersion = "0.8.15"
+    toolVersion = "0.8.16"
 }
 
 // code formatting
