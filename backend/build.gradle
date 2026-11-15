@@ -30,7 +30,7 @@ ext {
     set('springModulithVersion', "2.1.2")
     set('h2Version','2.5.252')
     set('ehcacheVersion','3.12.0')
-    set('hibernateVersion','7.4.6.Final')
+    set('hibernateVersion','7.4.15.Final')
     set('disruptorVersion','4.0.0')
     set('bcVersion','1.87')
     set('bcUtilVersion','1.87')
